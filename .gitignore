@@ -1,0 +1,14 @@
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Downloaded data: never commit
+data/
+*.parquet
+*.csv
+
+# Refresh results are measurements, not downloaded data
+!results/*.csv
+!results/**/*.csv
+
+# Python bytecode
+__pycache__/

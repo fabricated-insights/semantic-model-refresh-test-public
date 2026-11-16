@@ -368,50 +368,77 @@
     return f(maxOf(xs)) + " highest, " + f(median(xs)) + " median, " + xs.length + " runs";
   }
 
+  // What the peak is made of: the latest run's peak split into Power Query and
+  // the rest, with the range of the peak over all runs.
+  function peakParts(r) {
+    if (r.peaks.length) {
+      var last = r.peaks[r.peaks.length - 1];
+      var pq = r.pq != null ? Math.min(r.pq, last) : null;
+      return { total: last, pq: pq, lo: minOf(r.peaks), hi: maxOf(r.peaks), n: r.peaks.length, on: "F64", dur: r.dur, cpu: r.cpu };
+    }
+    if (r.ppuPeak != null) {
+      return { total: r.ppuPeak, pq: r.ppuPq != null ? Math.min(r.ppuPq, r.ppuPeak) : null, n: 1, on: "Premium Per User", dur: r.ppuDur, cpu: r.ppuCpu };
+    }
+    return null;
+  }
+
   function renderRefresh(A, B) {
-    var both = [[A, "A", A_COL, A_SOFT], [B, "B", B_COL, B_SOFT]];
-    function missing(r) {
-      if (r.peaks.length) return null;
-      return "No completed F64 refresh: " + r.f64 + (r.ppuPeak != null ? ". See Premium Per User below." : "");
-    }
-    hbars($("cPeak"), both.map(function (t) {
-      var r = t[0];
-      return { tag: t[1], color: t[2], missing: missing(r), val: peakMax(r), lo: minOf(r.peaks), hi: maxOf(r.peaks), text: r.peaks.length ? rangeText(r.peaks, mb) : "" };
-    }), {
-      always: [SKUS[0].mb], limits: SKUS.slice(0, 4),
-      aria: "Peak refresh memory on F64. A " + shortLabel(A) + ": " + (A.peaks.length ? rangeText(A.peaks, mb) : A.f64) +
-        ". B " + shortLabel(B) + ": " + (B.peaks.length ? rangeText(B.peaks, mb) : B.f64) + "."
-    });
+    var rows = A.key === B.key ? [[A, "A", A_COL, A_SOFT]] : [[A, "A", A_COL, A_SOFT], [B, "B", B_COL, B_SOFT]];
+    var box = $("cPeak");
+    box.innerHTML = "";
+    var W = Math.max(box.clientWidth, 260), x0 = 28, barH = 24, plotW = W - x0 - 6;
+    var parts = rows.map(function (t) { return peakParts(t[0]); });
+    var max = Math.max.apply(null, parts.map(function (p) { return p ? Math.max(p.total, p.hi || 0) : 0; }).concat([1])) * 1.02;
+    function x(v) { return x0 + v / max * plotW; }
 
-    function simple(boxId, key, f, title, extra) {
-      hbars($(boxId), both.map(function (t) {
-        var r = t[0], v = r[key];
-        if (v == null) return { tag: t[1], color: t[2], missing: r.peaks.length ? "not measured" : "no completed F64 refresh" };
-        var txt = f(v) + (extra ? extra(r) : "");
-        return { tag: t[1], color: t[2], val: v, text: txt };
-      }), { aria: title + ". A: " + (A[key] != null ? f(A[key]) : "none") + ". B: " + (B[key] != null ? f(B[key]) : "none") + "." });
-    }
-    simple("cPq", "pq", mb, "Power Query part of the peak", function (r) {
-      var p = r.peaks.length ? r.peaks[r.peaks.length - 1] : null;
-      return p ? ", " + fmt(r.pq / p * 100) + "% of that run's peak" : "";
-    });
-    simple("cDur", "dur", mins, "Refresh duration");
-    simple("cCpu", "cpu", sec, "Refresh CPU");
-
-    var notes = [];
-    both.forEach(function (t) {
-      var r = t[0];
-      if (A.key === B.key && t[1] === "B") return;
-      if (r.ppuPeak != null) {
-        notes.push("<p><b>" + esc(t[1] + " " + shortLabel(r)) + "</b> on Premium Per User: refreshed, peak " + mb(r.ppuPeak) +
-          (r.ppuPq != null ? ", Power Query " + mb(r.ppuPq) : "") + (r.ppuDur != null ? ", " + mins(r.ppuDur) : "") +
-          (r.ppuCpu != null ? ", " + sec(r.ppuCpu) + " CPU" : "") + ". Not mixed into the F64 numbers above.</p>");
-      } else if (r.ppu && r.ppu !== "not run") {
-        notes.push("<p><b>" + esc(t[1] + " " + shortLabel(r)) + "</b> on Premium Per User: " + esc(r.ppu) + ".</p>");
+    rows.forEach(function (t, i) {
+      var r = t[0], p = parts[i], tag = t[1];
+      var row = document.createElement("div");
+      row.className = "pkrow";
+      var who = tag + " " + shortLabel(r);
+      var svg = svgRoot(W, barH + 4, "");
+      svg.appendChild(el("rect", { x: 0, y: 2, width: 20, height: 20, rx: 5, fill: t[2] }));
+      svg.appendChild(el("text", { x: 10, y: 16.5, "font-size": 12, "font-weight": 700, fill: "#fff", "text-anchor": "middle" }, tag));
+      var text;
+      if (!p) {
+        svg.appendChild(el("text", { x: x0 + 4, y: 17, "font-size": 13, fill: INK2, "font-style": "italic" }, "No completed refresh"));
+        text = "No completed refresh on F64 (" + esc(r.f64) + ") and none on Premium Per User" + (r.ppu && r.ppu !== "not run" ? " (" + esc(r.ppu) + ")" : "") + ".";
+        svg.setAttribute("aria-label", who + ": no completed refresh.");
+      } else {
+        var pqW = p.pq != null ? Math.max(x(p.pq) - x0, p.pq > 0 ? 2 : 0) : 0;
+        var totW = Math.max(x(p.total) - x0, 3);
+        // Two segments with a 2 px gap: Power Query in the model's colour, the rest in its tint.
+        if (p.pq == null) {
+          svg.appendChild(el("rect", { x: x0, y: 2, width: totW, height: barH - 4, rx: 4, fill: t[3] }));
+        } else {
+          svg.appendChild(el("rect", { x: x0, y: 2, width: totW, height: barH - 4, rx: 4, fill: t[3] }));
+          if (pqW > 0) svg.appendChild(el("rect", { x: x0, y: 2, width: Math.min(pqW, totW), height: barH - 4, rx: 4, fill: t[2] }));
+          if (pqW > 0 && totW - pqW > 3) svg.appendChild(el("rect", { x: x0 + pqW, y: 2, width: 2, height: barH - 4, fill: "#fff" }));
+        }
+        if (p.lo != null && p.hi > p.lo) {
+          var ly = 2 + (barH - 4) / 2;
+          svg.appendChild(el("line", { x1: x(p.lo), x2: x(p.hi), y1: ly, y2: ly, stroke: INK, "stroke-width": 2 }));
+          [p.lo, p.hi].forEach(function (v) { svg.appendChild(el("line", { x1: x(v), x2: x(v), y1: ly - 7, y2: ly + 7, stroke: INK, "stroke-width": 2 })); });
+        }
+        var rest = p.pq != null ? p.total - p.pq : null;
+        text = "<b>" + mb(p.total) + "</b>" + (p.on === "F64" ? (p.n > 1 ? " in the latest run" : "") : " on Premium Per User (no completed F64 refresh: " + esc(r.f64) + ")") +
+          (p.pq != null ? ": <b>" + mb(p.pq) + "</b> Power Query (" + fmt(p.pq / p.total * 100) + "%), " + mb(rest) + " the rest" : "") + "." +
+          (p.n > 1 ? " Over " + p.n + " runs the peak ranged from " + fmt(p.lo) + " to " + mb(p.hi) + ", median " + mb(peakMed(r)) + "." : "");
+        svg.setAttribute("aria-label", who + ": " + text.replace(/<[^>]+>/g, ""));
       }
-      if (r.refnote) notes.push("<p><b>" + esc(t[1] + " " + shortLabel(r)) + "</b>: " + esc(r.refnote) + "</p>");
+      row.appendChild(svg);
+      var tx = document.createElement("p");
+      tx.className = "pktext";
+      tx.innerHTML = text;
+      row.appendChild(tx);
+      box.appendChild(row);
     });
-    $("refNotes").innerHTML = notes.join("");
+
+    $("timing").innerHTML = rows.map(function (t, i) {
+      var r = t[0], p = parts[i];
+      var v = p && p.dur != null ? "<b>" + mins(p.dur) + "</b> duration, <b>" + sec(p.cpu) + "</b> CPU time" + (p.on === "F64" ? "" : " (Premium Per User)") : "no completed refresh";
+      return '<p><span class="tag t' + t[1].toLowerCase() + '">' + t[1] + "</span> " + esc(shortLabel(r)) + ": " + v + "</p>";
+    }).join("");
   }
 
   /* ---------- slope chart ---------- */
@@ -709,24 +736,29 @@
     return [wrap(a), wrap(b)];
   }
 
+  // One hunk as side-by-side rows: baseline on the left, the model on the right.
   function hunkRows(h) {
     var m = /^@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@/.exec(h[0]);
     var o = m ? +m[1] : 0, n = m ? +m[2] : 0;
-    var lines = h[1], html = ['<tr class="hh"><td class="ln"></td><td class="ln"></td><td colspan="2">' + esc(h[0]) + "</td></tr>"];
+    var lines = h[1], html = ['<tr class="hh"><td colspan="4">' + esc(h[0]) + "</td></tr>"];
+    function side(cls, num, code) {
+      return code == null ? '<td class="ln e"></td><td class="cd e"></td>'
+        : '<td class="ln ' + cls + '">' + num + '</td><td class="cd ' + cls + '">' + code + "</td>";
+    }
     var i = 0;
     while (i < lines.length) {
       if (lines[i][0] === "-" || lines[i][0] === "+") {
         var dels = [], adds = [];
         while (i < lines.length && lines[i][0] === "-") dels.push(lines[i++].slice(1));
         while (i < lines.length && lines[i][0] === "+") adds.push(lines[i++].slice(1));
-        var dh = dels.map(esc), ah = adds.map(esc);
-        if (dels.length === adds.length) {
-          for (var k = 0; k < dels.length; k++) { var mp = markPair(dels[k], adds[k]); dh[k] = mp[0]; ah[k] = mp[1]; }
+        for (var k = 0; k < Math.max(dels.length, adds.length); k++) {
+          var l = dels[k], r = adds[k], lh = l != null ? esc(l) : null, rh = r != null ? esc(r) : null;
+          if (l != null && r != null) { var mp = markPair(l, r); lh = mp[0]; rh = mp[1]; }
+          html.push("<tr>" + side("del", l != null ? o++ : "", lh) + side("add", r != null ? n++ : "", rh) + "</tr>");
         }
-        dh.forEach(function (t) { html.push('<tr class="del"><td class="ln">' + (o++) + '</td><td class="ln"></td><td class="sg">-</td><td class="cd">' + t + "</td></tr>"); });
-        ah.forEach(function (t) { html.push('<tr class="add"><td class="ln"></td><td class="ln">' + (n++) + '</td><td class="sg">+</td><td class="cd">' + t + "</td></tr>"); });
       } else {
-        html.push('<tr><td class="ln">' + (o++) + '</td><td class="ln">' + (n++) + '</td><td class="sg"></td><td class="cd">' + esc(lines[i].slice(1)) + "</td></tr>");
+        var t = esc(lines[i].slice(1));
+        html.push("<tr>" + side("", o++, t) + side("", n++, t) + "</tr>");
         i++;
       }
     }
@@ -734,23 +766,29 @@
   }
 
   function renderDiff(A, B) {
-    var same = A.key === B.key || A.folder === B.folder;
-    var sides = same ? [["a", A]] : [["b", B], ["a", A]];
+    // The baseline never gets a tab of its own: there is nothing to compare it with.
+    var sides = [];
+    [["b", B], ["a", A]].forEach(function (s) {
+      if (s[1].folder === D.base) return;
+      if (sides.some(function (x) { return x[1].folder === s[1].folder; })) return;
+      sides.push(s);
+    });
+    var tabs = $("diffTabs"), box = $("diff");
+    if (!sides.length) {
+      tabs.innerHTML = "";
+      box.innerHTML = '<p class="dnote">Both models are the baseline. Pick another model to see what it changes.</p>';
+      return;
+    }
     if (!sides.some(function (s) { return s[0] === state.diffSide; })) state.diffSide = sides[0][0];
-    $("diffTabs").innerHTML = sides.map(function (s) {
-      var r = s[1], t = s[0].toUpperCase(), on = s[0] === state.diffSide;
-      return '<button type="button" role="tab" class="dtab" aria-selected="' + on + '" data-side="' + s[0] + '"><span class="tag t' + s[0] + '">' + t + "</span> " + esc(r.id + " · " + r.name) + "</button>";
+    tabs.innerHTML = sides.length < 2 ? "" : sides.map(function (s) {
+      var r = s[1], on = s[0] === state.diffSide;
+      return '<button type="button" role="tab" class="dtab" aria-selected="' + on + '" data-side="' + s[0] + '"><span class="tag t' + s[0] + '">' + s[0].toUpperCase() + "</span> " + esc(r.id + " · " + r.name) + "</button>";
     }).join("");
     Array.prototype.forEach.call(document.querySelectorAll("#diffTabs .dtab"), function (b) {
       b.addEventListener("click", function () { state.diffSide = b.dataset.side; renderDiff(byKey[state.a], byKey[state.b]); });
     });
 
-    var r = state.diffSide === "a" ? A : B;
-    var box = $("diff"), h = [];
-    if (r.folder === D.base) {
-      box.innerHTML = '<p class="dnote">This is the baseline. Every other model is compared against it.</p>';
-      return;
-    }
+    var r = state.diffSide === "a" ? A : B, h = [];
     var d = D.diffs[r.folder] || { files: [] };
     if (r.diffnote) h.push('<p class="dnote">' + esc(r.diffnote) + "</p>");
     var add = 0, del = 0;
@@ -760,7 +798,10 @@
       box.innerHTML = h.join("");
       return;
     }
-    h.push('<p class="dsum">' + d.files.length + (d.files.length === 1 ? " file" : " files") + ' changed, <span class="plus">+' + fmt(add) +
+    var baseRec = D.models.filter(function (x) { return x.folder === D.base; })[0];
+    var baseName = baseRec ? baseRec.id + " · " + baseRec.name : "Baseline";
+    h.push('<p class="dsum"><span class="tag t' + state.diffSide + '">' + state.diffSide.toUpperCase() + "</span> " + esc(r.id + " · " + r.name) + ": " +
+      d.files.length + (d.files.length === 1 ? " file" : " files") + ' changed, <span class="plus">+' + fmt(add) +
       '</span> <span class="minus">-' + fmt(del) + "</span> lines" +
       (d.generated ? ". Plus " + d.generated.files + " tables Power BI generates for Auto date/time (" + fmt(d.generated.lines) + " lines), not shown" : "") + ".</p>");
     var dir = "models/" + r.folder + "/" + r.folder + ".SemanticModel/definition/";
@@ -771,10 +812,12 @@
       h.push('<details class="dfile"' + (open ? " open" : "") + "><summary>" +
         '<span class="dpath">' + esc(f.path) + "</span>" + (badge ? ' <span class="dbadge">' + badge + "</span>" : "") +
         ' <span class="plus">+' + fmt(f.add) + '</span> <span class="minus">-' + fmt(f.del) + "</span>" +
-        ' <a class="dlink" href="' + esc(url) + '">view file</a></summary>' +
-        '<div class="dscroll"><table class="dtable"><caption class="vh">Changes in ' + esc(f.path) + "</caption><tbody>" +
+        ' <a class="dlink" href="' + esc(url) + '">View file in GitHub repo</a></summary>' +
+        '<div class="dscroll"><table class="dtable split"><caption class="vh">Changes in ' + esc(f.path) + ", baseline on the left, " + esc(r.id) + " on the right</caption>" +
+        '<colgroup><col class="cln"><col><col class="cln"><col></colgroup>' +
+        '<thead><tr><th colspan="2" scope="col">' + esc(baseName) + '</th><th colspan="2" scope="col">' + esc(r.id + " · " + r.name) + "</th></tr></thead><tbody>" +
         f.hunks.map(hunkRows).join("") +
-        (f.cut ? '<tr class="hh"><td class="ln"></td><td class="ln"></td><td colspan="2">' + fmt(f.cut) + ' more changed lines. <a href="' + esc(url) + '">See the full file on GitHub</a>.</td></tr>' : "") +
+        (f.cut ? '<tr class="hh"><td colspan="4">' + fmt(f.cut) + ' more changed lines. <a href="' + esc(url) + '">See the full file in the GitHub repo</a>.</td></tr>' : "") +
         "</tbody></table></div></details>");
     });
     box.innerHTML = h.join("");

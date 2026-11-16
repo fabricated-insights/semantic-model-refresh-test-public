@@ -196,20 +196,24 @@ details table { margin-top: 8px; }
 .dbadge { font-size: 12px; padding: 0 6px; border-radius: 999px; border: 1px solid var(--rule); color: var(--ink-2); }
 .dlink { margin-left: auto; font-size: 13px; }
 .dscroll { overflow-x: auto; }
-.dtable { border-collapse: collapse; width: 100%; font: 12.5px/1.5 ui-monospace, "Cascadia Mono", Consolas, monospace; }
+.dtable { border-collapse: collapse; width: 100%; table-layout: fixed; font: 12.5px/1.5 ui-monospace, "Cascadia Mono", Consolas, monospace; }
+.dtable col.cln { width: 42px; }
+.dtable th { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 12px; font-weight: 600; color: var(--ink-2); background: #F6F8FA; padding: 6px 8px; border-bottom: 1px solid var(--rule); }
+.dtable th + th { border-left: 1px solid var(--rule); }
 .dtable td { border: 0; padding: 0 8px; vertical-align: top; }
-.dtable .ln { width: 1%; min-width: 34px; text-align: right; color: #8C959F; user-select: none; }
-.dtable .sg { width: 1%; padding: 0 4px; user-select: none; color: var(--ink-2); }
-.dtable .cd { white-space: pre; tab-size: 4; }
-.dtable tr.add td { background: #E6FFEC; }
-.dtable tr.add .ln { background: #CCFFD8; }
-.dtable tr.del td { background: #FFEBE9; }
-.dtable tr.del .ln { background: #FFD7D5; }
-.dtable tr.add mark { background: #ABF2BC; color: inherit; border-radius: 2px; }
-.dtable tr.del mark { background: #FF818266; color: inherit; border-radius: 2px; }
-.dtable tr.hh td { background: #DDF4FF; color: #57606A; padding-top: 2px; padding-bottom: 2px; font-family: inherit; }
+.dtable .ln { text-align: right; color: #8C959F; user-select: none; padding: 0 6px; }
+.dtable td.ln:nth-child(3) { border-left: 1px solid var(--rule); }
+.dtable .cd { white-space: pre-wrap; overflow-wrap: anywhere; tab-size: 4; }
+.dtable .cd.add { background: #E6FFEC; }
+.dtable .ln.add { background: #CCFFD8; }
+.dtable .cd.del { background: #FFEBE9; }
+.dtable .ln.del { background: #FFD7D5; }
+.dtable .e { background: #F6F8FA; }
+.dtable .add mark { background: #ABF2BC; color: inherit; border-radius: 2px; }
+.dtable .del mark { background: #FF818266; color: inherit; border-radius: 2px; }
+.dtable tr.hh td { background: #DDF4FF; color: #57606A; padding: 2px 8px; }
 @media (max-width: 640px) {
-  .dtable .ln { min-width: 26px; padding: 0 4px; }
+  .dtable.split { min-width: 620px; }
   .dlink { margin-left: 0; }
 }
 
@@ -246,3 +250,15 @@ details table { margin-top: 8px; }
   .capmodel { grid-column: 1 / -1; margin-top: 4px; }
   .cap .capmobile { display: block; }
 }
+
+/* What the peak is made of */
+.peaklegend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--ink-2); margin: 0 0 10px; }
+.peaklegend span { display: inline-flex; align-items: center; gap: 4px; }
+.sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+.swa { background: var(--a); } .swb { background: var(--b); }
+.swa2 { background: var(--a-soft); } .swb2 { background: var(--b-soft); }
+.swr { width: 18px; height: 2px; background: var(--ink); border-radius: 0; }
+.pkrow { margin: 0 0 12px; }
+.pktext { margin: 4px 0 0 28px; font-size: 14px; color: var(--ink); }
+.timing { margin-top: 6px; padding-top: 10px; border-top: 1px solid var(--rule); }
+.timing p { margin: 4px 0; font-size: 14px; }

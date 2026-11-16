@@ -247,7 +247,10 @@
     function pct(lim) { return fmt(p / lim * 100) + "% of the " + fmt(lim) + " MB limit"; }
     function rest(text, word) { return text.replace(new RegExp("^" + word + ",?\\s*"), ""); }
     if (cap === "Pro") {
-      if (r.pro) return { k: /^failed/.test(r.pro) ? "no" : "yes", t: /^failed/.test(r.pro) ? "failed" : "refreshed", s: "measured", measured: true };
+      if (r.pro) {
+        var proFail = /^failed/.test(r.pro), proRest = r.pro.replace(/^(refreshed|failed),?\s*/, "");
+        return { k: proFail ? "no" : "yes", t: proFail ? "failed" : "refreshed", s: "measured" + (proRest ? ", " + proRest : ""), measured: true };
+      }
       return { k: "unk", t: "not tested" };
     }
     if (cap === "F2") {
@@ -305,7 +308,7 @@
     });
     $("caps").innerHTML = h;
     $("capsNote").innerHTML = "Solid cells were measured. <b>likely</b> and <b>unlikely</b> mean the model was not run there; the F64 peak predicts it, " +
-      "and it sorted every model run on both F64 and F2 correctly. Pro was tested once, with the kitchen sink. " +
+      "and it sorted every model run on both F64 and F2 correctly. Pro has no prediction: the lab does not establish what memory limit Pro applies. " +
       "Limits per model: F2 to F8 3,066 MB, F16 5,120 MB, F32 10,240 MB, F64 25,600 MB, Premium Per User 102,400 MB. " +
       "The memory one refresh may use is the limit minus the model already in memory, so a peak just under a limit can still fail.";
   }

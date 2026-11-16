@@ -439,7 +439,15 @@ for m in models:
             rec["refnote"] = m["refnote"]
         if m["folder"] not in diffs:
             diffs[m["folder"]] = model_diff(m["folder"], base_files)
-        if m.get("pro"):
+        # Pro: harness runs first; models.yaml holds the one manual run from before the harness (v99).
+        pro = [r for r in rs if r["cap"] == "Pro"]
+        if pro:
+            last = pro[-1]
+            if last["ok"]:
+                rec["pro"] = "refreshed" + (f", {last['dur'] * 60:,.0f} s" if last["dur"] is not None else "")
+            else:
+                rec["pro"] = "failed" + (f", {last['failure']}" if last["failure"] else "")
+        elif m.get("pro"):
             rec["pro"] = m["pro"]
         if m.get("diffnote"):
             rec["diffnote"] = m["diffnote"]

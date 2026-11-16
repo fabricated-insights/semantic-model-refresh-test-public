@@ -36,8 +36,7 @@ site:
 caveats:
   - The source is Parquet over Web.Contents, which can't fold. With a folding source, sorts and Group By run in the database.
   - The clean baseline alone varied from 543 to 856 MB over 11 measured refreshes. Differences of a few hundred MB on 1M data are noise.
-  - Query times on F64 switch between a fast and a slow state, about 2 times apart, for hours. Memory per query doesn't.
-  - "Limits: F2 to F8 3 GB, F16 5 GB, F32 10 GB, F64 25 GB per model (Microsoft Learn), Premium Per User 100 GB. F2 cancels a single query at 1,024 MB."
+  - Query times on F64 switch between a fast and a slow state, about 2 times apart, for hours. The memory a query needs stays the same in both states.
 
 categories:
   - Baseline

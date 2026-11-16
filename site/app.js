@@ -2,9 +2,15 @@
 (function () {
   "use strict";
 
-  var A_COL = "#175E85", B_COL = "#E8792E";
-  var A_SOFT = "#C9DCE8", B_SOFT = "#F8D7BF";
-  var INK = "#1C1C1E", INK2 = "#4A4F55", MUTED = "#6B7178", GRID = "#ECEDEF", RULE = "#C4C7CB";
+  // Chart colours come from the CSS tokens, so they follow the light or dark theme.
+  var A_COL, B_COL, A_SOFT, B_SOFT, INK, INK2, MUTED, GRID, RULE, SURFACE;
+  function readTheme() {
+    var cs = getComputedStyle(document.documentElement);
+    function v(n) { return cs.getPropertyValue(n).trim(); }
+    A_COL = v("--a"); B_COL = v("--b"); A_SOFT = v("--a-soft"); B_SOFT = v("--b-soft");
+    INK = v("--ink"); INK2 = v("--ink-2"); MUTED = v("--muted"); GRID = v("--grid"); RULE = v("--dash"); SURFACE = v("--surface");
+  }
+  readTheme();
   var NOISE_MB = 250;
   var QUERY_LIMIT = 1024;
   var SKUS = [
@@ -112,6 +118,24 @@
   }
 
   /* ---------- header, picker ---------- */
+
+  function setThemeButton() {
+    var dark = document.documentElement.getAttribute("data-theme") === "dark";
+    var b = $("theme");
+    b.textContent = dark ? "\u2600 Light mode" : "\u263E Dark mode";
+    b.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+  }
+  function bindTheme() {
+    setThemeButton();
+    $("theme").addEventListener("click", function () {
+      var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) { /* private window: the choice lasts until reload */ }
+      setThemeButton();
+      readTheme();
+      update();
+    });
+  }
 
   function renderHeader() {
     var nav = $("links"), html = [];
@@ -347,8 +371,8 @@
       g.appendChild(el("rect", { x: x0, y: y, width: end - x0, height: barH, rx: 4, fill: r.color }));
       if (r.lo != null && r.hi != null && r.hi > r.lo) {
         var ly = y + barH / 2;
-        g.appendChild(el("line", { x1: x(r.lo), x2: x(r.hi) - 3, y1: ly, y2: ly, stroke: "#fff", "stroke-width": 3, "stroke-linecap": "round" }));
-        g.appendChild(el("line", { x1: x(r.lo), x2: x(r.lo), y1: ly - 6, y2: ly + 6, stroke: "#fff", "stroke-width": 2 }));
+        g.appendChild(el("line", { x1: x(r.lo), x2: x(r.hi) - 3, y1: ly, y2: ly, stroke: SURFACE, "stroke-width": 3, "stroke-linecap": "round" }));
+        g.appendChild(el("line", { x1: x(r.lo), x2: x(r.lo), y1: ly - 6, y2: ly + 6, stroke: SURFACE, "stroke-width": 2 }));
       }
       var tw = textW(r.text, 13);
       if (end + 8 + tw <= W) {
@@ -413,7 +437,7 @@
         } else {
           svg.appendChild(el("rect", { x: x0, y: 2, width: totW, height: barH - 4, rx: 4, fill: t[3] }));
           if (pqW > 0) svg.appendChild(el("rect", { x: x0, y: 2, width: Math.min(pqW, totW), height: barH - 4, rx: 4, fill: t[2] }));
-          if (pqW > 0 && totW - pqW > 3) svg.appendChild(el("rect", { x: x0 + pqW, y: 2, width: 2, height: barH - 4, fill: "#fff" }));
+          if (pqW > 0 && totW - pqW > 3) svg.appendChild(el("rect", { x: x0 + pqW, y: 2, width: 2, height: barH - 4, fill: SURFACE }));
         }
         if (p.lo != null && p.hi > p.lo) {
           var ly = 2 + (barH - 4) / 2;
@@ -607,7 +631,7 @@
       [[yl, L.lab[i], xL, it.l, "l"], [yr, R.lab[i], xR, it.p, "r"]].forEach(function (s) {
         if (s[0] == null) return;
         var side = s[4], dy = s[0], lyy = s[1], ax = s[2];
-        layerDots.appendChild(el("circle", { cx: ax, cy: dy, r: 6, fill: it.col, stroke: "#fff", "stroke-width": 2 }));
+        layerDots.appendChild(el("circle", { cx: ax, cy: dy, r: 6, fill: it.col, stroke: SURFACE, "stroke-width": 2 }));
         var tx = side === "l" ? ax - 12 : ax + 12, anchor = side === "l" ? "end" : "start";
         var t = el("text", { x: tx, y: lyy + 4, "font-size": 13, fill: INK, "text-anchor": anchor, class: "halo", "font-variant-numeric": "tabular-nums" });
         var vt = mb(s[3]);
@@ -812,12 +836,12 @@
       h.push('<details class="dfile"' + (open ? " open" : "") + "><summary>" +
         '<span class="dpath">' + esc(f.path) + "</span>" + (badge ? ' <span class="dbadge">' + badge + "</span>" : "") +
         ' <span class="plus">+' + fmt(f.add) + '</span> <span class="minus">-' + fmt(f.del) + "</span>" +
-        ' <a class="dlink" href="' + esc(url) + '">View file in GitHub repo</a></summary>' +
+        ' <a class="dlink" href="' + esc(url) + '" target="_blank" rel="noopener">View file in GitHub repo</a></summary>' +
         '<div class="dscroll"><table class="dtable split"><caption class="vh">Changes in ' + esc(f.path) + ", baseline on the left, " + esc(r.id) + " on the right</caption>" +
         '<colgroup><col class="cln"><col><col class="cln"><col></colgroup>' +
         '<thead><tr><th colspan="2" scope="col">' + esc(baseName) + '</th><th colspan="2" scope="col">' + esc(r.id + " · " + r.name) + "</th></tr></thead><tbody>" +
         f.hunks.map(hunkRows).join("") +
-        (f.cut ? '<tr class="hh"><td colspan="4">' + fmt(f.cut) + ' more changed lines. <a href="' + esc(url) + '">See the full file in the GitHub repo</a>.</td></tr>' : "") +
+        (f.cut ? '<tr class="hh"><td colspan="4">' + fmt(f.cut) + ' more changed lines. <a href="' + esc(url) + '" target="_blank" rel="noopener">See the full file in the GitHub repo</a>.</td></tr>' : "") +
         "</tbody></table></div></details>");
     });
     box.innerHTML = h.join("");
@@ -859,6 +883,7 @@
     tip = $("tip");
     readUrl();
     renderHeader();
+    bindTheme();
     renderPicker();
     renderCaveats();
     update();

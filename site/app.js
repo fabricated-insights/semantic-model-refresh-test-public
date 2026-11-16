@@ -111,10 +111,10 @@
     state.b = byKey[b] ? b : def[1];
   }
   function writeUrl() {
-    var u = new URL(location.href);
-    u.searchParams.set("a", state.a);
-    u.searchParams.set("b", state.b);
-    try { history.replaceState(null, "", u.toString()); } catch (e) { /* file:// in some browsers */ }
+    // Written by hand, not with URLSearchParams, so "@" stays readable in shared links
+    // (?a=v00@1M, not ?a=v00%401M). Keys only hold letters, digits and "@".
+    var q = "?a=" + state.a + "&b=" + state.b;
+    try { history.replaceState(null, "", location.pathname + q + location.hash); } catch (e) { /* file:// in some browsers */ }
   }
 
   /* ---------- header, picker ---------- */

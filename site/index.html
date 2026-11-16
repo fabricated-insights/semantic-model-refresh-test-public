@@ -44,21 +44,6 @@
 
 
   <section class="card">
-    <h2>Refresh</h2>
-    <p class="lede">Measured on F64. Where a model was refreshed more than once, the bar shows the highest peak and the white line the range.</p>
-    <h3>Peak refresh memory</h3>
-    <div class="chart" id="cPeak"></div>
-    <h3>Power Query part of the peak <span class="sub">latest run</span></h3>
-    <div class="chart" id="cPq"></div>
-    <div class="two">
-      <div><h3>Duration <span class="sub">wall clock, latest run</span></h3><div class="chart" id="cDur"></div></div>
-      <div><h3>CPU time <span class="sub">all threads, latest run</span></h3><div class="chart" id="cCpu"></div></div>
-    </div>
-    <p class="note">Duration is the time from the start to the end of the refresh. CPU time adds up every thread, Power Query and the storage engine, so it can be longer than the duration. Both come from the engine's own log of the refresh.</p>
-    <div id="refNotes" class="notes"></div>
-  </section>
-
-  <section class="card">
     <h2>From model size to refresh memory</h2>
     <p class="lede">The steeper the line, the more refresh memory each MB of model needs. Both sides share one log scale, so the steepness is the multiplier.</p>
     <fieldset class="toggle" id="sizeToggle">
@@ -72,6 +57,21 @@
       <summary>All four sizes as a table</summary>
       <div class="tablewrap"><table id="sizes" class="sizes"></table></div>
     </details>
+  </section>
+
+  <section class="card">
+    <h2>Refresh</h2>
+    <p class="lede">Measured on F64. Where a model was refreshed more than once, the bar shows the highest peak and the white line the range.</p>
+    <h3>Peak refresh memory</h3>
+    <div class="chart" id="cPeak"></div>
+    <h3>Power Query part of the peak <span class="sub">latest run</span></h3>
+    <div class="chart" id="cPq"></div>
+    <div class="two">
+      <div><h3>Duration <span class="sub">wall clock, latest run</span></h3><div class="chart" id="cDur"></div></div>
+      <div><h3>CPU time <span class="sub">all threads, latest run</span></h3><div class="chart" id="cCpu"></div></div>
+    </div>
+    <p class="note">Duration is the time from the start to the end of the refresh. CPU time adds up every thread, Power Query and the storage engine, so it can be longer than the duration. Both come from the engine's own log of the refresh.</p>
+    <div id="refNotes" class="notes"></div>
   </section>
 
   <section class="card">

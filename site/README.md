@@ -1,13 +1,14 @@
 # Compare two semantic models
 
-A static page that compares two models from the lab: refresh memory, Power Query part, duration, CPU, the four sizes, which capacities they fit on, and report query time and memory. Published with GitHub Pages by `.github/workflows/pages.yml` on every push to `main` that touches `site/`, `results/`, `models/*/README.md` or `docs/lab-findings*.md`.
+A static page that compares two models from the lab: refresh memory, Power Query part, duration, CPU, the four sizes, which capacities they fit on, and report query time and memory. Published with GitHub Pages by `.github/workflows/pages.yml` on every push to `main` that touches `site/`, `results/`, a model README or TMDL file, or `docs/lab-findings*.md`.
 
 | File | What it is |
 |---|---|
 | `index.html`, `app.js`, `style.css` | The page. No framework, no build step. Charts are inline SVG. |
 | `models.yaml` | Display metadata per model: name, category, description, data sizes, notes. Also the preset chips, the caveats and the article links. The only hand-written file. |
-| `build_data.py` | Reads `results/*.csv` and `docs/lab-findings.md` and writes `data.json`, plus an inline copy of it in `index.html`. |
+| `build_data.py` | Reads `results/*.csv`, `docs/lab-findings.md` and the model definitions, and writes `data.json`, an inline copy of it in `index.html`, and the link preview tags in its head. |
 | `data.json` | Generated. Never edit it by hand. |
+| `og.png` | The 1200×630 link preview image (Open Graph). The preview tags in `index.html` point to it through `site.url` in `models.yaml`; change that when the site moves. |
 
 ## Run it locally
 

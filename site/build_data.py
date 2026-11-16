@@ -465,6 +465,7 @@ data = {
                   [r["client_start_utc"][:10] for r in runs if r["client_start_utc"]]),
     "title": site.get("title", ""),
     "subtitle": site.get("subtitle", ""),
+    "intro": site.get("intro", ""),
     "repo": site["repo"],
     "branch": site.get("branch", "main"),
     "articles": site.get("articles", []),
@@ -494,6 +495,35 @@ if index.exists():
                      html, flags=re.S)
     if n != 1:
         sys.exit("index.html: LAB-DATA markers not found")
+
+    # Link preview (Open Graph, Twitter) and favicon, from models.yaml.
+    def attr(t):
+        return t.replace("&", "&amp;").replace('"', "&quot;").replace("<", "&lt;")
+    url = site.get("url", "").rstrip("/") + "/"
+    title, desc = site.get("title", ""), site.get("description", "")
+    icon = ("data:image/svg+xml,"
+            "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E"
+            "%3Crect x='1' y='4' width='14' height='24' rx='4' fill='%23175E85'/%3E"
+            "%3Crect x='17' y='4' width='14' height='24' rx='4' fill='%23E8792E'/%3E%3C/svg%3E")
+    meta = "\n".join([
+        f'<meta name="description" content="{attr(desc)}">',
+        f'<meta property="og:type" content="website">',
+        f'<meta property="og:title" content="{attr(title)}">',
+        f'<meta property="og:description" content="{attr(desc)}">',
+        f'<meta property="og:url" content="{attr(url)}">',
+        f'<meta property="og:image" content="{attr(url)}og.png">',
+        f'<meta property="og:image:width" content="1200">',
+        f'<meta property="og:image:height" content="630">',
+        f'<meta name="twitter:card" content="summary_large_image">',
+        f'<meta name="twitter:title" content="{attr(title)}">',
+        f'<meta name="twitter:description" content="{attr(desc)}">',
+        f'<meta name="twitter:image" content="{attr(url)}og.png">',
+        f'<link rel="icon" href="{icon}">',
+    ])
+    new, n = re.subn(r"(<!-- LAB-META -->).*?(<!-- /LAB-META -->)",
+                     lambda mt: f"{mt.group(1)}\n{meta}\n{mt.group(2)}", new, flags=re.S)
+    if n != 1:
+        sys.exit("index.html: LAB-META markers not found")
     index.write_text(new, encoding="utf-8")
 
 print(f"data.json: {len(out)} records")

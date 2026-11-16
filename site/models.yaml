@@ -19,6 +19,11 @@
 site:
   title: Compare two semantic models
   subtitle: Same Contoso data, one change at a time. Every number is measured.
+  intro: Every model in the lab is the same clean baseline (v00) plus one change, refreshed and queried on real Fabric capacities. Pick two models and see what the change costs.
+  # Link preview text (Open Graph and Twitter tags in index.html, written by build_data.py)
+  description: Pick two Power BI semantic models from the refresh memory lab and see what one change costs in refresh memory, capacity fit and query memory. Every number is measured on Fabric.
+  # The published address. Change it when the site moves; the preview image link depends on it.
+  url: https://fabricated-insights.github.io/semantic-model-refresh-test-public/
   repo: https://github.com/fabricated-insights/semantic-model-refresh-test-public
   branch: main
   # Article links. Leave url empty until the article is out; it then shows as plain text.

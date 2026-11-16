@@ -2,6 +2,7 @@
  "latest": "2026-11-14",
  "title": "Compare two semantic models",
  "subtitle": "Same Contoso data, one change at a time. Every number is measured.",
+ "intro": "Every model in the lab is the same clean baseline (v00) plus one change, refreshed and queried on real Fabric capacities. Pick two models and see what the change costs.",
  "repo": "https://github.com/fabricated-insights/semantic-model-refresh-test-public",
  "branch": "main",
  "articles": [

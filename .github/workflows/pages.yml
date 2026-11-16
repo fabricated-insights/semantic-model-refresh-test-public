@@ -10,6 +10,7 @@ on:
       - "site/**"
       - "results/**"
       - "models/*/README.md"
+      - "models/**/*.tmdl"
       - "docs/lab-findings*.md"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
@@ -38,10 +39,10 @@ jobs:
           pip install pyyaml==6.0.2
           python site/build_data.py
 
-      - name: Collect the four page files
+      - name: Collect the page files
         run: |
           mkdir _site
-          cp site/index.html site/app.js site/style.css site/data.json _site/
+          cp site/index.html site/app.js site/style.css site/data.json site/og.png _site/
 
       - uses: actions/upload-pages-artifact@v3
         with:

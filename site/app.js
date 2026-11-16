@@ -145,6 +145,7 @@
     html.push('<a href="' + esc(D.repo) + '">GitHub repo</a>');
     nav.innerHTML = html.join('<span class="dot" aria-hidden="true">·</span>');
     if (D.subtitle) $("subtitle").textContent = D.subtitle;
+    if (D.intro) $("intro").textContent = D.intro;
     $("foot").innerHTML = "Latest run in the data: " + esc(D.latest) + ". Generated from the lab repository by <code>site/build_data.py</code>. " +
       "All sizes in MB of 1,048,576 bytes. No cookies, no analytics, no tracking.";
   }
@@ -156,10 +157,35 @@
       D.models.filter(function (r) { return r.category === cat; }).forEach(function (r) {
         var o = document.createElement("option");
         o.value = r.key;
-        o.textContent = label(r);
+        o.textContent = label(r) + (r.folder === D.base ? ", the baseline" : "");
         g.appendChild(o);
       });
       if (g.children.length) sel.appendChild(g);
+    });
+  }
+
+  function bindCopyLink() {
+    var b = $("copyLink");
+    b.addEventListener("click", function () {
+      var url = location.href;
+      function done(ok) {
+        b.textContent = ok ? "\u2713 Link copied" : "Copy the address bar";
+        setTimeout(function () { b.textContent = "\uD83D\uDD17 Copy link"; }, 2000);
+      }
+      function fallback() {
+        var t = document.createElement("textarea");
+        t.value = url; t.setAttribute("readonly", ""); t.style.position = "fixed"; t.style.opacity = "0";
+        document.body.appendChild(t); t.select();
+        var ok = false;
+        try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+        document.body.removeChild(t);
+        done(ok);
+      }
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url).then(function () { done(true); }, fallback);
+      } else {
+        fallback();
+      }
     });
   }
 
@@ -190,33 +216,53 @@
 
   /* ---------- verdict ---------- */
 
+  // The peak a comparison uses: the F64 median, or, for a model with no completed
+  // F64 refresh, its Premium Per User peak. PPU values never go into F64 lists;
+  // they are only used, labelled, where no F64 value exists.
+  function refPeak(r) {
+    if (r.peaks.length) return { v: peakMed(r), on: "F64", n: r.peaks.length };
+    if (r.ppuPeak != null) return { v: r.ppuPeak, on: "PPU", n: 1 };
+    return null;
+  }
+  // The second half of the sentence: just the number when both sides are F64.
+  function againstPhrase(p, r, other) {
+    if (p.on === "F64" && other.on === "F64") return mb(p.v);
+    if (p.on === "F64") return (p.n > 1 ? "a median of " : "a peak of ") + mb(p.v) + " on F64";
+    return peakPhrase(p, r, other);
+  }
+  function peakPhrase(p, r, other) {
+    if (p.on === "PPU") {
+      return mb(p.v) + ", measured on Premium Per User because it " + r.f64.replace(/^failed/, "fails") + " on F64";
+    }
+    var onF64 = other && other.on === "PPU" ? " on F64" : "";
+    return (p.n > 1 ? "a median peak of " : "a peak of ") + mb(p.v) + onF64;
+  }
+
   function renderVerdict(A, B) {
     var s;
-    var mA = peakMed(A), mB = peakMed(B);
+    var pA = refPeak(A), pB = refPeak(B);
+    var mA = pA && pA.v, mB = pB && pB.v;
     var withSize = A.size !== B.size || A.name === B.name;
     function nm(r, t) {
-      return '<span class="tag t' + t.toLowerCase() + '">' + t + "</span> <b>" + esc(r.name + (withSize ? " (" + r.size + ")" : "")) + "</b>";
+      return '<span class="tag t' + t.toLowerCase() + '">' + t + "</span>\u00a0<b>" + esc(r.name + (withSize ? " (" + r.size + ")" : "")) + "</b>";
     }
     var nA = nm(A, "A"), nB = nm(B, "B");
     if (A.key === B.key) {
       s = "Model A and model B are the same: " + nm(A, "A") + ". Every number below is compared with itself. Pick another model on one side to compare.";
-    } else if (mA == null || mB == null) {
+    } else if (!pA || !pB) {
       var miss = [];
-      if (mA == null) miss.push(nA + " has no completed refresh on F64 (" + esc(A.f64) + ")");
-      if (mB == null) miss.push(nB + " has no completed refresh on F64 (" + esc(B.f64) + ")");
-      s = miss.join(", and ") + ", so there is no refresh peak to compare on F64.";
-      if (A.ppuPeak != null && B.ppuPeak != null) {
-        s += " On Premium Per User the peaks were " + mb(A.ppuPeak) + " and " + mb(B.ppuPeak) + ".";
-      }
+      if (!pA) miss.push(nA + " has no completed refresh (F64: " + esc(A.f64) + ")");
+      if (!pB) miss.push(nB + " has no completed refresh (F64: " + esc(B.f64) + ")");
+      s = miss.join(", and ") + ", so there is no refresh peak to compare.";
     } else if (Math.abs(mB - mA) < NOISE_MB) {
       s = "At refresh, " + nA + " and " + nB + " are within the noise of each other. The medians are " + mb(mA) + " and " + mb(mB) +
         ", " + fmt(Math.abs(mB - mA)) + " MB apart.";
     } else if (mB > mA) {
-      s = nB + " needs " + timesWord(mB / mA) + " the refresh memory of " + nA + ": a median peak of " + mb(mB) +
-        " against " + mb(mA) + ".";
+      s = nB + " needs " + timesWord(mB / mA) + " the refresh memory of " + nA + ": " + peakPhrase(pB, B, pA) +
+        (pB.on === "PPU" ? ", against " : " against ") + againstPhrase(pA, A, pB) + ".";
     } else {
-      s = nB + " needs " + fmt((1 - mB / mA) * 100) + "% less refresh memory than " + nA + ": a median peak of " +
-        mb(mB) + " against " + mb(mA) + ".";
+      s = nB + " needs " + fmt((1 - mB / mA) * 100) + "% less refresh memory than " + nA + ": " + peakPhrase(pB, B, pA) +
+        (pB.on === "PPU" ? ", against " : " against ") + againstPhrase(pA, A, pB) + ".";
     }
     if (A.key !== B.key && A.q && B.q && A.q.qpeak && B.q.qpeak && B.q.qpeak >= 3 * A.q.qpeak) {
       s += " At query time, the heaviest query of " + nB + " needs " + timesWord(B.q.qpeak / A.q.qpeak) + " the memory: " +
@@ -234,7 +280,7 @@
     }
     function svcMiss(r) { return r.service == null ? "not measured" : null; }
     $("tiles").innerHTML =
-      tile("Median refresh peak (F64)", mA, mB, mb, failedF64(A) ? A.f64 : null, failedF64(B) ? B.f64 : null) +
+      tile("Median refresh peak (F64)", peakMed(A), peakMed(B), mb, failedF64(A) ? A.f64 : null, failedF64(B) ? B.f64 : null) +
       tile("Model size in the service", A.service, B.service, function (x) { return mb(x); }, svcMiss(A), svcMiss(B)) +
       tile("Heaviest single query", A.q && A.q.qpeak, B.q && B.q.qpeak, mb, "no query runs", "no query runs");
   }
@@ -307,10 +353,9 @@
       h += "</div>";
     });
     $("caps").innerHTML = h;
-    $("capsNote").innerHTML = "Solid cells were measured. <b>likely</b> and <b>unlikely</b> mean the model was not run there; the F64 peak predicts it, " +
-      "and it sorted every model run on both F64 and F2 correctly. Pro has no prediction: the lab does not establish what memory limit Pro applies. " +
-      "Limits per model: F2 to F8 3,066 MB, F16 5,120 MB, F32 10,240 MB, F64 25,600 MB, Premium Per User 102,400 MB. " +
-      "The memory one refresh may use is the limit minus the model already in memory, so a peak just under a limit can still fail.";
+    $("capsNote").innerHTML = "Solid cells were measured. <b>likely</b> and <b>unlikely</b> are predicted from the F64 peak, " +
+      "which sorted every model run on both F64 and F2 correctly. Limits per model: F2 to F8 3,066 MB, F16 5,120 MB, F32 10,240 MB, " +
+      "F64 25,600 MB, Premium Per User 102,400 MB.";
   }
 
   /* ---------- paired horizontal bars ---------- */
@@ -482,9 +527,10 @@
       '<div class="s">' + esc(r.size + " orders, " + r.category) + "</div>";
   }
   function leftTip(r, tag) {
-    var s = r[state.size], p = peakMax(r);
+    var s = r[state.size], p = peakMax(r), onPpu = false;
+    if (p == null && r.ppuPeak != null) { p = r.ppuPeak; onPpu = true; }
     return headRows(r, tag) + sizeRows(r) +
-      (s != null && p != null ? '<div class="m"><span>Refresh peak vs this size</span><span><b>' + times(p / s) + "</b></span></div>" : "");
+      (s != null && p != null ? '<div class="m"><span>Refresh peak vs this size</span><span><b>' + times(p / s) + "</b>" + (onPpu ? " (PPU)" : "") + "</span></div>" : "");
   }
   function rightTip(r, tag, withHead) {
     var h = withHead ? headRows(r, tag) : "";
@@ -543,12 +589,18 @@
     hideTip();
     var W = Math.max(box.clientWidth, 280), mobile = W < 600;
     var nFail = [A, B].filter(function (r, i) { return (i === 0 || A.key !== B.key) && peakMax(r) == null; }).length;
+    var anyPpu = [A, B].some(function (r) { return peakMax(r) == null && r.ppuPeak != null; });
     var H = (mobile ? 340 : 400) + nFail * 18, top = 46 + nFail * 18, bottom = 24;
     var xL = Math.round(W * (mobile ? 0.3 : 0.32)), xR = Math.round(W * (mobile ? 0.7 : 0.68));
     var same = A.key === B.key;
     var items = [{ r: A, tag: "A", col: A_COL }];
     if (!same) items.push({ r: B, tag: "B", col: B_COL });
-    items.forEach(function (it) { it.l = it.r[state.size]; it.p = peakMax(it.r); });
+    items.forEach(function (it) {
+      it.l = it.r[state.size];
+      it.p = peakMax(it.r);
+      it.ppu = false;
+      if (it.p == null && it.r.ppuPeak != null) { it.p = it.r.ppuPeak; it.ppu = true; }
+    });
 
     var vals = [];
     items.forEach(function (it) { if (it.l != null) vals.push(it.l); if (it.p != null) vals.push(it.p); });
@@ -558,11 +610,11 @@
     var lgLo = Math.log(lo), lgHi = Math.log(hi);
     function y(v) { return top + (1 - (Math.log(v) - lgLo) / (lgHi - lgLo)) * (H - top - bottom); }
 
-    var lblL = SIZE_LABEL[state.size][mobile ? 1 : 0], lblR = mobile ? "Refresh peak" : "Highest refresh peak (F64)";
+    var lblL = SIZE_LABEL[state.size][mobile ? 1 : 0], lblR = mobile ? "Refresh peak" : (anyPpu ? "Highest refresh peak (F64, else PPU)" : "Highest refresh peak (F64)");
     var svg = svgRoot(W, H, "Slope chart from " + SIZE_LABEL[state.size][0].toLowerCase() + " to highest refresh peak. " +
       items.map(function (it) {
         return it.tag + " " + shortLabel(it.r) + ": " + (it.l != null ? mb(it.l) : NO_SIZE[state.size]) + " to " +
-          (it.p != null ? mb(it.p) : it.r.f64) + (it.l != null && it.p != null ? ", " + times(it.p / it.l) : "");
+          (it.p != null ? mb(it.p) + (it.ppu ? " on Premium Per User" : "") : it.r.f64) + (it.l != null && it.p != null ? ", " + times(it.p / it.l) : "");
       }).join(". ") + ".");
 
     // gridlines
@@ -611,7 +663,7 @@
         var ty = yr != null ? yr : (top + 20 + i * 18);
         layerText.appendChild(el("text", { x: xL - 10, y: ty + 4, "font-size": 12, fill: INK2, "font-style": "italic", "text-anchor": "end", class: "halo" }, it.tag + ": " + NO_SIZE[state.size]));
       }
-      if (it.p == null) {
+      if (it.p == null || it.ppu) {
         // A reserved row above the plot, so it never sits on a limit line.
         var py = 34 + failRow * 18;
         failRow++;
@@ -623,8 +675,9 @@
         layerHit.appendChild(ft);
       }
       if (yl != null && yr != null) {
-        layerLines.appendChild(el("line", { x1: xL, y1: yl, x2: xR, y2: yr, stroke: it.col, "stroke-width": 2.5, "stroke-linecap": "round" }));
-        var m = { x: (xL + xR) / 2, y: (yl + yr) / 2, t: times(it.p / it.l), i: i };
+        layerLines.appendChild(el("line", { x1: xL, y1: yl, x2: xR, y2: yr, stroke: it.col, "stroke-width": 2.5, "stroke-linecap": "round",
+          "stroke-dasharray": it.ppu ? "7 5" : null }));
+        var m = { x: (xL + xR) / 2, y: (yl + yr) / 2, t: times(it.p / it.l) + (it.ppu ? " (PPU)" : ""), i: i };
         mids.push(m);
         var hl = el("line", { x1: xL, y1: yl, x2: xR, y2: yr, class: "hit", "stroke-width": 36, tabindex: 0, role: "button",
           "aria-label": it.tag + " " + label(r) + ": " + mb(it.l) + " to " + mb(it.p) + ", " + m.t });
@@ -634,10 +687,11 @@
       [[yl, L.lab[i], xL, it.l, "l"], [yr, R.lab[i], xR, it.p, "r"]].forEach(function (s) {
         if (s[0] == null) return;
         var side = s[4], dy = s[0], lyy = s[1], ax = s[2];
-        layerDots.appendChild(el("circle", { cx: ax, cy: dy, r: 6, fill: it.col, stroke: SURFACE, "stroke-width": 2 }));
+        var hollow = side === "r" && it.ppu;
+        layerDots.appendChild(el("circle", { cx: ax, cy: dy, r: hollow ? 5 : 6, fill: hollow ? SURFACE : it.col, stroke: hollow ? it.col : SURFACE, "stroke-width": hollow ? 2.5 : 2 }));
         var tx = side === "l" ? ax - 12 : ax + 12, anchor = side === "l" ? "end" : "start";
         var t = el("text", { x: tx, y: lyy + 4, "font-size": 13, fill: INK, "text-anchor": anchor, class: "halo", "font-variant-numeric": "tabular-nums" });
-        var vt = mb(s[3]);
+        var vt = mb(s[3]) + (side === "r" && it.ppu ? " on PPU" : "");
         if (mobile) {
           var ts = el("tspan", { "font-weight": 700, fill: it.col }, it.tag + " ");
           if (side === "l") { t.appendChild(ts); t.appendChild(document.createTextNode(vt)); }
@@ -830,11 +884,12 @@
     h.push('<p class="dsum"><span class="tag t' + state.diffSide + '">' + state.diffSide.toUpperCase() + "</span> " + esc(r.id + " · " + r.name) + ": " +
       d.files.length + (d.files.length === 1 ? " file" : " files") + ' changed, <span class="plus">+' + fmt(add) +
       '</span> <span class="minus">-' + fmt(del) + "</span> lines" +
-      (d.generated ? ". Plus " + d.generated.files + " tables Power BI generates for Auto date/time (" + fmt(d.generated.lines) + " lines), not shown" : "") + ".</p>");
+      (d.generated ? ". Plus " + d.generated.files + " tables Power BI generates for Auto date/time (" + fmt(d.generated.lines) + " lines), not shown" : "") + "." +
+      (d.files.length > 2 ? ' <button type="button" class="linkbtn" id="diffAll">Expand all files</button>' : "") + "</p>");
     var dir = "models/" + r.folder + "/" + r.folder + ".SemanticModel/definition/";
     d.files.forEach(function (f) {
       var url = repoUrl("blob", encodeURI(dir + f.path));
-      var open = f.add + f.del <= 40 || d.files.length === 1;
+      var open = d.files.length <= 2 || f === d.files[0];
       var badge = { added: "new file", removed: "removed", modified: "" }[f.status];
       h.push('<details class="dfile"' + (open ? " open" : "") + "><summary>" +
         '<span class="dpath">' + esc(f.path) + "</span>" + (badge ? ' <span class="dbadge">' + badge + "</span>" : "") +
@@ -848,6 +903,15 @@
         "</tbody></table></div></details>");
     });
     box.innerHTML = h.join("");
+    var all = $("diffAll");
+    if (all) {
+      all.addEventListener("click", function () {
+        var files = box.querySelectorAll("details.dfile");
+        var openAll = Array.prototype.some.call(files, function (x) { return !x.open; });
+        Array.prototype.forEach.call(files, function (x) { x.open = openAll; });
+        all.textContent = openAll ? "Collapse all files" : "Expand all files";
+      });
+    }
   }
 
   function renderCaveats() {
@@ -887,6 +951,7 @@
     readUrl();
     renderHeader();
     bindTheme();
+    bindCopyLink();
     renderPicker();
     renderCaveats();
     update();

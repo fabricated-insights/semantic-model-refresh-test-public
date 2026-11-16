@@ -9,6 +9,7 @@ How the design of a Power BI semantic model affects refresh memory, query cost a
 | [docs/lab-findings.md](docs/lab-findings.md) | Refresh memory: what costs memory during a refresh, what fails on F2 and F64, Power Query against the model, the limits and what the error messages mean. Includes a table of every model with its peak, model size and result. |
 | [docs/lab-findings-queries.md](docs/lab-findings-queries.md) | Report queries: time, CPU and memory per query, the 1 GB per-query limit on F2, bad DAX, relationships, high-cardinality visuals, capacity load and throttling. |
 | `models/<model>/README.md` | One per model: what changed, why, and its measured results. |
+| [Compare two models](https://fabricated-insights.github.io/semantic-model-refresh-test-public/) | Pick two models and compare refresh memory, sizes, which capacities they fit on, and query cost. Built from this repo by [site/](site/). |
 
 ## How the lab works
 
@@ -28,6 +29,7 @@ How the design of a Power BI semantic model affects refresh memory, query cost a
 | `results/` | `harness-runs.csv` (one row per refresh), `query-*.csv` (query runs), `results/harness/<run>/` (summary and log extracts of every run) |
 | `analysis/` | KQL queries for workspace monitoring |
 | `docs/` | Findings, harness documentation, data profile, screenshots of error messages and capacity metrics |
+| `site/` | The compare page, published with GitHub Pages; `site/models.yaml` holds its display text |
 
 ## Running it yourself
 

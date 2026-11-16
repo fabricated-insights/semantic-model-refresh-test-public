@@ -1,0 +1,246 @@
+# Display metadata for the compare page. The only hand-maintained file in site/.
+# Numbers never go here: build_data.py reads them from results/ and docs/.
+#
+# Per model:
+#   id             short id, the part of the key before the @ (v00, v99a, ...)
+#   folder         folder under models/
+#   name           display name
+#   category       one of the categories below
+#   desc           one or two short sentences: what changed
+#   sizes          data sizes shown on the site (1M, 10M orders)
+#   qnote          optional: note shown under the query charts
+#   refnote        optional: note shown under the refresh charts
+#   ignore_before  optional: skip refreshes before this time (an earlier
+#                  version of the model, e.g. v99d's first four runs)
+
+site:
+  title: Compare two semantic models
+  subtitle: Same Contoso data, one change at a time. Every number is measured.
+  repo: https://github.com/fabricated-insights/semantic-model-refresh-test-public
+  branch: main
+  # Article links. Leave url empty until the article is out; it then shows as plain text.
+  articles:
+    - label: Part 1
+      url: https://fabricatedinsights.substack.com/p/power-bi-pro-vs-f64-1-0-why-your
+    - label: Part 2
+      url: ""
+    - label: Part 3
+      url: ""
+  default: [v00@1M, v20@1M]
+
+# "Read this before you quote a number". Keep in sync with the Caveats in
+# docs/lab-findings.md and docs/lab-findings-queries.md.
+caveats:
+  - The source is Parquet over Web.Contents, which can't fold. With a folding source, sorts and Group By run in the database.
+  - The clean baseline alone varied from 543 to 856 MB over 11 measured refreshes. Differences of a few hundred MB on 1M data are noise.
+  - Query times on F64 switch between a fast and a slow state, about 2 times apart, for hours. Memory per query doesn't.
+  - "Limits: F2 to F8 3 GB, F16 5 GB, F32 10 GB, F64 25 GB per model (Microsoft Learn), Premium Per User 100 GB. F2 cancels a single query at 1,024 MB."
+
+categories:
+  - Baseline
+  - Power Query
+  - Calculated objects
+  - Model design
+  - Measures and visuals
+  - Kitchen sink
+
+presets:
+  - label: Clean vs two sorts
+    a: v00@1M
+    b: v20@1M
+  - label: Clean vs bad DAX
+    a: v00@1M
+    b: v26@1M
+  - label: Clean vs calculated tables
+    a: v00@1M
+    b: v23@1M
+  - label: 1M vs 10M orders
+    a: v00@1M
+    b: v00@10M
+  - label: "Kitchen sink: clean PQ vs everything"
+    a: v99m@1M
+    b: v99@1M
+
+models:
+  - id: v00
+    folder: v00-baseline
+    name: Clean baseline
+    category: Baseline
+    desc: "A clean star schema: typed columns, no calculated columns or tables, single-direction relationships, Auto date/time off."
+    sizes: [1M, 10M]
+
+  - id: v18
+    folder: v18-pq-10m-summary
+    name: Summary from the 10M file
+    category: Power Query
+    desc: Baseline plus a 590-row summary grouped in Power Query from the 10M file.
+    sizes: [1M]
+  - id: v19
+    folder: v19-pq-heavy-10m
+    name: Five heavy Power Query analyses
+    category: Power Query
+    desc: Baseline plus five Power Query analyses on 10M data (merges, Group By with distinct counts, rankings, a self join).
+    sizes: [1M]
+  - id: v20
+    folder: v20-pq-sort
+    name: Two sorts
+    category: Power Query
+    desc: Baseline plus two sorts of the Sales table in Power Query. The loaded table is identical.
+    sizes: [1M]
+  - id: v21
+    folder: v21-pq-group-by
+    name: One Group By
+    category: Power Query
+    desc: Baseline plus one summary table built with Group By in Power Query.
+    sizes: [1M]
+
+  - id: v22
+    folder: v22-dax-calc-columns
+    name: 8 calculated columns
+    category: Calculated objects
+    desc: Baseline plus 8 calculated columns on Sales (RELATED, RANKX, text, CALCULATE).
+    sizes: [1M]
+  - id: v23
+    folder: v23-dax-calc-tables
+    name: 4 calculated tables
+    category: Calculated objects
+    desc: "Baseline plus 4 calculated tables: a copy of Sales, a SUMMARIZECOLUMNS summary, a product by day CROSSJOIN, CALENDARAUTO."
+    sizes: [1M, 10M]
+  - id: v31
+    folder: v31-calc-columns-row
+    name: 32 row-level calculated columns
+    category: Calculated objects
+    desc: Baseline plus 32 row-level calculated columns on Sales.
+    sizes: [1M]
+  - id: v32
+    folder: v32-calc-columns-aggregate
+    name: 30 aggregating calculated columns
+    category: Calculated objects
+    desc: Baseline plus 30 aggregating calculated columns.
+    sizes: [1M]
+  - id: v35
+    folder: v35-calc-tables-four-copies
+    name: Calculated tables, four copies
+    category: Calculated objects
+    desc: v23 with four copies of Sales in the copy table (94.9M rows).
+    sizes: [10M]
+  - id: v36
+    folder: v36-calc-summary-month-grain
+    name: Calculated tables, monthly summary
+    category: Calculated objects
+    desc: v23 with the summary by month instead of year.
+    sizes: [10M]
+
+  - id: v24
+    folder: v24-bidirectional
+    name: Bidirectional relationship
+    category: Model design
+    desc: Sales to Customer filters in both directions.
+    sizes: [1M]
+  - id: v24a
+    folder: v24a-second-fact
+    name: Second fact table
+    category: Model design
+    desc: Baseline plus a second fact table, Orders (981K rows).
+    sizes: [1M]
+  - id: v24b
+    folder: v24b-second-fact-bidirectional
+    name: Second fact + bidirectional
+    category: Model design
+    desc: v24a with Sales to Customer in both directions.
+    sizes: [1M]
+    qnote: "Orders page gives different numbers: 966,183 orders for Computers instead of 422,638."
+  - id: v25
+    folder: v25-many-to-many
+    name: Many-to-many
+    category: Model design
+    desc: Baseline plus a customer segment table, many-to-many to Sales.
+    sizes: [1M]
+    qnote: Every segment shows the total of all sales.
+  - id: v28
+    folder: v28-types-all-text
+    name: Everything as text
+    category: Model design
+    desc: Almost every column loaded as text.
+    sizes: [1M]
+  - id: v29
+    folder: v29-keys-as-text
+    name: Keys as text
+    category: Model design
+    desc: Key columns loaded as text.
+    sizes: [1M]
+  - id: v30
+    folder: v30-double-instead-of-fixed
+    name: Decimal instead of fixed decimal
+    category: Model design
+    desc: Prices and costs as decimal number instead of fixed decimal.
+    sizes: [1M]
+  - id: v33
+    folder: v33-auto-date-time
+    name: Auto date/time on
+    category: Model design
+    desc: Auto date/time on, Date table marked.
+    sizes: [1M]
+  - id: v34
+    folder: v34-auto-date-time-no-date-table
+    name: Auto date/time, no date table
+    category: Model design
+    desc: Auto date/time on, Date table not marked.
+    sizes: [1M]
+
+  - id: v26
+    folder: v26-bad-dax
+    name: Bad DAX measures
+    category: Measures and visuals
+    desc: Five of six measures rewritten in common bad DAX patterns. Same numbers in every visual.
+    sizes: [1M]
+  - id: v27
+    folder: v27-high-cardinality-visuals
+    name: High-cardinality visuals
+    category: Measures and visuals
+    desc: Baseline model, report page with tables of all orders, order lines and customers.
+    sizes: [1M]
+    qnote: "High-cardinality page: 1,345 ms, 231 MB per query. On the 20-visual page it matches the baseline."
+
+  - id: v99
+    folder: v99-kitchen-sink
+    name: Kitchen sink
+    category: Kitchen sink
+    desc: "Every antipattern at once: Power Query staging, sorts, buffers, Group By, calculated tables and columns, relationships, Auto date/time."
+    sizes: [1M]
+  - id: v99a
+    folder: v99a-no-big-calc-tables
+    name: Kitchen sink without big calculated tables
+    category: Kitchen sink
+    desc: v99 without the big calculated tables and the flat table.
+    sizes: [1M]
+  - id: v99k
+    folder: v99k-no-buffers
+    name: Kitchen sink without Table.Buffer
+    category: Kitchen sink
+    desc: v99a without any Table.Buffer.
+    sizes: [1M]
+  - id: v99l
+    folder: v99l-no-calc-columns
+    name: Kitchen sink without calculated columns
+    category: Kitchen sink
+    desc: v99k without calculated columns.
+    sizes: [1M]
+  - id: v99m
+    folder: v99m-baseline-pq
+    name: Kitchen sink with clean Power Query
+    category: Kitchen sink
+    desc: v99k with the baseline Power Query. DAX antipatterns kept.
+    sizes: [1M]
+  - id: v99o
+    folder: v99o-sorts
+    name: Kitchen sink, clean PQ + sorts
+    category: Kitchen sink
+    desc: v99m plus the sorts.
+    sizes: [1M]
+  - id: v99q
+    folder: v99q-customer-stats
+    name: Kitchen sink, clean PQ + Group By
+    category: Kitchen sink
+    desc: v99m plus the Group By table.
+    sizes: [1M]

@@ -1,0 +1,404 @@
+"""Build site/data.json from the lab repo.
+
+Run from anywhere:  python site/build_data.py
+It writes site/data.json and refreshes the inline copy in site/index.html
+(between the LAB-DATA markers), so the page also works from file://.
+
+Sources, in order of trust:
+  1. results/harness-runs.csv          every harness refresh
+  2. results/monitoring-refreshes.csv  manual F64 refreshes from before the harness
+  3. results/query-summary.csv, query-runs.csv, query-xmla.csv
+  4. docs/lab-findings.md ("All runs")  sizes, F2 results, result texts not in the CSVs
+  5. site/models.yaml                    display metadata (the only hand-written file)
+
+MB means 1,048,576 bytes everywhere. Never hand-edit data.json.
+"""
+
+import csv
+import json
+import re
+import statistics
+import sys
+from pathlib import Path
+
+import yaml
+
+ROOT = Path(__file__).resolve().parent.parent
+SITE = ROOT / "site"
+RESULTS = ROOT / "results"
+
+warnings = []
+
+
+def warn(msg):
+    warnings.append(msg)
+
+
+def num(text):
+    """First number in a text like '1,833 MB on PPU'. None if there is none."""
+    if text is None:
+        return None
+    m = re.search(r"-?\d[\d,]*(?:\.\d+)?", str(text))
+    if not m:
+        return None
+    return float(m.group(0).replace(",", ""))
+
+
+def fnum(text):
+    """A plain CSV number ('', '<NA>' and 'nan' are None)."""
+    if text is None:
+        return None
+    t = str(text).strip().replace(",", "")
+    if t in ("", "<NA>", "nan", "None"):
+        return None
+    try:
+        return float(t)
+    except ValueError:
+        return None
+
+
+def size_of(data_tag):
+    return {"data-1m-v1": "1M", "data-10m-v1": "10M"}.get(data_tag)
+
+
+def read_csv(path):
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        return list(csv.DictReader(f))
+
+
+def md_table(path, heading):
+    """Rows of the first markdown table after a heading, as dicts."""
+    lines = path.read_text(encoding="utf-8").splitlines()
+    try:
+        start = next(i for i, l in enumerate(lines) if l.strip() == heading)
+    except StopIteration:
+        sys.exit(f"{path.name}: heading {heading!r} not found")
+    rows, header = [], None
+    for line in lines[start + 1:]:
+        if line.startswith("#"):
+            break
+        if not line.startswith("|"):
+            if header:
+                break
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if header is None:
+            header = cells
+        elif set(line.replace("|", "").strip()) <= set("-: "):
+            continue
+        else:
+            rows.append(dict(zip(header, cells)))
+    return rows
+
+
+def r1(x, nd=1):
+    return None if x is None else round(x, nd)
+
+
+# ---------------------------------------------------------------- metadata
+
+meta = yaml.safe_load((SITE / "models.yaml").read_text(encoding="utf-8"))
+models = meta["models"]
+by_folder = {m["folder"]: m for m in models}
+by_id = {m["id"]: m for m in models}
+for m in models:
+    if m["category"] not in meta["categories"]:
+        sys.exit(f"models.yaml: {m['id']} has unknown category {m['category']!r}")
+    if not (ROOT / "models" / m["folder"]).is_dir():
+        sys.exit(f"models.yaml: folder models/{m['folder']} does not exist")
+
+keys = [f"{m['id']}@{s}" for m in models for s in m["sizes"]]
+
+
+def key_for(folder, size):
+    m = by_folder.get(folder)
+    return f"{m['id']}@{size}" if m and size else None
+
+
+# ---------------------------------------------------------------- refreshes
+
+refreshes = {k: [] for k in keys}  # every refresh, any capacity
+
+for r in read_csv(RESULTS / "harness-runs.csv"):
+    k = key_for(r["variant"], size_of(r["data_tag"]))
+    if k not in refreshes:
+        continue
+    when = (r["refresh_end_utc"] or r["timestamp_utc"]).replace("T", " ").rstrip("Z")
+    refreshes[k].append({
+        "src": "harness",
+        "when": when,
+        "cap": r["capacity"],
+        "ok": r["result"] == "refreshed",
+        "failure": r["failure_kind"],
+        "peak": fnum(r["peak_mb"]),
+        "pq": fnum(r["pq_peak_mb"]),
+        "dur": fnum(r["duration_min"]),
+        "cpu": fnum(r["total_cpu_sec"]),
+        "size": fnum(r["model_size_mb"]),
+        "size_src": r["model_size_source"],
+        "after": fnum(r.get("size_after_mb")),
+    })
+
+# monitoring-refreshes.csv has no data tag. All of it is 1M except the two
+# 10M runs of v00 and v23 on 2026-11-06, which loaded about 10 and 4.6 times
+# the rows of that model's 1M run. A completed refresh that loaded at least
+# 4 times the rows of the same model's smallest completed refresh is 10M.
+mon = read_csv(RESULTS / "monitoring-refreshes.csv")
+min_rows = {}
+for r in mon:
+    if r["Result"] == "refreshed":
+        rows = fnum(r["RowsLoaded"])
+        min_rows[r["Model"]] = min(rows, min_rows.get(r["Model"], rows))
+for r in mon:
+    ok = r["Result"] == "refreshed"
+    rows = fnum(r["RowsLoaded"])
+    size = "10M" if ok and rows >= 4 * min_rows[r["Model"]] else "1M"
+    k = key_for(r["Model"], size)
+    if k not in refreshes:
+        continue
+    refreshes[k].append({
+        "src": "monitoring",
+        "when": r["Timestamp"][:19],
+        "cap": "F64",
+        "ok": ok,
+        "failure": "" if ok else "failed",
+        "peak": fnum(r["PeakMemMB"]),
+        "pq": fnum(r["MEnginePeakMB"]),
+        "dur": fnum(r["DurationMin"]),
+        "cpu": fnum(r["TotalCpuSec"]),
+        "size": None, "size_src": "", "after": None,
+    })
+
+# ---------------------------------------------------------------- doc table
+
+doc_rows = {}
+for row in md_table(ROOT / "docs" / "lab-findings.md", "## All runs"):
+    mid = row["Model"].split("-")[0]
+    what = row["What it is"]
+    size = "10M" if re.search(r",\s*10M$", what) else "1M"
+    doc_rows[f"{mid}@{size}"] = row
+
+
+def split_ppu(text):
+    """'failed at 25.6 GB (PPU: refreshed, peak 26,115)' -> ('failed at 25.6 GB', 'refreshed, peak 26,115')."""
+    m = re.match(r"^(.*?)\s*\(PPU:\s*(.*)\)\s*$", text or "")
+    return (m.group(1), m.group(2)) if m else (text or "", "")
+
+
+def mb_after_failed_at(text):
+    """'failed at 3,242' -> 'failed at 3,242 MB'."""
+    return re.sub(r"(failed at [\d,]+)(?![\d,.]*\s*(?:MB|GB))", r"\1 MB", text)
+
+
+# ---------------------------------------------------------------- queries
+
+summ = read_csv(RESULTS / "query-summary.csv")
+runs = read_csv(RESULTS / "query-runs.csv")
+xmla = read_csv(RESULTS / "query-xmla.csv")
+
+QUERY_LIMIT_F2 = 1024
+
+
+def queries(folder, size):
+    tag = {"1M": "data-1m-v1", "10M": "data-10m-v1"}[size]
+    mine = [r for r in summ if r["variant"] == folder and r["data_tag"] == tag]
+    p20, cpu = [], []
+    for r in mine:
+        if (r["capacity"], r["page"], r["mode"], r["conc"]) != ("F64", "p20", "cold", "page"):
+            continue
+        n = (fnum(r["visuals"]) or 0) * (fnum(r["repeats"]) or 0)
+        # A run where most queries failed (no data in the model) is not a measurement.
+        if n and (fnum(r["errors"]) or 0) / n >= 0.5:
+            continue
+        if fnum(r["server_max_median_ms"]) is not None:
+            p20.append(fnum(r["server_max_median_ms"]))
+            cpu.append(fnum(r["cpu_sum_median_ms"]))
+    # Heaviest single query: cold cache, all visuals at once (as in the doc), plus XMLA runs.
+    peaks = [(fnum(r["peak_mem_max_kb"]), r["page"]) for r in mine
+             if (r["capacity"], r["mode"], r["conc"]) == ("F64", "cold", "page")
+             and fnum(r["peak_mem_max_kb"]) is not None]
+    peaks += [(fnum(r["peak_mem_kb"]), r["page"]) for r in xmla
+              if r["variant"] == folder and r["data_tag"] == tag and r["capacity"] == "F64"
+              and fnum(r["peak_mem_kb"]) is not None]
+    if not p20 and not peaks:
+        return None
+    q = {"runs": len(p20)}
+    if p20:
+        q["p20"] = [min(p20), max(p20)]
+        q["cpu"] = [min(cpu), max(cpu)]
+    if peaks:
+        kb, page = max(peaks)
+        q["qpeak"] = r1(kb / 1024)
+        q["qpeakPage"] = page
+
+    # F2: REST runs, p20. The two matrices (v01, v20) always fail over REST with
+    # DaxResultsetCountNotSupported, which says nothing about the capacity.
+    f2 = [r for r in runs if r["variant"] == folder and r["data_tag"] == tag
+          and r["capacity"] == "F2" and r["page"] == "p20"]
+    parts = []
+    if f2:
+        visuals = {r["visual"] for r in f2}
+        api = {r["visual"] for r in f2 if "DaxResultsetCountNotSupported" in (r["server_error"] + r["client_error"])}
+        bad = [r for r in f2 if r["failed"] == "True" and r["visual"] not in api]
+        failed = {r["visual"] for r in bad}
+        if failed:
+            why = ""
+            if all("Resource Governance" in r["client_error"] + r["server_error"] for r in bad):
+                why = f": query memory over the {QUERY_LIMIT_F2:,} MB limit"
+            parts.append(f"{len(failed)} of {len(visuals)} visuals fail on F2{why}")
+        else:
+            parts.append(f"no memory errors ({len(visuals) - len(api)} of {len(visuals)} visuals checked; "
+                         f"the {len(api)} matrices can't run over the REST API)")
+    fx = [fnum(r["peak_mem_kb"]) for r in xmla if r["variant"] == folder and r["data_tag"] == tag
+          and r["capacity"] == "F2" and r["failed"] == "False" and fnum(r["peak_mem_kb"]) is not None]
+    if fx:
+        top = max(fx) / 1024
+        parts.append(f"over XMLA the heaviest query ran at {top:,.0f} MB, "
+                     f"{top / QUERY_LIMIT_F2 * 100:.0f}% of F2's {QUERY_LIMIT_F2:,} MB per-query limit")
+    if parts:
+        q["f2q"] = "; ".join(parts) + "."
+    return q
+
+
+# ---------------------------------------------------------------- records
+
+out = []
+for m in models:
+    for size in m["sizes"]:
+        k = f"{m['id']}@{size}"
+        rs = sorted(refreshes[k], key=lambda r: r["when"])
+        if m.get("ignore_before"):
+            # Runs of an earlier version of the model, before it was changed.
+            rs = [r for r in rs if r["when"] >= m["ignore_before"]]
+        doc = doc_rows.get(k, {})
+        if not rs and not doc:
+            warn(f"{k}: no refresh in the CSVs and no row in lab-findings.md, left out")
+            continue
+
+        f64 = [r for r in rs if r["cap"] == "F64"]
+        f64_ok = [r for r in f64 if r["ok"] and r["peak"] is not None]
+        ppu = [r for r in rs if r["cap"] == "PPU"]
+        f2 = [r for r in rs if r["cap"] == "F2"]
+
+        rec = {
+            "key": k, "id": m["id"], "folder": m["folder"], "size": size,
+            "name": m["name"], "category": m["category"], "desc": m["desc"],
+            # A failed refresh has no peak: only completed F64 runs go in.
+            "peaks": [r1(r["peak"], 0) for r in f64_ok],
+        }
+        if f64_ok:
+            last = f64_ok[-1]
+            rec.update(pq=r1(last["pq"], 0), dur=r1(last["dur"], 2), cpu=r1(last["cpu"], 0))
+        rec["runs"] = len(f64)
+        rec["fails"] = len([r for r in f64 if not r["ok"]])
+
+        doc_f64, doc_ppu = split_ppu(doc.get("F64 result", ""))
+        rec["f64"] = doc_f64 or ("refreshed" if f64_ok else ("failed" if f64 else "not run"))
+        if f64_ok and not rec["f64"].startswith("refreshed"):
+            warn(f"{k}: completed F64 runs in the CSVs but lab-findings says {rec['f64']!r}")
+
+        doc_f2 = doc.get("F2 result", "")
+        if doc_f2:
+            rec["f2"] = mb_after_failed_at(doc_f2)
+        elif f2:
+            rec["f2"] = "refreshed" if f2[-1]["ok"] else "failed"
+        else:
+            rec["f2"] = "not run"
+
+        if ppu:
+            p = ppu[-1]
+            if p["ok"]:
+                rec["ppu"] = f"refreshed, peak {p['peak']:,.0f} MB"
+                rec.update(ppuPeak=r1(p["peak"], 0), ppuPq=r1(p["pq"], 0),
+                           ppuDur=r1(p["dur"], 2), ppuCpu=r1(p["cpu"], 0))
+            else:
+                at = f" at {p['peak']:,.0f} MB" if p["peak"] is not None else ""
+                rec["ppu"] = f"failed{at}, {p['failure'] or 'error'}"
+        else:
+            rec["ppu"] = doc_ppu or "not run"
+
+        # Sizes. CSV first (latest completed run), then the doc table.
+        svc = [r for r in rs if r["ok"] and r["size"] is not None and r["size_src"].startswith("Backup step")]
+        if svc:
+            rec["service"] = r1(svc[-1]["size"])
+            if svc[-1]["cap"] == "PPU":
+                rec["serviceOn"] = "PPU"
+        else:
+            rec["service"] = r1(num(doc.get("Service size")))
+            if "on PPU" in doc.get("Service size", ""):
+                rec["serviceOn"] = "PPU"
+        mem = [r for r in rs if r["ok"] and (r["after"] is not None or
+               (r["size"] is not None and r["size_src"].startswith("INFO.STORAGE")))]
+        if mem:
+            rec["memory"] = r1(mem[-1]["after"] if mem[-1]["after"] is not None else mem[-1]["size"])
+        else:
+            rec["memory"] = r1(num(doc.get("In memory after refresh")))
+        rec["pbix"] = r1(num(doc.get("Downloaded .pbix")))
+        if "on PPU" in doc.get("Downloaded .pbix", ""):
+            rec["pbixOn"] = "PPU"
+
+        # Cross-check the doc's F64 peak against the CSV runs.
+        doc_peak = doc.get("F64 peak MB", "")
+        if doc_peak and rec["peaks"]:
+            nums = [float(x.replace(",", "")) for x in re.findall(r"\d[\d,]*", doc_peak)
+                    if len(x.replace(",", "")) >= 3]
+            for n in nums:
+                if n not in rec["peaks"]:
+                    warn(f"{k}: lab-findings peak {n:,.0f} is not among the CSV peaks {rec['peaks']}")
+        elif doc_peak and not rec["peaks"] and num(doc_peak) and rec["f64"].startswith("refreshed"):
+            rec["peaks"] = [num(doc_peak)]
+            warn(f"{k}: peak {doc_peak} from lab-findings.md only")
+
+        q = queries(m["folder"], size)
+        if q:
+            if m.get("qnote"):
+                q["note"] = m["qnote"]
+            rec["q"] = q
+        if m.get("refnote"):
+            rec["refnote"] = m["refnote"]
+        out.append(rec)
+
+missing_docs = [k for k in doc_rows if k not in {r["key"] for r in out}]
+if missing_docs:
+    warn("in lab-findings.md but not on the site: " + ", ".join(missing_docs))
+
+site = meta["site"]
+data = {
+    # The date of the newest run in the data, not the build time, so the output only
+    # changes when the data does.
+    "latest": max([r["when"][:10] for rs in refreshes.values() for r in rs] +
+                  [r["client_start_utc"][:10] for r in runs if r["client_start_utc"]]),
+    "title": site.get("title", ""),
+    "subtitle": site.get("subtitle", ""),
+    "repo": site["repo"],
+    "branch": site.get("branch", "main"),
+    "articles": site.get("articles", []),
+    "default": site["default"],
+    "categories": meta["categories"],
+    "presets": meta.get("presets", []),
+    "caveats": meta.get("caveats", []),
+    "models": out,
+}
+for p in data["presets"]:
+    for side in ("a", "b"):
+        if p[side] not in {r["key"] for r in out}:
+            sys.exit(f"models.yaml: preset {p['label']!r} uses unknown key {p[side]}")
+
+text = json.dumps(data, ensure_ascii=False, indent=1)
+(SITE / "data.json").write_text(text + "\n", encoding="utf-8")
+
+# Inline copy for file://, between the markers in index.html.
+index = SITE / "index.html"
+if index.exists():
+    html = index.read_text(encoding="utf-8")
+    inline = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    new, n = re.subn(r"(<!-- LAB-DATA -->).*?(<!-- /LAB-DATA -->)",
+                     lambda mt: f'{mt.group(1)}<script id="lab-data" type="application/json">{inline}</script>{mt.group(2)}',
+                     html, flags=re.S)
+    if n != 1:
+        sys.exit("index.html: LAB-DATA markers not found")
+    index.write_text(new, encoding="utf-8")
+
+print(f"data.json: {len(out)} records")
+for w in warnings:
+    print("note:", w)

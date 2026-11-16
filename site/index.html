@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare two semantic models</title>
+<meta name="description" content="Pick two semantic models from the refresh memory lab and compare refresh memory, model size, which Fabric capacities they fit on, and report query cost.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="wrap head">
+  <p class="kicker">Refresh memory lab · Fabricated Insights</p>
+  <h1>Compare <span>two semantic models</span></h1>
+  <p class="subtitle"><span id="subtitle"></span> <span class="links" id="links"></span></p>
+</header>
+
+<main class="wrap">
+  <section class="card picker" aria-label="Pick two models">
+    <div class="pick a">
+      <label for="selA"><span class="tag ta">A</span> Model A</label>
+      <select id="selA"></select>
+    </div>
+    <button type="button" id="swap" class="swap" aria-label="Swap model A and model B">⇄ Swap</button>
+    <div class="pick b">
+      <label for="selB"><span class="tag tb">B</span> Model B</label>
+      <select id="selB"></select>
+    </div>
+    <div class="presets" id="presets" role="group" aria-label="Featured comparisons"><span class="try">Try:</span></div>
+  </section>
+
+  <section class="card verdict" aria-live="polite">
+    <p id="verdict" class="sentence"></p>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <section class="card">
+    <h2>Where does it fit?</h2>
+    <p class="lede">Refresh: highest measured peak against the per-model memory limit. Queries: heaviest single query against F2's per-query limit.</p>
+    <div class="tablewrap"><table id="fit" class="fit"></table></div>
+    <p class="note">The memory one refresh may use is the limit minus the model already in memory. A peak just under the line can still fail.</p>
+  </section>
+
+  <section class="card">
+    <h2>Refresh</h2>
+    <p class="lede">Measured on F64. Where a model was refreshed more than once, the bar shows the highest peak and the white line the range.</p>
+    <h3>Peak refresh memory</h3>
+    <div class="chart" id="cPeak"></div>
+    <h3>Power Query part of the peak <span class="sub">latest run</span></h3>
+    <div class="chart" id="cPq"></div>
+    <div class="two">
+      <div><h3>Duration <span class="sub">latest run</span></h3><div class="chart" id="cDur"></div></div>
+      <div><h3>CPU <span class="sub">latest run</span></h3><div class="chart" id="cCpu"></div></div>
+    </div>
+    <div id="refNotes" class="notes"></div>
+  </section>
+
+  <section class="card">
+    <h2>From model size to refresh memory</h2>
+    <p class="lede">The steeper the line, the more refresh memory each MB of model needs. Both sides share one log scale, so the steepness is the multiplier.</p>
+    <fieldset class="toggle" id="sizeToggle">
+      <legend>Size on the left</legend>
+      <label><input type="radio" name="sz" value="service" checked> Model size (in the service)</label>
+      <label><input type="radio" name="sz" value="pbix"> Downloaded .pbix</label>
+      <label><input type="radio" name="sz" value="memory"> In memory</label>
+    </fieldset>
+    <div class="chart slope" id="cSlope"></div>
+    <details>
+      <summary>All four sizes as a table</summary>
+      <div class="tablewrap"><table id="sizes" class="sizes"></table></div>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2>Report queries</h2>
+    <p class="lede">F64, cold cache, all 20 visuals of the test page sent at once. Medians over 5 repeats per run.</p>
+    <h3>Slowest visual on the 20-visual page <span class="sub">range over runs</span></h3>
+    <div class="chart" id="cP20"></div>
+    <h3>Heaviest single query</h3>
+    <div class="chart" id="cQpeak"></div>
+    <div id="qNotes" class="notes"></div>
+  </section>
+
+  <section class="card">
+    <h2>What changed</h2>
+    <div class="cards" id="changed"></div>
+  </section>
+
+  <section class="card">
+    <h2>Read this before you quote a number</h2>
+    <div class="caveats" id="caveats"></div>
+  </section>
+</main>
+
+<footer class="wrap foot" id="foot"></footer>
+
+<div id="tip" class="tip" role="tooltip" hidden></div>
+
+<!-- Inline copy of data.json for file://. Written by build_data.py, do not edit. -->
+<!-- LAB-DATA --><script id="lab-data" type="application/json">{"latest":"2026-11-14","title":"Compare two semantic models","subtitle":"Same Contoso data, one change at a time. Every number is measured.","repo":"https://github.com/fabricated-insights/semantic-model-refresh-test-public","branch":"main","articles":[{"label":"Part 1","url":"https://fabricatedinsights.substack.com/p/power-bi-pro-vs-f64-1-0-why-your"},{"label":"Part 2","url":""},{"label":"Part 3","url":""}],"default":["v00@1M","v20@1M"],"categories":["Baseline","Power Query","Calculated objects","Model design","Measures and visuals","Kitchen sink"],"presets":[{"label":"Clean vs two sorts","a":"v00@1M","b":"v20@1M"},{"label":"Clean vs bad DAX","a":"v00@1M","b":"v26@1M"},{"label":"Clean vs calculated tables","a":"v00@1M","b":"v23@1M"},{"label":"1M vs 10M orders","a":"v00@1M","b":"v00@10M"},{"label":"Kitchen sink: clean PQ vs everything","a":"v99m@1M","b":"v99@1M"}],"caveats":["The source is Parquet over Web.Contents, which can't fold. With a folding source, sorts and Group By run in the database.","The clean baseline alone varied from 543 to 856 MB over 11 measured refreshes. Differences of a few hundred MB on 1M data are noise.","Query times on F64 switch between a fast and a slow state, about 2 times apart, for hours. Memory per query doesn't.","Limits: F2 to F8 3 GB, F16 5 GB, F32 10 GB, F64 25 GB per model (Microsoft Learn), Premium Per User 100 GB. F2 cancels a single query at 1,024 MB."],"models":[{"key":"v00@1M","id":"v00","folder":"v00-baseline","size":"1M","name":"Clean baseline","category":"Baseline","desc":"A clean star schema: typed columns, no calculated columns or tables, single-direction relationships, Auto date/time off.","peaks":[785.0,551.0,623.0,698.0,543.0,545.0,608.0,550.0,703.0,856.0,602.0],"pq":527.0,"dur":0.91,"cpu":94.0,"runs":12,"fails":0,"f64":"refreshed","f2":"refreshed","ppu":"not run","service":72.7,"memory":92.7,"pbix":49.2,"q":{"runs":15,"p20":[656.0,1563.0],"cpu":[1877.0,3847.0],"qpeak":57.7,"qpeakPage":"p20","f2q":"no memory errors (18 of 20 visuals checked; the 2 matrices can't run over the REST API)."}},{"key":"v00@10M","id":"v00","folder":"v00-baseline","size":"10M","name":"Clean baseline","category":"Baseline","desc":"A clean star schema: typed columns, no calculated columns or tables, single-direction relationships, Auto date/time off.","peaks":[2040.0,2116.0,1979.0,1650.0],"pq":1192.0,"dur":6.06,"cpu":583.0,"runs":4,"fails":0,"f64":"refreshed","f2":"refreshed, 26 min","ppu":"not run","service":777.9,"memory":700.0,"pbix":473.6,"q":{"runs":1,"p20":[18545.0,18545.0],"cpu":[102611.0,102611.0],"qpeak":860.8,"qpeakPage":"p20","f2q":"no memory errors (18 of 20 visuals checked; the 2 matrices can't run over the REST API); over XMLA the heaviest query ran at 860 MB, 84% of F2's 1,024 MB per-query limit."}},{"key":"v18@1M","id":"v18","folder":"v18-pq-10m-summary","size":"1M","name":"Summary from the 10M file","category":"Power Query","desc":"Baseline plus a 590-row summary grouped in Power Query from the 10M file.","peaks":[1562.0],"pq":1372.0,"dur":1.1,"cpu":110.0,"runs":1,"fails":0,"f64":"refreshed","f2":"refreshed","ppu":"not run","service":73.0,"memory":null,"pbix":49.2},{"key":"v19@1M","id":"v19","folder":"v19-pq-heavy-10m","size":"1M","name":"Five heavy Power Query analyses","category":"Power Query","desc":"Baseline plus five Power Query analyses on 10M data (merges, Group By with distinct counts, rankings, a self join).","peaks":[],"runs":9,"fails":9,"f64":"failed, Power Query limit","f2":"failed at 3,242 MB","ppu":"failed at 22,186 MB, M evaluation memory limit","service":null,"memory":null,"pbix":null},{"key":"v20@1M","id":"v20","folder":"v20-pq-sort","size":"1M","name":"Two sorts","category":"Power Query","desc":"Baseline plus two sorts of the Sales table in Power Query. The loaded table is identical.","peaks":[5229.0,5269.0],"pq":5043.0,"dur":1.77,"cpu":128.0,"runs":2,"fails":0,"f64":"refreshed","f2":"failed","ppu":"not run","service":71.9,"memory":null,"pbix":51.7},{"key":"v21@1M","id":"v21","folder":"v21-pq-group-by","size":"1M","name":"One Group By","category":"Power Query","desc":"Baseline plus one summary table built with Group By in Power Query.","peaks":[3767.0],"pq":3604.0,"dur":0.8,"cpu":112.0,"runs":1,"fails":0,"f64":"refreshed","f2":"failed","ppu":"not run","service":85.0,"memory":null,"pbix":57.4},{"key":"v22@1M","id":"v22","folder":"v22-dax-calc-columns","size":"1M","name":"8 calculated columns","category":"Calculated objects","desc":"Baseline plus 8 calculated columns on Sales (RELATED, RANKX, text, CALCULATE).","peaks":[686.0,621.0,794.0],"pq":469.0,"dur":0.69,"cpu":68.0,"runs":3,"fails":0,"f64":"refreshed","f2":"refreshed twice","ppu":"not run","service":100.7,"memory":132.6,"pbix":72.5,"q":{"runs":3,"p20":[813.0,1047.0],"cpu":[1985.0,2625.0],"qpeak":57.7,"qpeakPage":"p20"}},{"key":"v23@1M","id":"v23","folder":"v23-dax-calc-tables","size":"1M","name":"4 calculated tables","category":"Calculated objects","desc":"Baseline plus 4 calculated tables: a copy of Sales, a SUMMARIZECOLUMNS summary, a product by day CROSSJOIN, CALENDARAUTO.","peaks":[1405.0,1406.0],"pq":721.0,"dur":0.75,"cpu":84.0,"runs":2,"fails":0,"f64":"refreshed","f2":"refreshed twice","ppu":"not run","service":183.7,"memory":null,"pbix":115.1,"q":{"runs":1,"p20":[672.0,672.0],"cpu":[2001.0,2001.0],"qpeak":57.7,"qpeakPage":"p20"}},{"key":"v23@10M","id":"v23","folder":"v23-dax-calc-tables","size":"10M","name":"4 calculated tables","category":"Calculated objects","desc":"Baseline plus 4 calculated tables: a copy of Sales, a SUMMARIZECOLUMNS summary, a product by day CROSSJOIN, CALENDARAUTO.","peaks":[13062.0,13064.0,13139.0,13062.0],"pq":1870.0,"dur":7.47,"cpu":809.0,"runs":4,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":1833.0,"memory":1386.8,"pbix":null},{"key":"v31@1M","id":"v31","folder":"v31-calc-columns-row","size":"1M","name":"32 row-level calculated columns","category":"Calculated objects","desc":"Baseline plus 32 row-level calculated columns on Sales.","peaks":[913.0],"pq":334.0,"dur":0.78,"cpu":91.0,"runs":1,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":223.0,"memory":316.8,"pbix":null,"q":{"runs":1,"p20":[703.0,703.0],"cpu":[1926.0,1926.0],"qpeak":57.7,"qpeakPage":"p20"}},{"key":"v32@1M","id":"v32","folder":"v32-calc-columns-aggregate","size":"1M","name":"30 aggregating calculated columns","category":"Calculated objects","desc":"Baseline plus 30 aggregating calculated columns.","peaks":[631.0],"pq":595.0,"dur":1.09,"cpu":121.0,"runs":1,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":220.7,"memory":367.9,"pbix":null,"q":{"runs":4,"p20":[1454.0,1580.0],"cpu":[3613.0,3831.0],"qpeak":55.4,"qpeakPage":"p20"}},{"key":"v35@10M","id":"v35","folder":"v35-calc-tables-four-copies","size":"10M","name":"Calculated tables, four copies","category":"Calculated objects","desc":"v23 with four copies of Sales in the copy table (94.9M rows).","peaks":[13063.0],"pq":1601.0,"dur":17.26,"cpu":1827.0,"runs":1,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":null,"memory":2803.0,"pbix":null},{"key":"v36@10M","id":"v36","folder":"v36-calc-summary-month-grain","size":"10M","name":"Calculated tables, monthly summary","category":"Calculated objects","desc":"v23 with the summary by month instead of year.","peaks":[14759.0],"pq":1194.0,"dur":7.36,"cpu":826.0,"runs":1,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":null,"memory":1406.2,"pbix":null},{"key":"v24@1M","id":"v24","folder":"v24-bidirectional","size":"1M","name":"Bidirectional relationship","category":"Model design","desc":"Sales to Customer filters in both directions.","peaks":[608.0],"pq":335.0,"dur":0.59,"cpu":56.0,"runs":1,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":72.7,"memory":null,"pbix":49.2,"q":{"runs":1,"p20":[688.0,688.0],"cpu":[1986.0,1986.0],"qpeak":55.4,"qpeakPage":"p20"}},{"key":"v24a@1M","id":"v24a","folder":"v24a-second-fact","size":"1M","name":"Second fact table","category":"Model design","desc":"Baseline plus a second fact table, Orders (981K rows).","peaks":[933.0],"pq":911.0,"dur":0.6,"cpu":69.0,"runs":1,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":102.7,"memory":null,"pbix":66.2,"q":{"runs":1,"p20":[719.0,719.0],"cpu":[2017.0,2017.0],"qpeak":54.7,"qpeakPage":"p20"}},{"key":"v24b@1M","id":"v24b","folder":"v24b-second-fact-bidirectional","size":"1M","name":"Second fact + bidirectional","category":"Model design","desc":"v24a with Sales to Customer in both directions.","peaks":[1102.0],"pq":1003.0,"dur":1.02,"cpu":105.0,"runs":1,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":102.7,"memory":null,"pbix":66.2,"q":{"runs":1,"p20":[688.0,688.0],"cpu":[1954.0,1954.0],"qpeak":57.7,"qpeakPage":"p20","note":"Orders page gives different numbers: 966,183 orders for Computers instead of 422,638."}},{"key":"v25@1M","id":"v25","folder":"v25-many-to-many","size":"1M","name":"Many-to-many","category":"Model design","desc":"Baseline plus a customer segment table, many-to-many to Sales.","peaks":[614.0],"pq":457.0,"dur":0.66,"cpu":69.0,"runs":1,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":79.1,"memory":98.1,"pbix":null,"q":{"runs":1,"p20":[877.0,877.0],"cpu":[2267.0,2267.0],"qpeak":62.3,"qpeakPage":"pm","note":"Every segment shows the total of all sales."}},{"key":"v28@1M","id":"v28","folder":"v28-types-all-text","size":"1M","name":"Everything as text","category":"Model design","desc":"Almost every column loaded as text.","peaks":[777.0],"pq":629.0,"dur":0.93,"cpu":108.0,"runs":1,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":69.1,"memory":171.5,"pbix":null,"q":{"runs":3,"p20":[547.0,1047.0],"cpu":[1690.0,3096.0],"qpeak":27.9,"qpeakPage":"p20"}},{"key":"v29@1M","id":"v29","folder":"v29-keys-as-text","size":"1M","name":"Keys as text","category":"Model design","desc":"Key columns loaded as text.","peaks":[1489.0,665.0,1735.0],"pq":1720.0,"dur":1.12,"cpu":122.0,"runs":3,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":69.0,"memory":141.9,"pbix":null,"q":{"runs":1,"p20":[594.0,594.0],"cpu":[1737.0,1737.0],"qpeak":27.9,"qpeakPage":"p20"}},{"key":"v30@1M","id":"v30","folder":"v30-double-instead-of-fixed","size":"1M","name":"Decimal instead of fixed decimal","category":"Model design","desc":"Prices and costs as decimal number instead of fixed decimal.","peaks":[550.0],"pq":270.0,"dur":0.5,"cpu":51.0,"runs":1,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":72.8,"memory":92.9,"pbix":null,"q":{"runs":1,"p20":[657.0,657.0],"cpu":[1955.0,1955.0],"qpeak":57.7,"qpeakPage":"p20"}},{"key":"v33@1M","id":"v33","folder":"v33-auto-date-time","size":"1M","name":"Auto date/time on","category":"Model design","desc":"Auto date/time on, Date table marked.","peaks":[619.0,554.0],"pq":270.0,"dur":0.96,"cpu":97.0,"runs":2,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":73.8,"memory":96.2,"pbix":null,"q":{"runs":5,"p20":[797.0,1595.0],"cpu":[1986.0,3877.0],"qpeak":54.8,"qpeakPage":"p20"}},{"key":"v34@1M","id":"v34","folder":"v34-auto-date-time-no-date-table","size":"1M","name":"Auto date/time, no date table","category":"Model design","desc":"Auto date/time on, Date table not marked.","peaks":[707.0,723.0],"pq":600.0,"dur":0.59,"cpu":56.0,"runs":2,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":74.2,"memory":96.9,"pbix":null,"q":{"runs":5,"p20":[703.0,1486.0],"cpu":[2031.0,3627.0],"qpeak":57.8,"qpeakPage":"p20"}},{"key":"v26@1M","id":"v26","folder":"v26-bad-dax","size":"1M","name":"Bad DAX measures","category":"Measures and visuals","desc":"Five of six measures rewritten in common bad DAX patterns. Same numbers in every visual.","peaks":[715.0],"pq":689.0,"dur":0.59,"cpu":56.0,"runs":1,"fails":0,"f64":"refreshed","f2":"refreshed","ppu":"not run","service":72.7,"memory":92.7,"pbix":49.2,"q":{"runs":1,"p20":[17165.0,17165.0],"cpu":[99145.0,99145.0],"qpeak":2654.9,"qpeakPage":"p20","f2q":"4 of 20 visuals fail on F2: query memory over the 1,024 MB limit."}},{"key":"v27@1M","id":"v27","folder":"v27-high-cardinality-visuals","size":"1M","name":"High-cardinality visuals","category":"Measures and visuals","desc":"Baseline model, report page with tables of all orders, order lines and customers.","peaks":[616.0],"pq":336.0,"dur":0.66,"cpu":63.0,"runs":1,"fails":0,"f64":"refreshed","f2":"not run","ppu":"not run","service":72.7,"memory":null,"pbix":49.2,"q":{"runs":1,"p20":[766.0,766.0],"cpu":[2079.0,2079.0],"qpeak":231.2,"qpeakPage":"p27","note":"High-cardinality page: 1,345 ms, 231 MB per query. On the 20-visual page it matches the baseline."}},{"key":"v99@1M","id":"v99","folder":"v99-kitchen-sink","size":"1M","name":"Kitchen sink","category":"Kitchen sink","desc":"Every antipattern at once: Power Query staging, sorts, buffers, Group By, calculated tables and columns, relationships, Auto date/time.","peaks":[],"runs":4,"fails":4,"f64":"failed at 25.6 GB","f2":"failed at 3,319 MB","ppu":"refreshed, peak 26,115 MB","ppuPeak":26115.0,"ppuPq":25958.0,"ppuDur":19.57,"ppuCpu":4036.0,"service":621.8,"serviceOn":"PPU","memory":null,"pbix":448.3,"pbixOn":"PPU"},{"key":"v99a@1M","id":"v99a","folder":"v99a-no-big-calc-tables","size":"1M","name":"Kitchen sink without big calculated tables","category":"Kitchen sink","desc":"v99 without the big calculated tables and the flat table.","peaks":[16054.0],"pq":15932.0,"dur":9.1,"cpu":876.0,"runs":1,"fails":0,"f64":"refreshed","f2":"failed at 3,099 MB","ppu":"not run","service":185.0,"memory":null,"pbix":134.7},{"key":"v99k@1M","id":"v99k","folder":"v99k-no-buffers","size":"1M","name":"Kitchen sink without Table.Buffer","category":"Kitchen sink","desc":"v99a without any Table.Buffer.","peaks":[12992.0],"pq":12892.0,"dur":12.3,"cpu":1262.0,"runs":1,"fails":0,"f64":"refreshed","f2":"failed","ppu":"not run","service":185.0,"memory":null,"pbix":134.7},{"key":"v99l@1M","id":"v99l","folder":"v99l-no-calc-columns","size":"1M","name":"Kitchen sink without calculated columns","category":"Kitchen sink","desc":"v99k without calculated columns.","peaks":[12878.0],"pq":12760.0,"dur":7.6,"cpu":730.0,"runs":1,"fails":0,"f64":"refreshed","f2":"failed at 3,146 MB","ppu":"not run","service":158.0,"memory":null,"pbix":112.6},{"key":"v99m@1M","id":"v99m","folder":"v99m-baseline-pq","size":"1M","name":"Kitchen sink with clean Power Query","category":"Kitchen sink","desc":"v99k with the baseline Power Query. DAX antipatterns kept.","peaks":[627.0],"pq":272.0,"dur":0.8,"cpu":73.0,"runs":1,"fails":0,"f64":"refreshed","f2":"refreshed","ppu":"not run","service":102.0,"memory":null,"pbix":72.7},{"key":"v99o@1M","id":"v99o","folder":"v99o-sorts","size":"1M","name":"Kitchen sink, clean PQ + sorts","category":"Kitchen sink","desc":"v99m plus the sorts.","peaks":[5337.0],"pq":5048.0,"dur":2.3,"cpu":162.0,"runs":1,"fails":0,"f64":"refreshed","f2":"failed","ppu":"not run","service":99.0,"memory":null,"pbix":74.1},{"key":"v99q@1M","id":"v99q","folder":"v99q-customer-stats","size":"1M","name":"Kitchen sink, clean PQ + Group By","category":"Kitchen sink","desc":"v99m plus the Group By table.","peaks":[3477.0],"pq":3243.0,"dur":0.8,"cpu":112.0,"runs":1,"fails":0,"f64":"refreshed","f2":"failed","ppu":"not run","service":114.0,"memory":null,"pbix":80.9}]}</script><!-- /LAB-DATA -->
+<script src="app.js"></script>
+</body>
+</html>

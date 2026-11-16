@@ -15,6 +15,7 @@ MB means 1,048,576 bytes everywhere. Never hand-edit data.json.
 """
 
 import csv
+import difflib
 import json
 import re
 import statistics
@@ -260,6 +261,86 @@ def queries(folder, size):
     return q
 
 
+# ---------------------------------------------------------------- model diffs
+
+BASE_FOLDER = "v00-baseline"
+DIFF_MAX_LINES = 160  # per file; the rest is a link to the file on GitHub
+# Tables Power BI generates for Auto date/time: summarised, not listed line by line.
+GENERATED = re.compile(r"^tables/(LocalDateTable|DateTableTemplate)_")
+
+
+def tmdl_files(folder):
+    """The model definition as {path: lines}, without the noise a save adds:
+    line endings, trailing spaces and lineageTag lines, which Power BI
+    regenerates and which differ between any two copies of the same table."""
+    root = ROOT / "models" / folder / f"{folder}.SemanticModel" / "definition"
+    out = {}
+    for p in sorted(root.rglob("*.tmdl")):
+        rel = p.relative_to(root).as_posix()
+        if rel.startswith("cultures/"):  # linguistic metadata, not the model
+            continue
+        lines = [l.rstrip() for l in p.read_text(encoding="utf-8-sig").splitlines()]
+        out[rel] = [l for l in lines if not re.match(r"\s*(source)?[lL]ineageTag:", l)]
+    return out
+
+
+def unified(a, b, n=3):
+    """Unified diff lines (hunk headers and ' ', '-', '+' lines). Like
+    difflib.unified_diff, but with autojunk off: otherwise lines that repeat a
+    lot in a long file (blank lines, formatString) count as junk, never match,
+    and unchanged lines show up as removed and added again."""
+    sm = difflib.SequenceMatcher(None, a, b, autojunk=False)
+    for group in sm.get_grouped_opcodes(n):
+        i1, i2, j1, j2 = group[0][1], group[-1][2], group[0][3], group[-1][4]
+        yield f"@@ -{i1 + 1},{i2 - i1} +{j1 + 1},{j2 - j1} @@"
+        for tag, a1, a2, b1, b2 in group:
+            if tag == "equal":
+                yield from (" " + l for l in a[a1:a2])
+                continue
+            yield from ("-" + l for l in a[a1:a2])
+            yield from ("+" + l for l in b[b1:b2])
+
+
+def model_diff(folder, base):
+    """Unified diff against the baseline, per file, for the git-diff view."""
+    mine = tmdl_files(folder)
+    files, generated = [], {"files": 0, "lines": 0}
+    for path in sorted(set(base) | set(mine)):
+        a, b = base.get(path, []), mine.get(path, [])
+        if a == b:
+            continue
+        status = "added" if path not in base else "removed" if path not in mine else "modified"
+        if GENERATED.match(path):
+            generated["files"] += 1
+            generated["lines"] += len(b) or len(a)
+            continue
+        hunks, cur, shown, cut, add, rem = [], None, 0, 0, 0, 0
+        for line in unified(a, b):
+            add += line.startswith("+")
+            rem += line.startswith("-")
+            if line.startswith("@@"):
+                cur = [line, []]
+                hunks.append(cur)
+                continue
+            if shown >= DIFF_MAX_LINES:
+                cut += 1
+                continue
+            cur[1].append(line)
+            shown += 1
+        hunks = [h for h in hunks if h[1]]
+        f = {"path": path, "status": status, "add": add, "del": rem, "hunks": hunks}
+        if cut:
+            f["cut"] = cut
+        files.append(f)
+    d = {"files": files}
+    if generated["files"]:
+        d["generated"] = generated
+    return d
+
+
+base_files = tmdl_files(BASE_FOLDER)
+diffs = {}
+
 # ---------------------------------------------------------------- records
 
 out = []
@@ -356,6 +437,12 @@ for m in models:
             rec["q"] = q
         if m.get("refnote"):
             rec["refnote"] = m["refnote"]
+        if m["folder"] not in diffs:
+            diffs[m["folder"]] = model_diff(m["folder"], base_files)
+        if m.get("pro"):
+            rec["pro"] = m["pro"]
+        if m.get("diffnote"):
+            rec["diffnote"] = m["diffnote"]
         out.append(rec)
 
 missing_docs = [k for k in doc_rows if k not in {r["key"] for r in out}]
@@ -378,6 +465,8 @@ data = {
     "presets": meta.get("presets", []),
     "caveats": meta.get("caveats", []),
     "models": out,
+    "base": BASE_FOLDER,
+    "diffs": diffs,
 }
 for p in data["presets"]:
     for side in ("a", "b"):

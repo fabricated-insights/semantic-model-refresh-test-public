@@ -24,7 +24,7 @@
   var NO_SIZE = { service: "no service size", pbix: "no .pbix file", memory: "not measured in memory" };
   var SVGNS = "http://www.w3.org/2000/svg";
 
-  var D, byKey = {}, state = { a: null, b: null, size: "service" };
+  var D, byKey = {}, state = { a: null, b: null, size: "service", diffSide: "b" };
 
   /* ---------- helpers ---------- */
 
@@ -215,56 +215,75 @@
       tile("Heaviest single query", A.q && A.q.qpeak, B.q && B.q.qpeak, mb, "no query runs", "no query runs");
   }
 
-  /* ---------- where does it fit ---------- */
+  /* ---------- capacity summary ---------- */
 
-  function fitCell(r, sku, i) {
-    var isPpu = i === SKUS.length - 1;
+  // One cell: { k: "yes" | "no" | "unk", t: main text, s: detail, measured, warn }
+  function capCell(r, cap) {
     var p = peakMax(r);
-    if (isPpu) {
-      if (r.ppuPeak != null) return cell(r.ppuPeak, sku.mb, "measured on Premium Per User");
-      if (/^failed/.test(r.ppu)) return no(r.ppu, "measured on Premium Per User");
-      if (p != null) return cell(p, sku.mb, "from the F64 peak");
-      return '<td><span class="sub">' + esc(r.f64) + "</span></td>";
+    function pct(lim) { return fmt(p / lim * 100) + "% of the " + fmt(lim) + " MB limit"; }
+    function rest(text, word) { return text.replace(new RegExp("^" + word + ",?\\s*"), ""); }
+    if (cap === "Pro") {
+      if (r.pro) return { k: /^failed/.test(r.pro) ? "no" : "yes", t: /^failed/.test(r.pro) ? "failed" : "refreshed", s: "measured", measured: true };
+      return { k: "unk", t: "not tested" };
     }
-    var sub = (i === 0 && r.f2 && r.f2 !== "not run") ? "F2 measured: " + r.f2 : "";
-    if (p == null) {
-      if (/^failed/.test(r.f64)) {
-        var txt = (i === 0 && /^failed/.test(r.f2)) ? "F2: " + r.f2 : "F64: " + r.f64;
-        return no(txt, "");
-      }
-      return '<td><span class="sub">not run</span></td>';
+    if (cap === "F2") {
+      var c;
+      if (/^refreshed/.test(r.f2)) c = { k: "yes", t: "refreshed", s: "measured" + (rest(r.f2, "refreshed") ? ", " + rest(r.f2, "refreshed") : ""), measured: true };
+      else if (/^failed/.test(r.f2)) c = { k: "no", t: "failed", s: "measured" + (rest(r.f2, "failed") ? ", " + rest(r.f2, "failed") : ""), measured: true };
+      else if (p != null) c = p <= SKUS[0].mb ? { k: "yes", t: "likely", s: "F64 peak is " + pct(SKUS[0].mb) } : { k: "no", t: "unlikely", s: "F64 peak is " + pct(SKUS[0].mb) };
+      else c = { k: "unk", t: "not run" };
+      if (r.q && r.q.qpeak > QUERY_LIMIT) c.warn = "Report queries up to " + mb(r.q.qpeak) + " fail at F2's " + fmt(QUERY_LIMIT) + " MB per-query limit";
+      return c;
     }
-    return cell(p, sku.mb, sub);
-
-    function cell(v, lim, s) {
-      var ok = v <= lim;
-      return "<td><span class=\"" + (ok ? "ok" : "no") + "\">" + (ok ? "✓" : "✗") +
-        '<span class="vh">' + (ok ? " fits" : " does not fit") + "</span></span> " + fmt(v / lim * 100) + "%" +
-        (s ? '<span class="sub">' + esc(s) + "</span>" : "") + "</td>";
+    if (cap === "F64") {
+      if (p != null) return { k: "yes", t: "refreshed", s: "measured, peak " + mb(p) + ", " + fmt(p / SKUS[3].mb * 100) + "% of the limit", measured: true };
+      if (/^failed/.test(r.f64)) return { k: "no", t: "failed", s: "measured" + (rest(r.f64, "failed") ? ", " + rest(r.f64, "failed") : ""), measured: true };
+      return { k: "unk", t: "not run" };
     }
-    function no(t, s) {
-      return '<td><span class="no">✗<span class="vh"> does not fit</span></span> ' + esc(t) +
-        (s ? '<span class="sub">' + esc(s) + "</span>" : "") + "</td>";
-    }
+    // PPU
+    if (r.ppuPeak != null) return { k: "yes", t: "refreshed", s: "measured, peak " + mb(r.ppuPeak), measured: true };
+    if (/^failed/.test(r.ppu)) return { k: "no", t: "failed", s: "measured, " + rest(r.ppu, "failed"), measured: true };
+    if (p != null) return { k: "yes", t: "likely", s: "F64 peak is " + fmt(p / SKUS[4].mb * 100) + "% of the 100 GB limit" };
+    return { k: "unk", t: "not run" };
   }
 
-  function renderFit(A, B) {
-    var h = '<caption class="vh">Highest refresh peak as a percentage of each capacity limit</caption>' +
-      '<thead><tr><th scope="col">Capacity (limit)</th><th scope="col"><span class="tag ta">A</span> ' + esc(shortLabel(A)) +
-      '</th><th scope="col"><span class="tag tb">B</span> ' + esc(shortLabel(B)) + "</th></tr></thead><tbody>";
-    SKUS.forEach(function (s, i) {
-      h += '<tr><th scope="row">' + esc(s.label) + '<span class="sub">' + fmt(s.mb) + " MB</span></th>" +
-        fitCell(A, s, i) + fitCell(B, s, i) + "</tr>";
-    });
-    function qcell(r) {
-      if (!r.q || !r.q.qpeak) return '<td><span class="sub">not measured</span></td>';
-      var ok = r.q.qpeak <= QUERY_LIMIT;
-      return '<td><span class="' + (ok ? "ok" : "no") + '">' + (ok ? "✓" : "✗") + '<span class="vh">' +
-        (ok ? " fits" : " does not fit") + "</span></span> " + fmt(r.q.qpeak / QUERY_LIMIT * 100) + "%" +
-        '<span class="sub">' + mb(r.q.qpeak) + "</span></td>";
+  // The smallest F SKU whose per-model limit is above the highest F64 peak.
+  function skuLine(r) {
+    var p = peakMax(r);
+    if (p == null) return /^failed/.test(r.f64) ? "Smallest F SKU: none, fails on F64" : "Smallest F SKU: not measured";
+    var names = ["F2", "F16", "F32", "F64"];
+    for (var i = 0; i < 4; i++) {
+      if (p <= SKUS[i].mb) {
+        return "Smallest F SKU: <b>" + names[i] + "</b> (peak " + mb(p) + ", " + fmt(p / SKUS[i].mb * 100) + "% of its " + fmt(SKUS[i].mb) + " MB)";
+      }
     }
-    h += '<tr><th scope="row">Heaviest query on F2<span class="sub">1,024 MB per query</span></th>' + qcell(A) + qcell(B) + "</tr>";
-    $("fit").innerHTML = h + "</tbody>";
+    return "Smallest F SKU: none";
+  }
+
+  function renderCaps(A, B) {
+    var caps = [["Pro", "Pro"], ["F2", "F2"], ["F64", "F64"], ["PPU", "Premium Per User"]];
+    var rows = A.key === B.key ? [[A, "A"]] : [[A, "A"], [B, "B"]];
+    var h = '<div class="caprow caphead"><div></div>' + caps.map(function (c) { return '<div class="capname">' + c[1] + "</div>"; }).join("") + "</div>";
+    rows.forEach(function (row) {
+      var r = row[0], t = row[1];
+      h += '<div class="caprow"><div class="capmodel"><span class="tag t' + t.toLowerCase() + '">' + t + "</span> " + esc(r.id + " · " + r.name) +
+        ' <span class="capsize">(' + esc(r.size) + ")</span>" + '<span class="capsku">' + skuLine(r) + "</span></div>";
+      caps.forEach(function (c) {
+        var x = capCell(r, c[0]);
+        var icon = { yes: "✓", no: "✗", unk: "?" }[x.k];
+        var cls = "cap " + x.k + (x.measured ? " meas" : x.k === "unk" ? "" : " pred");
+        h += '<div class="' + cls + '"><span class="capmobile">' + c[1] + "</span>" +
+          '<span class="capmain"><span aria-hidden="true">' + icon + "</span> " + esc(x.t) + "</span>" +
+          (x.s ? '<span class="capsub">' + esc(x.s) + "</span>" : "") +
+          (x.warn ? '<span class="capwarn"><span aria-hidden="true">⚠</span> ' + esc(x.warn) + "</span>" : "") + "</div>";
+      });
+      h += "</div>";
+    });
+    $("caps").innerHTML = h;
+    $("capsNote").innerHTML = "Solid cells were measured. <b>likely</b> and <b>unlikely</b> mean the model was not run there; the F64 peak predicts it, " +
+      "and it sorted every model run on both F64 and F2 correctly. Pro was tested once, with the kitchen sink. " +
+      "Limits per model: F2 to F8 3,066 MB, F16 5,120 MB, F32 10,240 MB, F64 25,600 MB, Premium Per User 102,400 MB. " +
+      "The memory one refresh may use is the limit minus the model already in memory, so a peak just under a limit can still fail.";
   }
 
   /* ---------- paired horizontal bars ---------- */
@@ -673,6 +692,94 @@
     $("changed").innerHTML = card(A, "a", "A") + card(B, "b", "B");
   }
 
+  /* ---------- diff against the baseline ---------- */
+
+  // Wrap the part of a changed line that differs from its pair in <mark>.
+  function markPair(a, b) {
+    var p = 0, sa = a.length, sb = b.length;
+    while (p < sa && p < sb && a[p] === b[p]) p++;
+    var s = 0;
+    while (s < sa - p && s < sb - p && a[sa - 1 - s] === b[sb - 1 - s]) s++;
+    function wrap(t, n) {
+      var mid = t.slice(p, t.length - s);
+      return esc(t.slice(0, p)) + (mid ? "<mark>" + esc(mid) + "</mark>" : "") + esc(t.slice(t.length - s));
+    }
+    // Only worth marking when the lines share a good part.
+    if (p + s < Math.min(sa, sb) * 0.3) return [esc(a), esc(b)];
+    return [wrap(a), wrap(b)];
+  }
+
+  function hunkRows(h) {
+    var m = /^@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@/.exec(h[0]);
+    var o = m ? +m[1] : 0, n = m ? +m[2] : 0;
+    var lines = h[1], html = ['<tr class="hh"><td class="ln"></td><td class="ln"></td><td colspan="2">' + esc(h[0]) + "</td></tr>"];
+    var i = 0;
+    while (i < lines.length) {
+      if (lines[i][0] === "-" || lines[i][0] === "+") {
+        var dels = [], adds = [];
+        while (i < lines.length && lines[i][0] === "-") dels.push(lines[i++].slice(1));
+        while (i < lines.length && lines[i][0] === "+") adds.push(lines[i++].slice(1));
+        var dh = dels.map(esc), ah = adds.map(esc);
+        if (dels.length === adds.length) {
+          for (var k = 0; k < dels.length; k++) { var mp = markPair(dels[k], adds[k]); dh[k] = mp[0]; ah[k] = mp[1]; }
+        }
+        dh.forEach(function (t) { html.push('<tr class="del"><td class="ln">' + (o++) + '</td><td class="ln"></td><td class="sg">-</td><td class="cd">' + t + "</td></tr>"); });
+        ah.forEach(function (t) { html.push('<tr class="add"><td class="ln"></td><td class="ln">' + (n++) + '</td><td class="sg">+</td><td class="cd">' + t + "</td></tr>"); });
+      } else {
+        html.push('<tr><td class="ln">' + (o++) + '</td><td class="ln">' + (n++) + '</td><td class="sg"></td><td class="cd">' + esc(lines[i].slice(1)) + "</td></tr>");
+        i++;
+      }
+    }
+    return html.join("");
+  }
+
+  function renderDiff(A, B) {
+    var same = A.key === B.key || A.folder === B.folder;
+    var sides = same ? [["a", A]] : [["b", B], ["a", A]];
+    if (!sides.some(function (s) { return s[0] === state.diffSide; })) state.diffSide = sides[0][0];
+    $("diffTabs").innerHTML = sides.map(function (s) {
+      var r = s[1], t = s[0].toUpperCase(), on = s[0] === state.diffSide;
+      return '<button type="button" role="tab" class="dtab" aria-selected="' + on + '" data-side="' + s[0] + '"><span class="tag t' + s[0] + '">' + t + "</span> " + esc(r.id + " · " + r.name) + "</button>";
+    }).join("");
+    Array.prototype.forEach.call(document.querySelectorAll("#diffTabs .dtab"), function (b) {
+      b.addEventListener("click", function () { state.diffSide = b.dataset.side; renderDiff(byKey[state.a], byKey[state.b]); });
+    });
+
+    var r = state.diffSide === "a" ? A : B;
+    var box = $("diff"), h = [];
+    if (r.folder === D.base) {
+      box.innerHTML = '<p class="dnote">This is the baseline. Every other model is compared against it.</p>';
+      return;
+    }
+    var d = D.diffs[r.folder] || { files: [] };
+    if (r.diffnote) h.push('<p class="dnote">' + esc(r.diffnote) + "</p>");
+    var add = 0, del = 0;
+    d.files.forEach(function (f) { add += f.add; del += f.del; });
+    if (!d.files.length && !d.generated) {
+      if (!r.diffnote) h.push('<p class="dnote">No change in the semantic model definition.</p>');
+      box.innerHTML = h.join("");
+      return;
+    }
+    h.push('<p class="dsum">' + d.files.length + (d.files.length === 1 ? " file" : " files") + ' changed, <span class="plus">+' + fmt(add) +
+      '</span> <span class="minus">-' + fmt(del) + "</span> lines" +
+      (d.generated ? ". Plus " + d.generated.files + " tables Power BI generates for Auto date/time (" + fmt(d.generated.lines) + " lines), not shown" : "") + ".</p>");
+    var dir = "models/" + r.folder + "/" + r.folder + ".SemanticModel/definition/";
+    d.files.forEach(function (f) {
+      var url = repoUrl("blob", encodeURI(dir + f.path));
+      var open = f.add + f.del <= 40 || d.files.length === 1;
+      var badge = { added: "new file", removed: "removed", modified: "" }[f.status];
+      h.push('<details class="dfile"' + (open ? " open" : "") + "><summary>" +
+        '<span class="dpath">' + esc(f.path) + "</span>" + (badge ? ' <span class="dbadge">' + badge + "</span>" : "") +
+        ' <span class="plus">+' + fmt(f.add) + '</span> <span class="minus">-' + fmt(f.del) + "</span>" +
+        ' <a class="dlink" href="' + esc(url) + '">view file</a></summary>' +
+        '<div class="dscroll"><table class="dtable"><caption class="vh">Changes in ' + esc(f.path) + "</caption><tbody>" +
+        f.hunks.map(hunkRows).join("") +
+        (f.cut ? '<tr class="hh"><td class="ln"></td><td class="ln"></td><td colspan="2">' + fmt(f.cut) + ' more changed lines. <a href="' + esc(url) + '">See the full file on GitHub</a>.</td></tr>' : "") +
+        "</tbody></table></div></details>");
+    });
+    box.innerHTML = h.join("");
+  }
+
   function renderCaveats() {
     $("caveats").innerHTML = "<ul>" + (D.caveats || []).map(function (c) { return "<li>" + esc(c) + "</li>"; }).join("") + "</ul>";
   }
@@ -687,12 +794,13 @@
       c.setAttribute("aria-pressed", String(c.dataset.a === state.a && c.dataset.b === state.b));
     });
     writeUrl();
+    renderCaps(A, B);
     renderVerdict(A, B);
-    renderFit(A, B);
     renderRefresh(A, B);
     renderSlope();
     renderQueries(A, B);
     renderChanged(A, B);
+    renderDiff(A, B);
   }
 
   function redraw() {

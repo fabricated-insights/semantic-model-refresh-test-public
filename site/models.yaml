@@ -10,6 +10,9 @@
 #   sizes          data sizes shown on the site (1M, 10M orders)
 #   qnote          optional: note shown under the query charts
 #   refnote        optional: note shown under the refresh charts
+#   diffnote       optional: note shown above the diff against the baseline
+#   pro            optional: result on Power BI Pro (shared capacity). Not in
+#                  the CSVs: the lab has one Pro run, v99 (lab-findings finding 11)
 #   ignore_before  optional: skip refreshes before this time (an earlier
 #                  version of the model, e.g. v99d's first four runs)
 
@@ -201,6 +204,7 @@ models:
     desc: Baseline model, report page with tables of all orders, order lines and customers.
     sizes: [1M]
     qnote: "High-cardinality page: 1,345 ms, 231 MB per query. On the 20-visual page it matches the baseline."
+    diffnote: The semantic model is the baseline unchanged. The change is an extra report page, p27, with tables of all orders, order lines and customers.
 
   - id: v99
     folder: v99-kitchen-sink
@@ -208,6 +212,7 @@ models:
     category: Kitchen sink
     desc: "Every antipattern at once: Power Query staging, sorts, buffers, Group By, calculated tables and columns, relationships, Auto date/time."
     sizes: [1M]
+    pro: refreshed
   - id: v99a
     folder: v99a-no-big-calc-tables
     name: Kitchen sink without big calculated tables

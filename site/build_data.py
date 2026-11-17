@@ -127,6 +127,7 @@ for r in read_csv(RESULTS / "harness-runs.csv"):
     when = (r["refresh_end_utc"] or r["timestamp_utc"]).replace("T", " ").rstrip("Z")
     refreshes[k].append({
         "src": "harness",
+        "run": r["harness_run_id"],
         "when": when,
         "cap": r["capacity"],
         "ok": r["result"] == "refreshed",
@@ -159,6 +160,7 @@ for r in mon:
         continue
     refreshes[k].append({
         "src": "monitoring",
+        "run": None,
         "when": r["Timestamp"][:19],
         "cap": "F64",
         "ok": ok,
@@ -366,11 +368,24 @@ for m in models:
             "name": m["name"], "category": m["category"], "desc": m["desc"],
             # A failed refresh has no peak: only completed F64 runs go in.
             "peaks": [r1(r["peak"], 0) for r in f64_ok],
+            # Power Query peak of the same runs, in the same order as peaks
+            "pqs": [r1(r["pq"], 0) for r in f64_ok],
         }
         if f64_ok:
             last = f64_ok[-1]
             rec.update(pq=r1(last["pq"], 0), dur=r1(last["dur"], 2), cpu=r1(last["cpu"], 0))
         rec["runs"] = len(f64)
+        # Every refresh, any capacity, for the "All runs" table. A failed run keeps the
+        # value where the engine stopped, marked as such, never as a peak.
+        rec["runlist"] = [{
+            "date": r["when"][:10], "cap": r["cap"], "ok": r["ok"],
+            "peak": r1(r["peak"], 0) if r["ok"] else None,
+            "stopped": r1(r["peak"], 0) if not r["ok"] else None,
+            "failure": r["failure"] or None,
+            "pq": r1(r["pq"], 0) if r["ok"] else None,
+            "dur": r1(r["dur"], 2), "cpu": r1(r["cpu"], 0),
+            "run": r.get("run"), "src": r["src"],
+        } for r in rs]
         rec["fails"] = len([r for r in f64 if not r["ok"]])
 
         doc_f64, doc_ppu = split_ppu(doc.get("F64 result", ""))

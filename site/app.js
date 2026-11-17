@@ -264,15 +264,62 @@
       s = nB + " needs " + fmt((1 - mB / mA) * 100) + "% less refresh memory than " + nA + ": " + peakPhrase(pB, B, pA) +
         (pB.on === "PPU" ? ", against " : " against ") + againstPhrase(pA, A, pB) + ".";
     }
-    if (A.key !== B.key && A.q && B.q && A.q.qpeak && B.q.qpeak && B.q.qpeak >= 3 * A.q.qpeak) {
-      s += " At query time, the heaviest query of " + nB + " needs " + timesWord(B.q.qpeak / A.q.qpeak) + " the memory: " +
-        mb(B.q.qpeak) + " against " + mb(A.q.qpeak) + ".";
+    var more = [];
+    if (A.key !== B.key) {
+      // Different data sizes: most of the difference can be the data itself.
+      if (A.size !== B.size) {
+        var alt = null;
+        if (byKey[A.id + "@" + B.size]) alt = [A.id + "@" + B.size, B.key];
+        else if (byKey[B.id + "@" + A.size]) alt = [A.key, B.id + "@" + A.size];
+        more.push('<li class="warn"><b>Different data sizes.</b> ' + nA + " is on " + A.size + " orders and " + nB + " on " + B.size +
+          ", so the difference includes the data itself, not just the change." +
+          (alt ? ' <a href="?a=' + alt[0] + "&b=" + alt[1] + '" data-pair="' + alt[0] + "|" + alt[1] + '">Compare both on ' +
+            byKey[alt[0]].size + " instead</a>." : "") + "</li>");
+      }
+      // Do the runs agree? The medians can differ while single runs overlap.
+      if (pA && pB && pA.on === "F64" && pB.on === "F64" && Math.abs(mB - mA) >= NOISE_MB && B.peaks.length > 1) {
+        var lo = minOf(A.peaks), hi = maxOf(A.peaks), n = B.peaks.length;
+        var beyond = B.peaks.filter(function (v) { return mB > mA ? v > hi : v < lo; }).length;
+        if (beyond < n) {
+          more.push('<li class="warn"><b>Not every run agrees.</b> ' + beyond + " of " + n + " runs of " + nB + " were " +
+            (mB > mA ? "above the highest run of " + nA + " (" + mb(hi) + ")" : "below the lowest run of " + nA + " (" + mb(lo) + ")") +
+            "; " + (n - beyond === 1 ? "one was" : (n - beyond) + " were") + " within its range of " + fmt(lo) + " to " + mb(hi) +
+            ". Treat the multiplier as a typical value, not a constant.</li>");
+        }
+      }
+      // Model size: often the real effect of type and calculated column changes.
+      var sizeKey = A.memory != null && B.memory != null ? "memory" : (A.service != null && B.service != null ? "service" : null);
+      if (sizeKey) {
+        var sr = B[sizeKey] / A[sizeKey];
+        if (sr >= 1.25 || sr <= 0.8) {
+          more.push("<li>" + (sizeKey === "memory" ? "In memory after refresh, " : "In the service, ") + nB +
+            (sr >= 1 ? " takes " + timesWord(sr) + " the space of " : " takes " + fmt((1 - sr) * 100) + "% less space than ") + nA +
+            ": " + mbx(B[sizeKey]) + (sizeKey === "service" && B.serviceOn ? " (on Premium Per User)" : "") +
+            " against " + mbx(A[sizeKey]) + (sizeKey === "service" && A.serviceOn ? " (on Premium Per User)" : "") + ".</li>");
+        }
+      }
+      // Report queries: memory per query is stable between runs, so smaller ratios count here.
+      if (A.q && B.q && A.q.qpeak && B.q.qpeak) {
+        var qr = B.q.qpeak / A.q.qpeak;
+        if (qr >= 1.5 || qr <= 0.67) {
+          var qtxt = qr >= 1 ? timesWord(qr) + " the memory" : (Math.abs(qr - 0.5) < 0.05 ? "half the memory" : fmt((1 - qr) * 100) + "% less memory");
+          more.push("<li>The heaviest report query of " + nB + " needs " + qtxt + ": " + mb(B.q.qpeak) + " against " + mb(A.q.qpeak) + ".</li>");
+        }
+      }
     }
+    if (more.length) s = '<span class="vmain">' + s + '</span><ul class="vmore">' + more.join("") + "</ul>";
     $("verdict").innerHTML = s;
+    Array.prototype.forEach.call(document.querySelectorAll("#verdict a[data-pair]"), function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        var pr = a.getAttribute("data-pair").split("|");
+        state.a = pr[0]; state.b = pr[1]; update();
+      });
+    });
 
     function tile(title, va, vb, f, missA, missB) {
       function v(x, miss) { return x == null ? '<span class="na">' + esc(miss || "not measured") + "</span>" : "<b>" + f(x) + "</b>"; }
-      var ratio = (va != null && vb != null && va > 0) ? "B/A " + times(vb / va) : "";
+      var ratio = (va != null && vb != null && va > 0) ? "B/A " + timesWord(vb / va) : "";
       return '<div class="tile"><div class="lbl">' + esc(title) + "</div>" +
         '<div class="row"><span class="tag ta">A</span>' + v(va, missA) + "</div>" +
         '<div class="row"><span class="tag tb">B</span>' + v(vb, missB) + "</div>" +
@@ -286,6 +333,14 @@
   }
 
   /* ---------- capacity summary ---------- */
+
+  // "at 3,319 MB, Power Query limit" -> "stopped at 3,319 MB (Power Query limit), not the full need".
+  // The number in a failure is where the engine cancelled the refresh (finding 10).
+  function stopText(rest) {
+    var m = /^at ([\d.,]+ ?(?:MB|GB))(?:,\s*(.*))?$/.exec(rest);
+    if (!m) return rest;
+    return "stopped at " + m[1] + (m[2] ? " (" + m[2] + ")" : "") + ", not the full need";
+  }
 
   // One cell: { k: "yes" | "no" | "unk", t: main text, s: detail, measured, warn }
   function capCell(r, cap) {
@@ -302,7 +357,7 @@
     if (cap === "F2") {
       var c;
       if (/^refreshed/.test(r.f2)) c = { k: "yes", t: "refreshed", s: "measured" + (rest(r.f2, "refreshed") ? ", " + rest(r.f2, "refreshed") : ""), measured: true };
-      else if (/^failed/.test(r.f2)) c = { k: "no", t: "failed", s: "measured" + (rest(r.f2, "failed") ? ", " + rest(r.f2, "failed") : ""), measured: true };
+      else if (/^failed/.test(r.f2)) c = { k: "no", t: "failed", s: "measured" + (rest(r.f2, "failed") ? ", " + stopText(rest(r.f2, "failed")) : ""), measured: true };
       else if (p != null) c = p <= SKUS[0].mb ? { k: "yes", t: "likely", s: "F64 peak is " + pct(SKUS[0].mb) } : { k: "no", t: "unlikely", s: "F64 peak is " + pct(SKUS[0].mb) };
       else c = { k: "unk", t: "not run" };
       if (r.q && r.q.qpeak > QUERY_LIMIT) c.warn = "Report queries up to " + mb(r.q.qpeak) + " fail at F2's " + fmt(QUERY_LIMIT) + " MB per-query limit";
@@ -310,12 +365,12 @@
     }
     if (cap === "F64") {
       if (p != null) return { k: "yes", t: "refreshed", s: "measured, peak " + mb(p) + ", " + fmt(p / SKUS[3].mb * 100) + "% of the limit", measured: true };
-      if (/^failed/.test(r.f64)) return { k: "no", t: "failed", s: "measured" + (rest(r.f64, "failed") ? ", " + rest(r.f64, "failed") : ""), measured: true };
+      if (/^failed/.test(r.f64)) return { k: "no", t: "failed", s: "measured" + (rest(r.f64, "failed") ? ", " + stopText(rest(r.f64, "failed")) : ""), measured: true };
       return { k: "unk", t: "not run" };
     }
     // PPU
     if (r.ppuPeak != null) return { k: "yes", t: "refreshed", s: "measured, peak " + mb(r.ppuPeak), measured: true };
-    if (/^failed/.test(r.ppu)) return { k: "no", t: "failed", s: "measured, " + rest(r.ppu, "failed"), measured: true };
+    if (/^failed/.test(r.ppu)) return { k: "no", t: "failed", s: "measured, " + stopText(rest(r.ppu, "failed")), measured: true };
     if (p != null) return { k: "yes", t: "likely", s: "F64 peak is " + fmt(p / SKUS[4].mb * 100) + "% of the 100 GB limit" };
     return { k: "unk", t: "not run" };
   }
@@ -327,7 +382,8 @@
     var names = ["F2", "F16", "F32", "F64"];
     for (var i = 0; i < 4; i++) {
       if (p <= SKUS[i].mb) {
-        return "Smallest F SKU: <b>" + names[i] + "</b> (peak " + mb(p) + ", " + fmt(p / SKUS[i].mb * 100) + "% of its " + fmt(SKUS[i].mb) + " MB)";
+        var qwarn = i === 0 && r.q && r.q.qpeak > QUERY_LIMIT ? " for refresh, but report queries over " + fmt(QUERY_LIMIT) + " MB fail on F2" : "";
+        return "Smallest F SKU: <b>" + names[i] + "</b>" + qwarn + " (peak " + mb(p) + ", " + fmt(p / SKUS[i].mb * 100) + "% of its " + fmt(SKUS[i].mb) + " MB)";
       }
     }
     return "Smallest F SKU: none";
@@ -495,7 +551,8 @@
         var rest = p.pq != null ? p.total - p.pq : null;
         text = "<b>" + mb(p.total) + "</b>" + (p.on === "F64" ? (p.n > 1 ? " in the latest run" : "") : " on Premium Per User (no completed F64 refresh: " + esc(r.f64) + ")") +
           (p.pq != null ? ": <b>" + mb(p.pq) + "</b> Power Query (" + fmt(p.pq / p.total * 100) + "%), " + mb(rest) + " the rest" : "") + "." +
-          (p.n > 1 ? " Over " + p.n + " runs the peak ranged from " + fmt(p.lo) + " to " + mb(p.hi) + ", median " + mb(peakMed(r)) + "." : "");
+          (p.n > 1 ? " Over " + p.n + " runs the peak ranged from " + fmt(p.lo) + " to " + mb(p.hi) + " (median " + mb(peakMed(r)) + ")" +
+            (r.pqs && r.pqs.length === p.n ? " and Power Query from " + fmt(minOf(r.pqs)) + " to " + mb(maxOf(r.pqs)) : "") + "." : "");
         svg.setAttribute("aria-label", who + ": " + text.replace(/<[^>]+>/g, ""));
       }
       row.appendChild(svg);
@@ -511,6 +568,32 @@
       var v = p && p.dur != null ? "<b>" + mins(p.dur) + "</b> duration, <b>" + sec(p.cpu) + "</b> CPU time" + (p.on === "F64" ? "" : " (Premium Per User)") : "no completed refresh";
       return '<p><span class="tag t' + t[1].toLowerCase() + '">' + t[1] + "</span> " + esc(shortLabel(r)) + ": " + v + "</p>";
     }).join("");
+  }
+
+  function renderRuns(A, B) {
+    var rows = A.key === B.key ? [[A, "A"]] : [[A, "A"], [B, "B"]];
+    var n = 0;
+    var h = '<table class="runs"><caption class="vh">Every refresh of the two models</caption><thead><tr>' +
+      '<th scope="col">Model</th><th scope="col">Date</th><th scope="col">Capacity</th><th scope="col">Result</th>' +
+      '<th scope="col" class="num">Peak</th><th scope="col" class="num">Power Query</th><th scope="col" class="num">Duration</th>' +
+      '<th scope="col" class="num">CPU</th><th scope="col">Evidence</th></tr></thead><tbody>';
+    rows.forEach(function (t) {
+      var r = t[0];
+      (r.runlist || []).forEach(function (x) {
+        n++;
+        var result = x.ok ? "refreshed" : "failed" + (x.failure && x.failure !== "failed" ? ", " + x.failure : "") +
+          (x.stopped != null ? ", stopped at " + mb(x.stopped) : "");
+        var peak = x.peak != null ? mb(x.peak) : (x.ok ? '<span class="sub">no monitoring</span>' : "");
+        var cap = x.cap === "PPU" ? "Premium Per User" : x.cap;
+        var ev = x.run ? '<a href="' + esc(repoUrl("tree", "results/harness/" + x.run)) + '" target="_blank" rel="noopener">' + esc(x.run) + "</a>"
+          : '<a href="' + esc(repoUrl("blob", "results/monitoring-refreshes.csv")) + '" target="_blank" rel="noopener">workspace monitoring export</a>';
+        h += '<tr><td><span class="tag t' + t[1].toLowerCase() + '">' + t[1] + "</span> " + esc(r.id) + "</td><td>" + esc(x.date) + "</td><td>" + esc(cap) + "</td>" +
+          '<td class="' + (x.ok ? "" : "bad") + '">' + esc(result) + '</td><td class="num">' + peak + '</td><td class="num">' + (x.pq != null ? mb(x.pq) : "") +
+          '</td><td class="num">' + (x.dur != null ? mins(x.dur) : "") + '</td><td class="num">' + (x.cpu != null ? sec(x.cpu) : "") + "</td><td>" + ev + "</td></tr>";
+      });
+    });
+    $("runsTable").innerHTML = '<div class="tablewrap">' + h + "</tbody></table></div>";
+    $("runsCount").textContent = "All " + n + " refresh runs of these models";
   }
 
   /* ---------- slope chart ---------- */
@@ -931,6 +1014,7 @@
     renderCaps(A, B);
     renderVerdict(A, B);
     renderRefresh(A, B);
+    renderRuns(A, B);
     renderSlope();
     renderQueries(A, B);
     renderChanged(A, B);

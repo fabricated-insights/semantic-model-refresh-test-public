@@ -2,7 +2,7 @@
  "latest": "2026-11-14",
  "title": "Compare two semantic models",
  "subtitle": "Same Contoso data, one change at a time. Every number is measured.",
- "intro": "Every model in the lab is the same clean baseline (v00) plus one change, refreshed and queried on real Fabric capacities. Pick two models and see what the change costs.",
+ "intro": "Every model in the lab is the same clean baseline (v00) plus one change, refreshed and queried on real Fabric capacities. Pick two models and see what the change costs. 1M means 1 million orders, 2.35M sales rows; 10M means 23.7M sales rows.",
  "repo": "https://github.com/fabricated-insights/semantic-model-refresh-test-public",
  "branch": "main",
  "articles": [
@@ -85,10 +85,233 @@
     856.0,
     602.0
    ],
+   "pqs": [
+    677.0,
+    312.0,
+    599.0,
+    419.0,
+    270.0,
+    374.0,
+    335.0,
+    344.0,
+    423.0,
+    847.0,
+    527.0
+   ],
    "pq": 527.0,
    "dur": 0.91,
    "cpu": 94.0,
    "runs": 12,
+   "runlist": [
+    {
+     "date": "2026-11-04",
+     "cap": "F64",
+     "ok": true,
+     "peak": 785.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 677.0,
+     "dur": 0.7,
+     "cpu": 64.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-07",
+     "cap": "F64",
+     "ok": true,
+     "peak": 551.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 312.0,
+     "dur": 0.68,
+     "cpu": 55.0,
+     "run": "20261107T195951Z-v00-40ca",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-10",
+     "cap": "F2",
+     "ok": true,
+     "peak": null,
+     "stopped": null,
+     "failure": null,
+     "pq": null,
+     "dur": 1.12,
+     "cpu": null,
+     "run": "20261110T084647Z-v00-0d16",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-10",
+     "cap": "F64",
+     "ok": true,
+     "peak": 623.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 599.0,
+     "dur": 0.61,
+     "cpu": 57.0,
+     "run": "20261110T084647Z-v00-0d16",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-10",
+     "cap": "F64",
+     "ok": true,
+     "peak": 698.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 419.0,
+     "dur": 0.78,
+     "cpu": 71.0,
+     "run": "20261110T100518Z-v00-84ae",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-11",
+     "cap": "F64",
+     "ok": true,
+     "peak": null,
+     "stopped": null,
+     "failure": null,
+     "pq": null,
+     "dur": 1.15,
+     "cpu": null,
+     "run": "20261111T075140Z-v00-9dce",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-11",
+     "cap": "F64",
+     "ok": true,
+     "peak": 543.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 270.0,
+     "dur": 0.58,
+     "cpu": 55.0,
+     "run": "20261111T190051Z-v00-05d6",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-11",
+     "cap": "F64",
+     "ok": true,
+     "peak": 545.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 374.0,
+     "dur": 0.6,
+     "cpu": 57.0,
+     "run": "20261111T193917Z-v00-05d4",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-11",
+     "cap": "F64",
+     "ok": true,
+     "peak": 608.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 335.0,
+     "dur": 0.59,
+     "cpu": 56.0,
+     "run": "20261111T194404Z-v00-f9ec",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-11",
+     "cap": "F2",
+     "ok": true,
+     "peak": null,
+     "stopped": null,
+     "failure": null,
+     "pq": null,
+     "dur": 1.16,
+     "cpu": null,
+     "run": "20261111T201106Z-v00-bbe0",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-12",
+     "cap": "F64",
+     "ok": true,
+     "peak": 550.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 344.0,
+     "dur": 0.99,
+     "cpu": 99.0,
+     "run": "20261112T140258Z-v00-88b8",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-12",
+     "cap": "F2",
+     "ok": true,
+     "peak": null,
+     "stopped": null,
+     "failure": null,
+     "pq": null,
+     "dur": 1.19,
+     "cpu": null,
+     "run": "20261112T143835Z-v00-e6b7",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-13",
+     "cap": "F64",
+     "ok": true,
+     "peak": 703.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 423.0,
+     "dur": 0.61,
+     "cpu": 57.0,
+     "run": "20261113T091752Z-v00-89cb",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-13",
+     "cap": "F64",
+     "ok": true,
+     "peak": 856.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 847.0,
+     "dur": 0.6,
+     "cpu": 57.0,
+     "run": "20261113T093230Z-v00-9a26",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-13",
+     "cap": "F2",
+     "ok": true,
+     "peak": null,
+     "stopped": null,
+     "failure": null,
+     "pq": null,
+     "dur": 1.24,
+     "cpu": null,
+     "run": "20261113T094637Z-v00-c535",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-13",
+     "cap": "F64",
+     "ok": true,
+     "peak": 602.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 527.0,
+     "dur": 0.91,
+     "cpu": 94.0,
+     "run": "20261113T202951Z-v00-0956",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "refreshed",
@@ -125,10 +348,109 @@
     1979.0,
     1650.0
    ],
+   "pqs": [
+    1832.0,
+    1584.0,
+    1391.0,
+    1192.0
+   ],
    "pq": 1192.0,
    "dur": 6.06,
    "cpu": 583.0,
    "runs": 4,
+   "runlist": [
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": true,
+     "peak": 2040.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1832.0,
+     "dur": 6.0,
+     "cpu": 597.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-10",
+     "cap": "F2",
+     "ok": true,
+     "peak": null,
+     "stopped": null,
+     "failure": null,
+     "pq": null,
+     "dur": 26.05,
+     "cpu": null,
+     "run": "20261110T090544Z-v00-a587",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-10",
+     "cap": "F64",
+     "ok": true,
+     "peak": 2116.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1584.0,
+     "dur": 5.99,
+     "cpu": 572.0,
+     "run": "20261110T090544Z-v00-a587",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-12",
+     "cap": "F64",
+     "ok": true,
+     "peak": 1979.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1391.0,
+     "dur": 9.89,
+     "cpu": 1009.0,
+     "run": "20261112T124554Z-v00-e597",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-12",
+     "cap": "F2",
+     "ok": true,
+     "peak": null,
+     "stopped": null,
+     "failure": null,
+     "pq": null,
+     "dur": 12.15,
+     "cpu": null,
+     "run": "20261112T131850Z-v00-6fae",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-13",
+     "cap": "F64",
+     "ok": true,
+     "peak": 1650.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1192.0,
+     "dur": 6.06,
+     "cpu": 583.0,
+     "run": "20261113T083412Z-v00-a839",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-13",
+     "cap": "F2",
+     "ok": true,
+     "peak": null,
+     "stopped": null,
+     "failure": null,
+     "pq": null,
+     "dur": 11.6,
+     "cpu": null,
+     "run": "20261113T085036Z-v00-b3e0",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "refreshed, 26 min",
@@ -162,10 +484,28 @@
    "peaks": [
     1562.0
    ],
+   "pqs": [
+    1372.0
+   ],
    "pq": 1372.0,
    "dur": 1.1,
    "cpu": 110.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-05",
+     "cap": "F64",
+     "ok": true,
+     "peak": 1562.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1372.0,
+     "dur": 1.1,
+     "cpu": 110.0,
+     "run": null,
+     "src": "monitoring"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "refreshed",
@@ -183,7 +523,140 @@
    "category": "Power Query",
    "desc": "Baseline plus five Power Query analyses on 10M data (merges, Group By with distinct counts, rankings, a self join).",
    "peaks": [],
+   "pqs": [],
    "runs": 9,
+   "runlist": [
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": false,
+     "peak": null,
+     "stopped": 22808.0,
+     "failure": "failed",
+     "pq": null,
+     "dur": 11.8,
+     "cpu": 2703.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": false,
+     "peak": null,
+     "stopped": 24464.0,
+     "failure": "failed",
+     "pq": null,
+     "dur": 9.6,
+     "cpu": 2560.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": false,
+     "peak": null,
+     "stopped": 22116.0,
+     "failure": "failed",
+     "pq": null,
+     "dur": 7.8,
+     "cpu": 1858.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": false,
+     "peak": null,
+     "stopped": 22002.0,
+     "failure": "failed",
+     "pq": null,
+     "dur": 7.8,
+     "cpu": 1721.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": false,
+     "peak": null,
+     "stopped": 20158.0,
+     "failure": "failed",
+     "pq": null,
+     "dur": 3.5,
+     "cpu": 1051.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": false,
+     "peak": null,
+     "stopped": 14627.0,
+     "failure": "failed",
+     "pq": null,
+     "dur": 7.3,
+     "cpu": 1198.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": false,
+     "peak": null,
+     "stopped": 14657.0,
+     "failure": "failed",
+     "pq": null,
+     "dur": 7.7,
+     "cpu": 1263.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": false,
+     "peak": null,
+     "stopped": 14366.0,
+     "failure": "failed",
+     "pq": null,
+     "dur": 7.5,
+     "cpu": 1298.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": false,
+     "peak": null,
+     "stopped": 14733.0,
+     "failure": "failed",
+     "pq": null,
+     "dur": 7.3,
+     "cpu": 1196.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-13",
+     "cap": "PPU",
+     "ok": false,
+     "peak": null,
+     "stopped": 22186.0,
+     "failure": "M evaluation memory limit",
+     "pq": null,
+     "dur": 23.44,
+     "cpu": 5440.0,
+     "run": "20261113T102051Z-v19-8b99",
+     "src": "harness"
+    }
+   ],
    "fails": 9,
    "f64": "failed, Power Query limit",
    "f2": "failed at 3,242 MB",
@@ -204,10 +677,55 @@
     5229.0,
     5269.0
    ],
+   "pqs": [
+    4965.0,
+    5043.0
+   ],
    "pq": 5043.0,
    "dur": 1.77,
    "cpu": 128.0,
    "runs": 2,
+   "runlist": [
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": true,
+     "peak": 5229.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 4965.0,
+     "dur": 8.6,
+     "cpu": 739.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-10",
+     "cap": "F2",
+     "ok": false,
+     "peak": null,
+     "stopped": null,
+     "failure": "resource governance",
+     "pq": null,
+     "dur": 1.15,
+     "cpu": null,
+     "run": "20261110T085434Z-v20-6a89",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-10",
+     "cap": "F64",
+     "ok": true,
+     "peak": 5269.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 5043.0,
+     "dur": 1.77,
+     "cpu": 128.0,
+     "run": "20261110T085434Z-v20-6a89",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "failed",
@@ -227,10 +745,28 @@
    "peaks": [
     3767.0
    ],
+   "pqs": [
+    3604.0
+   ],
    "pq": 3604.0,
    "dur": 0.8,
    "cpu": 112.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": true,
+     "peak": 3767.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 3604.0,
+     "dur": 0.8,
+     "cpu": 112.0,
+     "run": null,
+     "src": "monitoring"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "failed",
@@ -252,10 +788,56 @@
     621.0,
     794.0
    ],
+   "pqs": [
+    430.0,
+    270.0,
+    469.0
+   ],
    "pq": 469.0,
    "dur": 0.69,
    "cpu": 68.0,
    "runs": 3,
+   "runlist": [
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": true,
+     "peak": 686.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 430.0,
+     "dur": 0.8,
+     "cpu": 72.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-10",
+     "cap": "F64",
+     "ok": true,
+     "peak": 621.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 270.0,
+     "dur": 0.67,
+     "cpu": 67.0,
+     "run": "20261110T125746Z-v22-8023",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-13",
+     "cap": "F64",
+     "ok": true,
+     "peak": 794.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 469.0,
+     "dur": 0.69,
+     "cpu": 68.0,
+     "run": "20261113T173653Z-v22-df42",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "refreshed twice",
@@ -289,10 +871,42 @@
     1405.0,
     1406.0
    ],
+   "pqs": [
+    399.0,
+    721.0
+   ],
    "pq": 721.0,
    "dur": 0.75,
    "cpu": 84.0,
    "runs": 2,
+   "runlist": [
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": true,
+     "peak": 1405.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 399.0,
+     "dur": 0.9,
+     "cpu": 95.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-10",
+     "cap": "F64",
+     "ok": true,
+     "peak": 1406.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 721.0,
+     "dur": 0.75,
+     "cpu": 84.0,
+     "run": "20261110T131904Z-v23-8705",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "refreshed twice",
@@ -328,10 +942,70 @@
     13139.0,
     13062.0
    ],
+   "pqs": [
+    1202.0,
+    1708.0,
+    1707.0,
+    1870.0
+   ],
    "pq": 1870.0,
    "dur": 7.47,
    "cpu": 809.0,
    "runs": 4,
+   "runlist": [
+    {
+     "date": "2026-11-06",
+     "cap": "F64",
+     "ok": true,
+     "peak": 13062.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1202.0,
+     "dur": 8.6,
+     "cpu": 985.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-12",
+     "cap": "F64",
+     "ok": true,
+     "peak": 13064.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1708.0,
+     "dur": 7.91,
+     "cpu": 850.0,
+     "run": "20261112T114059Z-v23-16be",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-12",
+     "cap": "F64",
+     "ok": true,
+     "peak": 13139.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1707.0,
+     "dur": 8.18,
+     "cpu": 878.0,
+     "run": "20261112T115659Z-v23-fb5a",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-12",
+     "cap": "F64",
+     "ok": true,
+     "peak": 13062.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1870.0,
+     "dur": 7.47,
+     "cpu": 809.0,
+     "run": "20261112T121228Z-v23-dfc6",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -351,10 +1025,28 @@
    "peaks": [
     913.0
    ],
+   "pqs": [
+    334.0
+   ],
    "pq": 334.0,
    "dur": 0.78,
    "cpu": 91.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-12",
+     "cap": "F64",
+     "ok": true,
+     "peak": 913.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 334.0,
+     "dur": 0.78,
+     "cpu": 91.0,
+     "run": "20261112T082856Z-v31-5697",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -387,10 +1079,28 @@
    "peaks": [
     631.0
    ],
+   "pqs": [
+    595.0
+   ],
    "pq": 595.0,
    "dur": 1.09,
    "cpu": 121.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-12",
+     "cap": "F64",
+     "ok": true,
+     "peak": 631.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 595.0,
+     "dur": 1.09,
+     "cpu": 121.0,
+     "run": "20261112T110213Z-v32-ae1e",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -423,10 +1133,28 @@
    "peaks": [
     13063.0
    ],
+   "pqs": [
+    1601.0
+   ],
    "pq": 1601.0,
    "dur": 17.26,
    "cpu": 1827.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-13",
+     "cap": "F64",
+     "ok": true,
+     "peak": 13063.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1601.0,
+     "dur": 17.26,
+     "cpu": 1827.0,
+     "run": "20261113T122445Z-v35-6ea1",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -446,10 +1174,28 @@
    "peaks": [
     14759.0
    ],
+   "pqs": [
+    1194.0
+   ],
    "pq": 1194.0,
    "dur": 7.36,
    "cpu": 826.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-13",
+     "cap": "F64",
+     "ok": true,
+     "peak": 14759.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1194.0,
+     "dur": 7.36,
+     "cpu": 826.0,
+     "run": "20261113T132605Z-v36-6c53",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -469,10 +1215,28 @@
    "peaks": [
     608.0
    ],
+   "pqs": [
+    335.0
+   ],
    "pq": 335.0,
    "dur": 0.59,
    "cpu": 56.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-10",
+     "cap": "F64",
+     "ok": true,
+     "peak": 608.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 335.0,
+     "dur": 0.59,
+     "cpu": 56.0,
+     "run": "20261110T144309Z-v24-17f8",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -505,10 +1269,28 @@
    "peaks": [
     933.0
    ],
+   "pqs": [
+    911.0
+   ],
    "pq": 911.0,
    "dur": 0.6,
    "cpu": 69.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-10",
+     "cap": "F64",
+     "ok": true,
+     "peak": 933.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 911.0,
+     "dur": 0.6,
+     "cpu": 69.0,
+     "run": "20261110T150725Z-v24a-f994",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -541,10 +1323,28 @@
    "peaks": [
     1102.0
    ],
+   "pqs": [
+    1003.0
+   ],
    "pq": 1003.0,
    "dur": 1.02,
    "cpu": 105.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-10",
+     "cap": "F64",
+     "ok": true,
+     "peak": 1102.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1003.0,
+     "dur": 1.02,
+     "cpu": 105.0,
+     "run": "20261110T152942Z-v24b-a4dc",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -578,10 +1378,28 @@
    "peaks": [
     614.0
    ],
+   "pqs": [
+    457.0
+   ],
    "pq": 457.0,
    "dur": 0.66,
    "cpu": 69.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-11",
+     "cap": "F64",
+     "ok": true,
+     "peak": 614.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 457.0,
+     "dur": 0.66,
+     "cpu": 69.0,
+     "run": "20261111T195122Z-v25-009e",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -615,10 +1433,28 @@
    "peaks": [
     777.0
    ],
+   "pqs": [
+    629.0
+   ],
    "pq": 629.0,
    "dur": 0.93,
    "cpu": 108.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-11",
+     "cap": "F64",
+     "ok": true,
+     "peak": 777.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 629.0,
+     "dur": 0.93,
+     "cpu": 108.0,
+     "run": "20261111T204204Z-v28-3f3b",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -653,10 +1489,56 @@
     665.0,
     1735.0
    ],
+   "pqs": [
+    1465.0,
+    398.0,
+    1720.0
+   ],
    "pq": 1720.0,
    "dur": 1.12,
    "cpu": 122.0,
    "runs": 3,
+   "runlist": [
+    {
+     "date": "2026-11-12",
+     "cap": "F64",
+     "ok": true,
+     "peak": 1489.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1465.0,
+     "dur": 0.54,
+     "cpu": 56.0,
+     "run": "20261112T081715Z-v29-b0f1",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-13",
+     "cap": "F64",
+     "ok": true,
+     "peak": 665.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 398.0,
+     "dur": 0.92,
+     "cpu": 104.0,
+     "run": "20261113T092511Z-v29-4df0",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-13",
+     "cap": "F64",
+     "ok": true,
+     "peak": 1735.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 1720.0,
+     "dur": 1.12,
+     "cpu": 122.0,
+     "run": "20261113T093950Z-v29-f936",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -689,10 +1571,28 @@
    "peaks": [
     550.0
    ],
+   "pqs": [
+    270.0
+   ],
    "pq": 270.0,
    "dur": 0.5,
    "cpu": 51.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-12",
+     "cap": "F64",
+     "ok": true,
+     "peak": 550.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 270.0,
+     "dur": 0.5,
+     "cpu": 51.0,
+     "run": "20261112T082436Z-v30-ccac",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -726,10 +1626,42 @@
     619.0,
     554.0
    ],
+   "pqs": [
+    423.0,
+    270.0
+   ],
    "pq": 270.0,
    "dur": 0.96,
    "cpu": 97.0,
    "runs": 2,
+   "runlist": [
+    {
+     "date": "2026-11-12",
+     "cap": "F64",
+     "ok": true,
+     "peak": 619.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 423.0,
+     "dur": 0.61,
+     "cpu": 59.0,
+     "run": "20261112T112137Z-v33-27b3",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-13",
+     "cap": "F64",
+     "ok": true,
+     "peak": 554.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 270.0,
+     "dur": 0.96,
+     "cpu": 97.0,
+     "run": "20261113T203408Z-v33-68ea",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -763,10 +1695,42 @@
     707.0,
     723.0
    ],
+   "pqs": [
+    421.0,
+    600.0
+   ],
    "pq": 600.0,
    "dur": 0.59,
    "cpu": 56.0,
    "runs": 2,
+   "runlist": [
+    {
+     "date": "2026-11-12",
+     "cap": "F64",
+     "ok": true,
+     "peak": 707.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 421.0,
+     "dur": 0.99,
+     "cpu": 99.0,
+     "run": "20261112T134438Z-v34-9a21",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-13",
+     "cap": "F64",
+     "ok": true,
+     "peak": 723.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 600.0,
+     "dur": 0.59,
+     "cpu": 56.0,
+     "run": "20261113T203854Z-v34-b940",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -799,10 +1763,41 @@
    "peaks": [
     715.0
    ],
+   "pqs": [
+    689.0
+   ],
    "pq": 689.0,
    "dur": 0.59,
    "cpu": 56.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-10",
+     "cap": "F64",
+     "ok": true,
+     "peak": 715.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 689.0,
+     "dur": 0.59,
+     "cpu": 56.0,
+     "run": "20261110T111306Z-v26-d200",
+     "src": "harness"
+    },
+    {
+     "date": "2026-11-11",
+     "cap": "F2",
+     "ok": true,
+     "peak": null,
+     "stopped": null,
+     "failure": null,
+     "pq": null,
+     "dur": 1.08,
+     "cpu": null,
+     "run": "20261111T202238Z-v26-237b",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "refreshed",
@@ -836,10 +1831,28 @@
    "peaks": [
     616.0
    ],
+   "pqs": [
+    336.0
+   ],
    "pq": 336.0,
    "dur": 0.66,
    "cpu": 63.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-10",
+     "cap": "F64",
+     "ok": true,
+     "peak": 616.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 336.0,
+     "dur": 0.66,
+     "cpu": 63.0,
+     "run": "20261110T111829Z-v27-b2a6",
+     "src": "harness"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "not run",
@@ -872,7 +1885,75 @@
    "category": "Kitchen sink",
    "desc": "Every antipattern at once: Power Query staging, sorts, buffers, Group By, calculated tables and columns, relationships, Auto date/time.",
    "peaks": [],
+   "pqs": [],
    "runs": 4,
+   "runlist": [
+    {
+     "date": "2026-11-04",
+     "cap": "F64",
+     "ok": false,
+     "peak": null,
+     "stopped": 25590.0,
+     "failure": "failed",
+     "pq": null,
+     "dur": 4.2,
+     "cpu": 866.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-04",
+     "cap": "F64",
+     "ok": false,
+     "peak": null,
+     "stopped": 25592.0,
+     "failure": "failed",
+     "pq": null,
+     "dur": 4.8,
+     "cpu": 1004.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-04",
+     "cap": "F64",
+     "ok": false,
+     "peak": null,
+     "stopped": 25592.0,
+     "failure": "failed",
+     "pq": null,
+     "dur": 4.2,
+     "cpu": 835.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-04",
+     "cap": "F64",
+     "ok": false,
+     "peak": null,
+     "stopped": 25589.0,
+     "failure": "failed",
+     "pq": null,
+     "dur": 3.6,
+     "cpu": 731.0,
+     "run": null,
+     "src": "monitoring"
+    },
+    {
+     "date": "2026-11-10",
+     "cap": "PPU",
+     "ok": true,
+     "peak": 26115.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 25958.0,
+     "dur": 19.57,
+     "cpu": 4036.0,
+     "run": "20261110T162110Z-v99-0db3",
+     "src": "harness"
+    }
+   ],
    "fails": 4,
    "f64": "failed at 25.6 GB",
    "f2": "failed at 3,319 MB",
@@ -899,10 +1980,28 @@
    "peaks": [
     16054.0
    ],
+   "pqs": [
+    15932.0
+   ],
    "pq": 15932.0,
    "dur": 9.1,
    "cpu": 876.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-04",
+     "cap": "F64",
+     "ok": true,
+     "peak": 16054.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 15932.0,
+     "dur": 9.1,
+     "cpu": 876.0,
+     "run": null,
+     "src": "monitoring"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "failed at 3,099 MB",
@@ -922,10 +2021,28 @@
    "peaks": [
     12992.0
    ],
+   "pqs": [
+    12892.0
+   ],
    "pq": 12892.0,
    "dur": 12.3,
    "cpu": 1262.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-05",
+     "cap": "F64",
+     "ok": true,
+     "peak": 12992.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 12892.0,
+     "dur": 12.3,
+     "cpu": 1262.0,
+     "run": null,
+     "src": "monitoring"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "failed",
@@ -945,10 +2062,28 @@
    "peaks": [
     12878.0
    ],
+   "pqs": [
+    12760.0
+   ],
    "pq": 12760.0,
    "dur": 7.6,
    "cpu": 730.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-05",
+     "cap": "F64",
+     "ok": true,
+     "peak": 12878.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 12760.0,
+     "dur": 7.6,
+     "cpu": 730.0,
+     "run": null,
+     "src": "monitoring"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "failed at 3,146 MB",
@@ -968,10 +2103,28 @@
    "peaks": [
     627.0
    ],
+   "pqs": [
+    272.0
+   ],
    "pq": 272.0,
    "dur": 0.8,
    "cpu": 73.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-05",
+     "cap": "F64",
+     "ok": true,
+     "peak": 627.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 272.0,
+     "dur": 0.8,
+     "cpu": 73.0,
+     "run": null,
+     "src": "monitoring"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "refreshed",
@@ -991,10 +2144,28 @@
    "peaks": [
     5337.0
    ],
+   "pqs": [
+    5048.0
+   ],
    "pq": 5048.0,
    "dur": 2.3,
    "cpu": 162.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-05",
+     "cap": "F64",
+     "ok": true,
+     "peak": 5337.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 5048.0,
+     "dur": 2.3,
+     "cpu": 162.0,
+     "run": null,
+     "src": "monitoring"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "failed",
@@ -1014,10 +2185,28 @@
    "peaks": [
     3477.0
    ],
+   "pqs": [
+    3243.0
+   ],
    "pq": 3243.0,
    "dur": 0.8,
    "cpu": 112.0,
    "runs": 1,
+   "runlist": [
+    {
+     "date": "2026-11-05",
+     "cap": "F64",
+     "ok": true,
+     "peak": 3477.0,
+     "stopped": null,
+     "failure": null,
+     "pq": 3243.0,
+     "dur": 0.8,
+     "cpu": 112.0,
+     "run": null,
+     "src": "monitoring"
+    }
+   ],
    "fails": 0,
    "f64": "refreshed",
    "f2": "failed",

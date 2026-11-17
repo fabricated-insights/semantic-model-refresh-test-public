@@ -372,3 +372,13 @@ table.runs { font-size: 13px; margin-top: 8px; }
 table.runs td, table.runs th { padding: 6px 8px; white-space: nowrap; }
 table.runs td.bad { color: var(--bad); }
 table.runs .sub { display: inline; }
+
+/* Size hint, A-vs-B diff toggle */
+.sizehint { margin: 8px 0 0; }
+.diffmode { margin: 4px 0 10px; }
+.diffmode .toggle { margin: 0; }
+
+/* Why and what to do instead, in the What changed cards */
+.mcard p.why, .mcard p.fix { font-size: 14px; color: var(--ink-2); }
+.mcard p.why b, .mcard p.fix b { color: var(--ink); }
+.mcard p.fix { padding-left: 10px; border-left: 3px solid var(--good); }

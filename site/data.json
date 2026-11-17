@@ -332,7 +332,8 @@
     "qpeak": 57.7,
     "qpeakPage": "p20",
     "f2q": "no memory errors (18 of 20 visuals checked; the 2 matrices can't run over the REST API)."
-   }
+   },
+   "why": "A clean star schema with typed columns, single direction relationships, no calculated columns or tables and Auto date/time off. On 1M it peaks at 543 to 856 MB on F64 over 11 runs for a 73 MB model, and it refreshes on F2 on both 1M and 10M (1,650 to 2,116 MB on 10M)."
   },
   {
    "key": "v00@10M",
@@ -471,7 +472,8 @@
     "qpeak": 860.8,
     "qpeakPage": "p20",
     "f2q": "no memory errors (18 of 20 visuals checked; the 2 matrices can't run over the REST API); over XMLA the heaviest query ran at 860 MB, 84% of F2's 1,024 MB per-query limit."
-   }
+   },
+   "why": "A clean star schema with typed columns, single direction relationships, no calculated columns or tables and Auto date/time off. On 1M it peaks at 543 to 856 MB on F64 over 11 runs for a 73 MB model, and it refreshes on F2 on both 1M and 10M (1,650 to 2,116 MB on 10M)."
   },
   {
    "key": "v18@1M",
@@ -512,7 +514,9 @@
    "ppu": "not run",
    "service": 73.0,
    "memory": null,
-   "pbix": 49.2
+   "pbix": 49.2,
+   "why": "The summary table is small, but its source does not fold, so Power Query downloads, decodes and groups the whole 10M Sales file during refresh, even though that staging query is not loaded. The peak is 1,562 MB, about twice the baseline's 543 to 856 MB, with an unchanged 73 MB model. It still refreshed on F2.",
+   "fix": "Count the Power Query work that a not-loaded query does, not only the rows that load. With a source that folds, a Group By runs in the database and does not cost refresh memory. On a file source the lab tested no alternative."
   },
   {
    "key": "v19@1M",
@@ -663,7 +667,9 @@
    "ppu": "failed at 22,186 MB, M evaluation memory limit",
    "service": null,
    "memory": null,
-   "pbix": null
+   "pbix": null,
+   "why": "Five Power Query analyses on 10M (merges, Group By with distinct counts, rankings, a self join) load only small tables, yet they fail with 'The M evaluation exceeded the memory limit' at 14.4 to 24.5 GB, below F64's 25.6 GB model limit. This is a separate limit per Power Query evaluation. Premium Per User, with 100 GB per model, failed the same way at 22,186 MB.",
+   "fix": "A larger capacity does not fix this: Premium Per User did not raise the Power Query limit. The query that failed every time was PQ Customer RFM, which ranks all 1.68M customers three times. The lab did not test a rewrite of it."
   },
   {
    "key": "v20@1M",
@@ -732,7 +738,9 @@
    "ppu": "not run",
    "service": 71.9,
    "memory": null,
-   "pbix": 51.7
+   "pbix": 51.7,
+   "why": "A Table.Sort cannot stream: Power Query reads all 2.35M Sales rows into memory before it returns the first one. Two sorts take the peak to 5,229 to 5,269 MB against the baseline's 543 to 856 MB, and the refresh fails on F2. The loaded table is identical to the baseline at 72 MB.",
+   "fix": "Remove the sorts. The model does not use row order, and v00 loads the same table without them. With a source that folds, a sort runs in the database and does not cost refresh memory."
   },
   {
    "key": "v21@1M",
@@ -773,7 +781,9 @@
    "ppu": "not run",
    "service": 85.0,
    "memory": null,
-   "pbix": 57.4
+   "pbix": 57.4,
+   "why": "A Group By cannot stream. Power Query reads the whole 2.35M row fact and keeps every group, with its rows for the distinct count, until the last row is read. One small summary table takes the peak to 3,767 MB against the baseline's 543 to 856 MB and fails F2, with an 85 MB model.",
+   "fix": "With a source that folds, the Group By runs in the database and does not cost refresh memory. For a non folding source like this one, the lab tested no alternative."
   },
   {
    "key": "v22@1M",
@@ -857,7 +867,9 @@
     ],
     "qpeak": 57.7,
     "qpeakPage": "p20"
-   }
+   },
+   "why": "Eight calculated columns on Sales (RELATED, RANKX, a text label, CALCULATE with ALLEXCEPT) are computed after load at 0.6 to 3.5 s each. The part of the peak outside Power Query grows from about 110 to about 260 MB, while the total peak stays in the baseline's range (621 to 794 MB over 3 runs). The model grows from 73 to 101 MB.",
+   "fix": "At this size calculated columns are not a refresh memory problem. Their cost is model size and refresh time. The lab did not test moving them to Power Query or to the source."
   },
   {
    "key": "v23@1M",
@@ -926,7 +938,9 @@
     ],
     "qpeak": 57.7,
     "qpeakPage": "p20"
-   }
+   },
+   "why": "A calculated table is built in memory in full before it is compressed. Four calculated tables raise the peak to about 1,405 MB on 1M (baseline 543 to 856 MB) and to about 13,062 MB on 10M (baseline 1,650 to 2,116 MB), so on 10M the model needs F64. The model grows from 73 to 184 MB on 1M.",
+   "fix": "Drop calculated tables that no visual uses. v00 is the same model without them, and the report queries ran the same on both. Of the four, the SUMMARIZECOLUMNS summary built from measures is the most likely to set the peak (v35, v36)."
   },
   {
    "key": "v23@10M",
@@ -1012,7 +1026,9 @@
    "ppu": "not run",
    "service": 1833.0,
    "memory": 1386.8,
-   "pbix": null
+   "pbix": null,
+   "why": "A calculated table is built in memory in full before it is compressed. Four calculated tables raise the peak to about 1,405 MB on 1M (baseline 543 to 856 MB) and to about 13,062 MB on 10M (baseline 1,650 to 2,116 MB), so on 10M the model needs F64. The model grows from 73 to 184 MB on 1M.",
+   "fix": "Drop calculated tables that no visual uses. v00 is the same model without them, and the report queries ran the same on both. Of the four, the SUMMARIZECOLUMNS summary built from measures is the most likely to set the peak (v35, v36)."
   },
   {
    "key": "v31@1M",
@@ -1066,7 +1082,9 @@
     ],
     "qpeak": 57.7,
     "qpeakPage": "p20"
-   }
+   },
+   "why": "32 row by row calculated columns on Sales (RELATED text, LOOKUPVALUE, arithmetic, an order line key unique per row) are stored like imported columns. The model grows from 92.7 to 316.8 MB in memory (223 MB backup against 72.7 MB). The peak rises to 913 MB with Power Query at baseline level. Queries are unchanged because no visual uses the columns.",
+   "fix": "Leave dimension attributes in their dimension tables instead of repeating them on 2.3M Sales rows with RELATED, as v00 does. Avoid a key column with one distinct value per row unless a visual needs it."
   },
   {
    "key": "v32@1M",
@@ -1120,7 +1138,9 @@
     ],
     "qpeak": 55.4,
     "qpeakPage": "p20"
-   }
+   },
+   "why": "30 aggregating calculated columns (SUMX over RELATEDTABLE, RANKX, FILTER with EARLIER) need the whole fact table for every row, but the peak stays in the baseline's range at 631 MB. They cost time and size instead: refresh CPU doubles to 121 s, and the model grows from 92.7 to 367.9 MB in memory.",
+   "fix": "These columns cost no peak memory. Their cost is model size and refresh CPU. The lab tested no alternative, such as measures, for these statistics."
   },
   {
    "key": "v35@10M",
@@ -1161,7 +1181,9 @@
    "ppu": "not run",
    "service": null,
    "memory": 2803.0,
-   "pbix": null
+   "pbix": null,
+   "why": "Four copies of Sales in the Sales Copy calculated table (94.9M rows instead of 23.7M on 10M) double the model to 2,803 MB and the refresh time to 17 minutes, yet the peak stays at 13,063 MB. The copy runs in parallel with the Sales Summary table, which is the most likely step to set the peak.",
+   "fix": "A copy table costs model memory and refresh time, not peak memory. Drop copies of the fact that no visual uses. To lower the peak, look at measure-based summary tables instead (v36)."
   },
   {
    "key": "v36@10M",
@@ -1202,7 +1224,9 @@
    "ppu": "not run",
    "service": null,
    "memory": 1406.2,
-   "pbix": null
+   "pbix": null,
+   "why": "Grouping the SUMMARIZECOLUMNS Sales Summary (three measures, one a DISTINCTCOUNT) by month instead of year adds about 3M rows and raises the peak by 1.7 GB, to 14,759 MB. v35 added 69M rows to a copy table and the peak did not move.",
+   "fix": "The grain of a calculated summary built from measures drives the refresh peak, so keep it no finer than the report needs. The lab measured year against month only."
   },
   {
    "key": "v24@1M",
@@ -1256,7 +1280,9 @@
     ],
     "qpeak": 55.4,
     "qpeakPage": "p20"
-   }
+   },
+   "why": "The relationship is built the same way whichever direction it filters, so the refresh peak (608 MB) and the model (73 MB) match the baseline. On a single star the only query change was a slicer that now goes through Sales: 16 ms instead of 0 ms.",
+   "fix": "No refresh or query memory cost on a single star. The risk shows up when there is a second fact table (v24b)."
   },
   {
    "key": "v24a@1M",
@@ -1310,7 +1336,9 @@
     ],
     "qpeak": 54.7,
     "qpeakPage": "p20"
-   }
+   },
+   "why": "A second fact table, Orders (980,666 rows), adds 30 MB to the model. The peak of 933 MB is almost all Power Query and comes from one run, against a baseline whose Power Query peak varies by more than 300 MB between runs. With single direction relationships, a Category slicer does not filter Orders, and no warning is shown.",
+   "fix": "This is the control for v24b and needs no fix for memory. The lab gives no tested way to make Product filter Orders; v24b shows that a bidirectional relationship is not the right way."
   },
   {
    "key": "v24b@1M",
@@ -1365,7 +1393,9 @@
     "qpeak": 57.7,
     "qpeakPage": "p20",
     "note": "Orders page gives different numbers: 966,183 orders for Computers instead of 422,638."
-   }
+   },
+   "why": "With Sales to Customer bidirectional, a Category filter reaches Orders through Customer. 'Computers' then gives 966,183 orders placed by customers who ever bought a computer, while 422,638 orders actually contain a computer. Refresh worked (peak 1,102 MB, one run) and the Orders page got slower (16 to 78 ms), but the main cost is a wrong number with no error.",
+   "fix": "Keep Sales to Customer single direction. For orders that contain a product category, count DISTINCTCOUNT ( Sales[Order Number] ) under the same filter, which gives the 422,638."
   },
   {
    "key": "v25@1M",
@@ -1420,7 +1450,9 @@
     "qpeak": 62.3,
     "qpeakPage": "pm",
     "note": "Every segment shows the total of all sales."
-   }
+   },
+   "why": "A segment that changes by year is joined to Sales on CustomerKey only, as many-to-many. Every segment then returns all sales, 2,298,959,216, because every customer was in every segment in some year. Refresh is unchanged (614 MB), and the segment page joins against 1,049,900 rows that a warm cache does not remove.",
+   "fix": "Filter on customer and year together. TREATAS on both columns returns the year-matched Gold total of 769,523,321, 33.5 percent of sales."
   },
   {
    "key": "v28@1M",
@@ -1474,7 +1506,9 @@
     ],
     "qpeak": 27.9,
     "qpeakPage": "p20"
-   }
+   },
+   "why": "Text columns need a dictionary entry for every distinct value and cannot use value encoding. The model grows from 92.7 to 171.5 MB in memory, though the backup size is slightly smaller (69.1 against 72.7 MB). The refresh peak is 777 MB, with CPU at 108 s against 55 to 71 s. The largest query needed half the memory, 28 MB against 58 MB.",
+   "fix": "Set the correct data types in Power Query as v00 does: whole numbers, dates and fixed decimals instead of text. Text dates and numbers also need extra sort columns to sort correctly."
   },
   {
    "key": "v29@1M",
@@ -1558,7 +1592,9 @@
     ],
     "qpeak": 27.9,
     "qpeakPage": "p20"
-   }
+   },
+   "why": "Keys are the columns with the most distinct values (980,666 order numbers on 1M), and as text they need a hash dictionary instead of value encoding. The model grows from 92.7 to 141.9 MB in memory. Two of three refreshes peaked at 1,489 and 1,735 MB in Power Query, against at most 856 MB for v00; the third stayed at 665 MB. The largest query needed 28 MB against 58 MB.",
+   "fix": "Convert keys to whole numbers in Power Query, as v00 does. Text keys halved the query memory in every run, but the model grew 1.5 times and two of three refreshes needed about twice the memory."
   },
   {
    "key": "v30@1M",
@@ -1612,7 +1648,9 @@
     ],
     "qpeak": 57.7,
     "qpeakPage": "p20"
-   }
+   },
+   "why": "Decimal number instead of fixed decimal for five price and cost columns made no measurable difference: model 92.9 against 92.7 MB in memory, peak 550 MB, same queries. Sales Amount differs by 1.23 on 2.3 billion, because fixed decimal rounds the 4,742 Net Price values that have a fifth decimal.",
+   "fix": "At this size either type works. Fixed decimal stores four decimals, so it rounds source values that have more. Decimal number keeps them, with floating point rounding in the last digits."
   },
   {
    "key": "v33@1M",
@@ -1681,7 +1719,9 @@
     ],
     "qpeak": 54.8,
     "qpeakPage": "p20"
-   }
+   },
+   "why": "With Auto date/time on, Desktop adds a hidden calculated date table for each date column that is not related to the marked Date table: Customer[Birthday], Store[Open Date] and Store[Close Date]. That adds 3.5 MB in memory (96.2 MB), and the peak stays in the baseline's range (554 to 619 MB).",
+   "fix": "Turn Auto date/time off under File > Options and settings > Options > Current file > Data load, as v00 does. With a marked Date table that the fact dates relate to, its cost here was only a few MB."
   },
   {
    "key": "v34@1M",
@@ -1750,7 +1790,9 @@
     ],
     "qpeak": 57.8,
     "qpeakPage": "p20"
-   }
+   },
+   "why": "With the Date table not marked, Desktop also adds local date tables for Date[Date] and Date[End of Month], five in total. The model is 96.9 MB in memory against 92.7 MB, and the peak is 707 to 723 MB. The fact date columns still get none, because they are relationship keys.",
+   "fix": "Mark the Date table as a date table and turn Auto date/time off, as v00 does. A model with no Date table at all would get a local table for each fact date column, which the lab did not test."
   },
   {
    "key": "v26@1M",
@@ -1818,7 +1860,9 @@
     "qpeak": 2654.9,
     "qpeakPage": "p20",
     "f2q": "4 of 20 visuals fail on F2: query memory over the 1,024 MB limit."
-   }
+   },
+   "why": "Measures are not computed at refresh, so refresh (715 MB) and model size (73 MB) match the baseline. At query time, Margin as SUMX over two measures does a context transition for each Sales row and needs up to 2,655 MB for a query that returns 4 rows. Four visuals fail on F2 at its 1,024 MB per query limit, and a warm cache does not help.",
+   "fix": "Write the measures as v00 does: Margin as [Sales Amount] - [Total Cost], Margin % with DIVIDE, and # Orders as DISTINCTCOUNT ( Sales[Order Number] ). FILTER ( Sales, Sales[Quantity] > 0 ) cost nothing measurable, because the engine turns it into a column filter."
   },
   {
    "key": "v27@1M",
@@ -1874,6 +1918,8 @@
     "qpeakPage": "p27",
     "note": "High-cardinality page: 1,345 ms, 231 MB per query. On the 20-visual page it matches the baseline."
    },
+   "why": "The model is unchanged, so refresh matches the baseline (616 MB). A table visual grouped by order lines (2.35M groups) needs 231 MB per query, 4 times the heaviest baseline visual. The engine groups every row before it cuts the result to the visible window, and a warm cache still leaves up to 88 MB.",
+   "fix": "The cost is in the report, not the model. The lab tested no alternative layout. Check the per query peak of such visuals against the target SKU, for example F2's 1,024 MB per query.",
    "diffnote": "The semantic model is the baseline unchanged. The change is an extra report page, p27, with tables of all orders, order lines and customers."
   },
   {
@@ -1967,7 +2013,9 @@
    "memory": null,
    "pbix": 448.3,
    "pbixOn": "PPU",
-   "pro": "refreshed"
+   "pro": "refreshed",
+   "why": "Every antipattern combined gives a peak of 26,115 MB on Premium Per User, and 25,958 MB of it is Power Query, for a 622 MB model. It fails on F2 at 3,319 MB and on F64 at the 25.6 GB limit, yet it refreshed on Pro.",
+   "fix": "The diagnostic path found the cause in Power Query, not in the model. One Table.Buffer on the shared Sales staging query takes it past F64. Even without any buffer, the sorts and the Group By each take it off F2. With the v00 Power Query (v99m) the peak drops to 627 MB."
   },
   {
    "key": "v99a@1M",
@@ -2008,7 +2056,9 @@
    "ppu": "not run",
    "service": 185.0,
    "memory": null,
-   "pbix": 134.7
+   "pbix": 134.7,
+   "why": "Removing the four calculated tables and the Sales Flat table brings v99 down to 16,054 MB, of which 15,932 MB is Power Query. It refreshes on F64 but still fails on F2 at 3,099 MB.",
+   "fix": "What remains is Power Query: text staging, sorts, Table.Buffer in Sales and the Group By in Customer Stats. Removing the buffers only reaches 12,992 MB (v99k). The v00 Power Query brings the peak to 627 MB (v99m)."
   },
   {
    "key": "v99k@1M",
@@ -2049,7 +2099,9 @@
    "ppu": "not run",
    "service": 185.0,
    "memory": null,
-   "pbix": 134.7
+   "pbix": 134.7,
+   "why": "Without any Table.Buffer the model still needs 12,992 MB, almost all Power Query, and fails on F2. The sorts and the Group By run on text and read one staging query shared by two tables. Together they cost more than their sum: 13.0 GB against 5.3 GB and 3.5 GB when measured alone.",
+   "fix": "Replace the Power Query with the v00 queries: read, rename, select, set types, with no sorts and no Group By over the fact. With the calculated columns, bidirectional relationships and Auto date/time kept, that gives 627 MB and refreshes on F2 (v99m)."
   },
   {
    "key": "v99l@1M",
@@ -2090,7 +2142,9 @@
    "ppu": "not run",
    "service": 158.0,
    "memory": null,
-   "pbix": 112.6
+   "pbix": 112.6,
+   "why": "Removing the eight calculated columns from v99k changes the peak by 114 MB, to 12,878 MB. The refresh still fails on F2, where the engine stopped it at 3,146 MB. The calculated columns are not what drives this model's refresh memory.",
+   "fix": "Leave the calculated columns and fix the Power Query instead. v99m, which keeps the columns and uses the v00 Power Query, peaks at 627 MB."
   },
   {
    "key": "v99m@1M",
@@ -2131,7 +2185,9 @@
    "ppu": "not run",
    "service": 102.0,
    "memory": null,
-   "pbix": 72.7
+   "pbix": 72.7,
+   "why": "v99k with the v00 Power Query peaks at 627 MB and refreshes on F2, even though it keeps eight calculated columns on Sales, bidirectional relationships and Auto date/time. Against 12,992 MB for v99k, this shows that the Power Query half was the cause.",
+   "fix": "This model is the fix for v99k's refresh memory. The other antipatterns it keeps have their own costs elsewhere, such as wrong totals from bidirectional filters with a second fact table (v24b)."
   },
   {
    "key": "v99o@1M",
@@ -2172,7 +2228,9 @@
    "ppu": "not run",
    "service": 99.0,
    "memory": null,
-   "pbix": 74.1
+   "pbix": 74.1,
+   "why": "Adding the full sorts of Sales and the sort of Product back to v99m raises the peak from 627 to 5,337 MB, of which 5,048 MB is Power Query, and the refresh fails on F2. A sort reads the whole table into memory before it returns the first row, the same effect as a Table.Buffer.",
+   "fix": "Remove the sorts, because row order does not matter to the model (v20). With a source that folds, a sort runs in the database."
   },
   {
    "key": "v99q@1M",
@@ -2213,7 +2271,9 @@
    "ppu": "not run",
    "service": 114.0,
    "memory": null,
-   "pbix": 80.9
+   "pbix": 80.9,
+   "why": "Adding the Customer Stats Group By over all 2.35M Sales rows back to v99m raises the peak from 627 to 3,477 MB, of which 3,243 MB is Power Query, and the refresh fails on F2. A Group By keeps every group until the last row is read.",
+   "fix": "This is one of the two culprits the diagnostic path found, with the sorts. With a source that folds, the Group By runs in the database. For this file source the lab tested no alternative."
   }
  ],
  "base": "v00-baseline",

@@ -43,6 +43,7 @@ jobs:
         run: |
           mkdir _site
           cp site/index.html site/app.js site/style.css site/data.json site/og.png _site/
+          cp -r site/tmdl _site/
 
       - uses: actions/upload-pages-artifact@v3
         with:

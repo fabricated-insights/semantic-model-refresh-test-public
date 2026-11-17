@@ -27,6 +27,11 @@
     pbix: ["Downloaded .pbix", "Size"],
     memory: ["In memory after refresh", "Size"]
   };
+  var SIZE_HINT = {
+    service: "The committed model in the service: the size of the Backup step in the refresh log.",
+    pbix: "The .pbix file downloaded from the service with its data: the size you see in Explorer.",
+    memory: "The model in memory right after the refresh: the storage numbers DAX Studio's VertiPaq Analyzer shows."
+  };
   var NO_SIZE = { service: "no service size", pbix: "no .pbix file", memory: "not measured in memory" };
   var SVGNS = "http://www.w3.org/2000/svg";
 
@@ -668,6 +673,7 @@
   function renderSlope() {
     var A = byKey[state.a], B = byKey[state.b];
     var box = $("cSlope");
+    $("sizeHint").textContent = SIZE_HINT[state.size];
     box.innerHTML = "";
     hideTip();
     var W = Math.max(box.clientWidth, 280), mobile = W < 600;
@@ -840,6 +846,10 @@
 
   function renderQueries(A, B) {
     var both = [[A, "A", A_COL, A_SOFT], [B, "B", B_COL, B_SOFT]];
+    var none = !A.q && !B.q;
+    $("qNone").hidden = !none;
+    $("qCharts").hidden = none;
+    if (none) { $("qNotes").innerHTML = ""; return; }
     hbars($("cP20"), both.map(function (t) {
       var r = t[0], q = r.q;
       if (!q || !q.p20) return { tag: t[1], color: t[2], missing: "Not measured" };
@@ -875,6 +885,8 @@
     function card(r, cls, tag) {
       return '<div class="mcard ' + cls + '"><h3><span class="tag t' + cls + '">' + tag + "</span> " + esc(label(r)) + "</h3>" +
         "<p>" + esc(r.desc) + "</p>" +
+        (r.why ? '<p class="why"><b>Why:</b> ' + esc(r.why) + "</p>" : "") +
+        (r.fix ? '<p class="fix"><b>What to do instead:</b> ' + esc(r.fix) + "</p>" : "") +
         '<p class="meta">Data: ' + esc(r.size) + " orders · F64: " + esc(r.f64) + " · F2: " + esc(r.f2) +
         (r.ppu && r.ppu !== "not run" ? " · Premium Per User: " + esc(r.ppu) : "") + "</p>" +
         '<div class="lk"><a href="' + esc(repoUrl("blob", "models/" + r.folder + "/README.md")) + '">README</a>' +
@@ -900,6 +912,15 @@
     return [wrap(a), wrap(b)];
   }
 
+  // Share of two lines that is the same at the start and the end (0 to 1).
+  function likeness(a, b) {
+    var p = 0, s = 0, m = Math.max(a.length, b.length);
+    if (!m) return 1;
+    while (p < a.length && p < b.length && a[p] === b[p]) p++;
+    while (s < a.length - p && s < b.length - p && a[a.length - 1 - s] === b[b.length - 1 - s]) s++;
+    return (p + s) / m;
+  }
+
   // One hunk as side-by-side rows: baseline on the left, the model on the right.
   function hunkRows(h) {
     var m = /^@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@/.exec(h[0]);
@@ -915,11 +936,25 @@
         var dels = [], adds = [];
         while (i < lines.length && lines[i][0] === "-") dels.push(lines[i++].slice(1));
         while (i < lines.length && lines[i][0] === "+") adds.push(lines[i++].slice(1));
-        for (var k = 0; k < Math.max(dels.length, adds.length); k++) {
-          var l = dels[k], r = adds[k], lh = l != null ? esc(l) : null, rh = r != null ? esc(r) : null;
+        // Pair each removed line with the next added line that resembles it, in order;
+        // the rest get a row of their own, so an inserted step does not shift the pairs.
+        var pairs = [], j = 0;
+        dels.forEach(function (dl) {
+          for (var k = j; k < adds.length; k++) {
+            if (likeness(dl, adds[k]) >= 0.5) {
+              for (; j < k; j++) pairs.push([null, adds[j]]);
+              pairs.push([dl, adds[k]]); j = k + 1;
+              return;
+            }
+          }
+          pairs.push([dl, null]);
+        });
+        for (; j < adds.length; j++) pairs.push([null, adds[j]]);
+        pairs.forEach(function (pr) {
+          var l = pr[0], r = pr[1], lh = l != null ? esc(l) : null, rh = r != null ? esc(r) : null;
           if (l != null && r != null) { var mp = markPair(l, r); lh = mp[0]; rh = mp[1]; }
           html.push("<tr>" + side("del", l != null ? o++ : "", lh) + side("add", r != null ? n++ : "", rh) + "</tr>");
-        }
+        });
       } else {
         var t = esc(lines[i].slice(1));
         html.push("<tr>" + side("", o++, t) + side("", n++, t) + "</tr>");
@@ -929,7 +964,172 @@
     return html.join("");
   }
 
+  // Line diff in the browser, for A against B. Longest common subsequence on the part
+  // between the common head and tail; hunks with 3 lines of context, in the same
+  // shape build_data.py writes for the baseline diff.
+  var GENERATED = /^tables\/(LocalDateTable|DateTableTemplate)_/;
+  var DIFF_MAX_LINES = 160;
+  var tmdlCache = {};
+
+  function loadTmdl(folder) {
+    if (!tmdlCache[folder]) {
+      tmdlCache[folder] = fetch("tmdl/" + encodeURIComponent(folder) + ".json")
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+      tmdlCache[folder].catch(function () { delete tmdlCache[folder]; });
+    }
+    return tmdlCache[folder];
+  }
+
+  function lineOps(a, b) {
+    var p = 0, s = 0;
+    while (p < a.length && p < b.length && a[p] === b[p]) p++;
+    while (s < a.length - p && s < b.length - p && a[a.length - 1 - s] === b[b.length - 1 - s]) s++;
+    var ma = a.length - p - s, mb2 = b.length - p - s, ops = [], i, j;
+    for (i = 0; i < p; i++) ops.push(" " + a[i]);
+    if (ma * mb2 > 4e6) {
+      for (i = 0; i < ma; i++) ops.push("-" + a[p + i]);
+      for (j = 0; j < mb2; j++) ops.push("+" + b[p + j]);
+    } else {
+      var w = mb2 + 1, L = new Uint32Array((ma + 1) * w);
+      for (i = ma - 1; i >= 0; i--) {
+        for (j = mb2 - 1; j >= 0; j--) {
+          L[i * w + j] = a[p + i] === b[p + j] ? L[(i + 1) * w + j + 1] + 1 : Math.max(L[(i + 1) * w + j], L[i * w + j + 1]);
+        }
+      }
+      i = 0; j = 0;
+      var dels = [], adds = [];
+      function flush() { dels.forEach(function (x) { ops.push("-" + x); }); adds.forEach(function (x) { ops.push("+" + x); }); dels = []; adds = []; }
+      while (i < ma || j < mb2) {
+        if (i < ma && j < mb2 && a[p + i] === b[p + j]) { flush(); ops.push(" " + a[p + i]); i++; j++; }
+        else if (j >= mb2 || (i < ma && L[(i + 1) * w + j] >= L[i * w + j + 1])) { dels.push(a[p + i]); i++; }
+        else { adds.push(b[p + j]); j++; }
+      }
+      flush();
+    }
+    for (i = a.length - s; i < a.length; i++) ops.push(" " + a[i]);
+    return ops;
+  }
+
+  function hunksOf(ops, n) {
+    var ai = [], bi = [], x = 0, y = 0, k;
+    for (k = 0; k < ops.length; k++) { ai.push(x); bi.push(y); if (ops[k][0] !== "+") x++; if (ops[k][0] !== "-") y++; }
+    var changed = [];
+    for (k = 0; k < ops.length; k++) if (ops[k][0] !== " ") changed.push(k);
+    var ranges = [];
+    changed.forEach(function (c) {
+      var st = Math.max(0, c - n), en = Math.min(ops.length, c + n + 1);
+      if (ranges.length && st <= ranges[ranges.length - 1][1]) ranges[ranges.length - 1][1] = Math.max(ranges[ranges.length - 1][1], en);
+      else ranges.push([st, en]);
+    });
+    return ranges.map(function (rg) {
+      var lines = ops.slice(rg[0], rg[1]);
+      var ac = lines.filter(function (l) { return l[0] !== "+"; }).length, bc = lines.filter(function (l) { return l[0] !== "-"; }).length;
+      return ["@@ -" + (ai[rg[0]] + 1) + "," + ac + " +" + (bi[rg[0]] + 1) + "," + bc + " @@", lines];
+    });
+  }
+
+  function pairDiff(fa, fb) {
+    var paths = Object.keys(fa).concat(Object.keys(fb).filter(function (k) { return !(k in fa); })).sort();
+    var files = [], gen = { files: 0, lines: 0 };
+    paths.forEach(function (path) {
+      var a = fa[path] || [], b = fb[path] || [];
+      if (a.length === b.length && a.every(function (l, i) { return l === b[i]; })) return;
+      var status = !(path in fa) ? "added" : !(path in fb) ? "removed" : "modified";
+      if (GENERATED.test(path)) { gen.files++; gen.lines += (b.length || a.length); return; }
+      var hunks = hunksOf(lineOps(a, b), 3), add = 0, del = 0, shown = 0, cut = 0;
+      hunks = hunks.map(function (h) {
+        var kept = [];
+        h[1].forEach(function (l) {
+          if (l[0] === "+") add++; if (l[0] === "-") del++;
+          if (shown >= DIFF_MAX_LINES) { cut++; return; }
+          kept.push(l); shown++;
+        });
+        return [h[0], kept];
+      }).filter(function (h) { return h[1].length; });
+      var f = { path: path, status: status, add: add, del: del, hunks: hunks };
+      if (cut) f.cut = cut;
+      files.push(f);
+    });
+    var d = { files: files };
+    if (gen.files) d.generated = gen;
+    return d;
+  }
+
+  // Draw a diff: left = the model compared against, right = the model shown.
+  function drawDiff(box, d, leftName, r, tag, intro) {
+    var h = intro ? [intro] : [];
+    var add = 0, del = 0;
+    d.files.forEach(function (f) { add += f.add; del += f.del; });
+    if (!d.files.length && !d.generated) {
+      if (!intro) h.push('<p class="dnote">No difference in the semantic model definition.</p>');
+      box.innerHTML = h.join("");
+      return;
+    }
+    h.push('<p class="dsum"><span class="tag t' + tag + '">' + tag.toUpperCase() + "</span> " + esc(r.id + " · " + r.name) + " against " + esc(leftName) + ": " +
+      d.files.length + (d.files.length === 1 ? " file" : " files") + ' changed, <span class="plus">+' + fmt(add) +
+      '</span> <span class="minus">-' + fmt(del) + "</span> lines" +
+      (d.generated ? ". Plus " + d.generated.files + " tables Power BI generates for Auto date/time (" + fmt(d.generated.lines) + " lines), not shown" : "") + "." +
+      (d.files.length > 2 ? ' <button type="button" class="linkbtn" id="diffAll">Expand all files</button>' : "") + "</p>");
+    var dir = "models/" + r.folder + "/" + r.folder + ".SemanticModel/definition/";
+    d.files.forEach(function (f) {
+      var url = repoUrl("blob", encodeURI(dir + f.path));
+      var open = d.files.length <= 2 || f === d.files[0];
+      var badge = { added: "new file", removed: "removed", modified: "" }[f.status];
+      h.push('<details class="dfile"' + (open ? " open" : "") + "><summary>" +
+        '<span class="dpath">' + esc(f.path) + "</span>" + (badge ? ' <span class="dbadge">' + badge + "</span>" : "") +
+        ' <span class="plus">+' + fmt(f.add) + '</span> <span class="minus">-' + fmt(f.del) + "</span>" +
+        (f.status !== "removed" ? ' <a class="dlink" href="' + esc(url) + '" target="_blank" rel="noopener">View file in GitHub repo</a>' : "") + "</summary>" +
+        '<div class="dscroll"><table class="dtable split"><caption class="vh">Changes in ' + esc(f.path) + ", " + esc(leftName) + " on the left, " + esc(r.id) + " on the right</caption>" +
+        '<colgroup><col class="cln"><col><col class="cln"><col></colgroup>' +
+        '<thead><tr><th colspan="2" scope="col">' + esc(leftName) + '</th><th colspan="2" scope="col">' + esc(r.id + " · " + r.name) + "</th></tr></thead><tbody>" +
+        f.hunks.map(hunkRows).join("") +
+        (f.cut ? '<tr class="hh"><td colspan="4">' + fmt(f.cut) + ' more changed lines. <a href="' + esc(url) + '" target="_blank" rel="noopener">See the full file in the GitHub repo</a>.</td></tr>' : "") +
+        "</tbody></table></div></details>");
+    });
+    box.innerHTML = h.join("");
+    var all = $("diffAll");
+    if (all) {
+      all.addEventListener("click", function () {
+        var files = box.querySelectorAll("details.dfile");
+        var openAll = Array.prototype.some.call(files, function (x) { return !x.open; });
+        Array.prototype.forEach.call(files, function (x) { x.open = openAll; });
+        all.textContent = openAll ? "Collapse all files" : "Expand all files";
+      });
+    }
+  }
+
   function renderDiff(A, B) {
+    // A against B is offered when neither is the baseline; otherwise the baseline view already is A against B.
+    var pair = A.folder !== D.base && B.folder !== D.base && A.folder !== B.folder;
+    var modeBox = $("diffMode");
+    if (!pair) state.diffMode = "base";
+    else if (!state.diffModeChosen) state.diffMode = "ab";
+    modeBox.innerHTML = !pair ? "" : '<fieldset class="toggle"><legend>Compare B with</legend>' +
+      '<label><input type="radio" name="dm" value="ab"' + (state.diffMode === "ab" ? " checked" : "") + "> Model A (" + esc(A.id) + ")</label>" +
+      '<label><input type="radio" name="dm" value="base"' + (state.diffMode === "base" ? " checked" : "") + "> The baseline (v00)</label></fieldset>";
+    Array.prototype.forEach.call(modeBox.querySelectorAll("input"), function (inp) {
+      inp.addEventListener("change", function () { state.diffMode = this.value; state.diffModeChosen = true; renderDiff(byKey[state.a], byKey[state.b]); });
+    });
+    if (state.diffMode === "ab") {
+      var box0 = $("diff");
+      $("diffTabs").innerHTML = "";
+      box0.innerHTML = '<p class="dnote">Loading the two model definitions…</p>';
+      var want = A.key + "|" + B.key;
+      Promise.all([loadTmdl(A.folder), loadTmdl(B.folder)]).then(function (res) {
+        if (state.a + "|" + state.b !== want || state.diffMode !== "ab") return;
+        drawDiff(box0, pairDiff(res[0], res[1]), A.id + " · " + A.name, B, "b",
+          B.diffnote ? '<p class="dnote">' + esc(B.diffnote) + "</p>" : "");
+      }).catch(function () {
+        if (state.a + "|" + state.b !== want) return;
+        box0.innerHTML = '<p class="dnote">The comparison of A with B needs the published page: opened from a file, the browser cannot load the model definitions. ' +
+          "The comparison with the baseline works here.</p>";
+      });
+      return;
+    }
+    renderBaseDiff(A, B);
+  }
+
+  function renderBaseDiff(A, B) {
     // The baseline never gets a tab of its own: there is nothing to compare it with.
     var sides = [];
     [["b", B], ["a", A]].forEach(function (s) {
@@ -952,49 +1152,11 @@
       b.addEventListener("click", function () { state.diffSide = b.dataset.side; renderDiff(byKey[state.a], byKey[state.b]); });
     });
 
-    var r = state.diffSide === "a" ? A : B, h = [];
+    var r = state.diffSide === "a" ? A : B;
     var d = D.diffs[r.folder] || { files: [] };
-    if (r.diffnote) h.push('<p class="dnote">' + esc(r.diffnote) + "</p>");
-    var add = 0, del = 0;
-    d.files.forEach(function (f) { add += f.add; del += f.del; });
-    if (!d.files.length && !d.generated) {
-      if (!r.diffnote) h.push('<p class="dnote">No change in the semantic model definition.</p>');
-      box.innerHTML = h.join("");
-      return;
-    }
     var baseRec = D.models.filter(function (x) { return x.folder === D.base; })[0];
     var baseName = baseRec ? baseRec.id + " · " + baseRec.name : "Baseline";
-    h.push('<p class="dsum"><span class="tag t' + state.diffSide + '">' + state.diffSide.toUpperCase() + "</span> " + esc(r.id + " · " + r.name) + ": " +
-      d.files.length + (d.files.length === 1 ? " file" : " files") + ' changed, <span class="plus">+' + fmt(add) +
-      '</span> <span class="minus">-' + fmt(del) + "</span> lines" +
-      (d.generated ? ". Plus " + d.generated.files + " tables Power BI generates for Auto date/time (" + fmt(d.generated.lines) + " lines), not shown" : "") + "." +
-      (d.files.length > 2 ? ' <button type="button" class="linkbtn" id="diffAll">Expand all files</button>' : "") + "</p>");
-    var dir = "models/" + r.folder + "/" + r.folder + ".SemanticModel/definition/";
-    d.files.forEach(function (f) {
-      var url = repoUrl("blob", encodeURI(dir + f.path));
-      var open = d.files.length <= 2 || f === d.files[0];
-      var badge = { added: "new file", removed: "removed", modified: "" }[f.status];
-      h.push('<details class="dfile"' + (open ? " open" : "") + "><summary>" +
-        '<span class="dpath">' + esc(f.path) + "</span>" + (badge ? ' <span class="dbadge">' + badge + "</span>" : "") +
-        ' <span class="plus">+' + fmt(f.add) + '</span> <span class="minus">-' + fmt(f.del) + "</span>" +
-        ' <a class="dlink" href="' + esc(url) + '" target="_blank" rel="noopener">View file in GitHub repo</a></summary>' +
-        '<div class="dscroll"><table class="dtable split"><caption class="vh">Changes in ' + esc(f.path) + ", baseline on the left, " + esc(r.id) + " on the right</caption>" +
-        '<colgroup><col class="cln"><col><col class="cln"><col></colgroup>' +
-        '<thead><tr><th colspan="2" scope="col">' + esc(baseName) + '</th><th colspan="2" scope="col">' + esc(r.id + " · " + r.name) + "</th></tr></thead><tbody>" +
-        f.hunks.map(hunkRows).join("") +
-        (f.cut ? '<tr class="hh"><td colspan="4">' + fmt(f.cut) + ' more changed lines. <a href="' + esc(url) + '" target="_blank" rel="noopener">See the full file in the GitHub repo</a>.</td></tr>' : "") +
-        "</tbody></table></div></details>");
-    });
-    box.innerHTML = h.join("");
-    var all = $("diffAll");
-    if (all) {
-      all.addEventListener("click", function () {
-        var files = box.querySelectorAll("details.dfile");
-        var openAll = Array.prototype.some.call(files, function (x) { return !x.open; });
-        Array.prototype.forEach.call(files, function (x) { x.open = openAll; });
-        all.textContent = openAll ? "Collapse all files" : "Expand all files";
-      });
-    }
+    drawDiff($("diff"), d, baseName, r, state.diffSide, r.diffnote ? '<p class="dnote">' + esc(r.diffnote) + "</p>" : "");
   }
 
   function renderCaveats() {

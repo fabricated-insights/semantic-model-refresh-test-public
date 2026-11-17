@@ -464,6 +464,9 @@ for m in models:
                 rec["pro"] = "failed" + (f", {last['failure']}" if last["failure"] else "")
         elif m.get("pro"):
             rec["pro"] = m["pro"]
+        for k in ("why", "fix"):
+            if m.get(k):
+                rec[k] = m[k]
         if m.get("diffnote"):
             rec["diffnote"] = m["diffnote"]
         out.append(rec)
@@ -496,6 +499,18 @@ for p in data["presets"]:
     for side in ("a", "b"):
         if p[side] not in {r["key"] for r in out}:
             sys.exit(f"models.yaml: preset {p['label']!r} uses unknown key {p[side]}")
+
+# Each model's cleaned definition, for the A-vs-B diff the page computes on demand.
+# One small file per model folder; the page fetches only the two it compares.
+tmdl_dir = SITE / "tmdl"
+tmdl_dir.mkdir(exist_ok=True)
+wanted = {f"{f}.json" for f in diffs}
+for old in tmdl_dir.glob("*.json"):
+    if old.name not in wanted:
+        old.unlink()
+for folder in diffs:
+    (tmdl_dir / f"{folder}.json").write_text(
+        json.dumps(tmdl_files(folder), ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
 
 text = json.dumps(data, ensure_ascii=False, indent=1)
 (SITE / "data.json").write_text(text + "\n", encoding="utf-8")

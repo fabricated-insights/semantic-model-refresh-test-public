@@ -69,6 +69,9 @@ presets:
   - label: "Kitchen sink: clean PQ vs everything"
     a: v99m@1M
     b: v99@1M
+  - label: "One Table.Buffer that breaks F64"
+    a: v99g@1M
+    b: v99i@1M
 
 models:
   - id: v00
@@ -272,6 +275,79 @@ models:
     why: "Removing the four calculated tables and the Sales Flat table brings v99 down to 16,054 MB, of which 15,932 MB is Power Query. It refreshes on F64 but still fails on F2 at 3,099 MB."
     fix: "What remains is Power Query: text staging, sorts, Table.Buffer in Sales and the Group By in Customer Stats. Removing the buffers only reaches 12,992 MB (v99k). The v00 Power Query brings the peak to 627 MB (v99m)."
     sizes: [1M]
+  - id: v99b
+    folder: v99b-one-sales-copy
+    name: Kitchen sink diagnostic, one Sales copy
+    category: Kitchen sink
+    desc: v99 with one Sales copy instead of two and an empty Product Date Grid. Diagnostic run B.
+    why: "With one Sales copy and the crossjoin emptied, v99 still peaks at 25,684 MB on Premium Per User, 25,591 MB of it Power Query, and fails on F64. The calculated tables shrink the model (517 MB against 619 MB for v99) but not the refresh peak."
+    fix: "Look at Power Query first. The Table.Buffer on stg Sales is what takes the kitchen sink past F64 (v99i); without it the full set of calculated tables refreshes at about 23,000 MB (v99g)."
+    sizes: [1M]
+  - id: v99c
+    folder: v99c-crossjoin-only
+    name: Kitchen sink diagnostic, crossjoin only
+    category: Kitchen sink
+    desc: v99 with the 10.1M row Product x Date crossjoin and an empty Sales Copy. Diagnostic run C.
+    why: "With the 10.1M row crossjoin and no Sales copy, the peak on Premium Per User is 25,918 MB, 25,808 MB of it Power Query, and it fails on F64. The crossjoin adds model size, not refresh memory."
+    fix: "Look at Power Query first. The Table.Buffer on stg Sales is what takes the kitchen sink past F64 (v99i); without it the full set of calculated tables refreshes at about 23,000 MB (v99g)."
+    sizes: [1M]
+  - id: v99d
+    folder: v99d-power-query
+    name: Kitchen sink diagnostic, unused query
+    category: Kitchen sink
+    desc: v99a plus a heavy Power Query query that nothing loads.
+    ignore_before: "2026-11-04 20:00"
+    why: "A heavy query that nothing loads or references is not evaluated at refresh. Three runs peak at 16,005 to 16,056 MB, the same as v99a's 16,054 MB. Four earlier runs of a first version, which also loaded Sales Flat with buffered staging, failed on F64 and are not shown."
+    fix: "Unused queries are clutter, not a refresh cost. Remove them for readability, not to get memory back."
+    sizes: [1M]
+  - id: v99e
+    folder: v99e-sales-flat
+    name: Kitchen sink diagnostic, flat Sales table
+    category: Kitchen sink
+    desc: "v99d plus the flat Sales table built in Power Query: merges, sort and buffer."
+    why: "Loading Sales Flat, Sales merged with four dimensions, sorted and buffered in Power Query, adds about 6.9 GB: 22,889 MB against 16,005 to 16,056 MB for v99d. It still refreshes on F64."
+    fix: "Keep the star schema and let relationships do the join. The baseline answers the same questions without a flat table and peaks at 543 to 856 MB."
+    sizes: [1M]
+  - id: v99f
+    folder: v99f-calc-tables
+    name: Kitchen sink diagnostic, calculated tables
+    category: Kitchen sink
+    desc: v99e plus three of v99's four calculated tables.
+    why: "Adding Sales Summary, the 10.1M row Product Date Grid and a second date table leaves the peak where it was: 22,752 MB against 22,889 MB for v99e. The model grows from 323 to 361 MB."
+    fix: "On this model the calculated tables are not what drives refresh memory. Check them for model size instead, for example against Pro's 1,024 MB limit."
+    sizes: [1M]
+  - id: v99g
+    folder: v99g-sales-copy
+    name: Kitchen sink diagnostic, plus Sales copy
+    category: Kitchen sink
+    desc: v99f plus one DAX copy of Sales. v99 without the staging buffers.
+    why: "One DAX copy of Sales takes the model from 361 to 535 MB, but the peak only from 22,752 to 23,025 to 23,039 MB. This is v99 without its staging buffers, and it refreshes on F64."
+    fix: "The step that matters comes next: put the Table.Buffer steps back in the staging queries and it fails on F64 (v99h)."
+    sizes: [1M]
+  - id: v99h
+    folder: v99h-staging-buffers
+    name: Kitchen sink diagnostic, staging buffers
+    category: Kitchen sink
+    desc: v99g plus Table.Buffer in stg Sales and stg Customer.
+    why: "Table.Buffer at the end of stg Sales and stg Customer takes v99g from about 23,030 MB to 25,939 MB on Premium Per User, and the refresh fails on F64 in all four runs. Neither staging query is loaded; other queries read them."
+    fix: "Don't end a shared staging query with Table.Buffer. v99i and v99j show that the buffer on stg Sales is the one that matters."
+    sizes: [1M]
+  - id: v99i
+    folder: v99i-buffer-stg-sales
+    name: Kitchen sink diagnostic, buffer stg Sales
+    category: Kitchen sink
+    desc: v99g plus Table.Buffer in stg Sales only.
+    why: "The Table.Buffer on stg Sales alone fails F64, in all four runs. stg Sales holds all 2.35M Sales rows as text and is read by Sales, Sales Flat and Customer Stats. Premium Per User measured 25,651 MB, and 23,893 MB in an earlier run, so the peak sits close to the 25,593 MB limit."
+    fix: "Remove the buffer from stg Sales. Without it the same model refreshes on F64 at about 22,900 to 23,040 MB (v99g, v99j)."
+    sizes: [1M]
+  - id: v99j
+    folder: v99j-buffer-stg-customer
+    name: Kitchen sink diagnostic, buffer stg Customer
+    category: Kitchen sink
+    desc: v99g plus Table.Buffer in stg Customer only.
+    why: "The Table.Buffer on stg Customer, 105k rows, changes nothing: 22,894 MB against 23,025 to 23,039 MB for v99g, and it refreshes on F64."
+    fix: "A buffer on a small staging query was harmless here. The one on the 2.35M row fact was not (v99i)."
+    sizes: [1M]
   - id: v99k
     folder: v99k-no-buffers
     name: Kitchen sink without Table.Buffer
@@ -296,6 +372,14 @@ models:
     why: "v99k with the v00 Power Query peaks at 627 MB and refreshes on F2, even though it keeps eight calculated columns on Sales, bidirectional relationships and Auto date/time. Against 12,992 MB for v99k, this shows that the Power Query half was the cause."
     fix: "This model is the fix for v99k's refresh memory. The other antipatterns it keeps have their own costs elsewhere, such as wrong totals from bidirectional filters with a second fact table (v24b)."
     sizes: [1M]
+  - id: v99n
+    folder: v99n-text-staging
+    name: Kitchen sink, clean PQ + text staging
+    category: Kitchen sink
+    desc: v99m plus staging queries that turn every column into text.
+    why: "Staging queries that turn every column into text and convert the types late leave the peak where it was: 624 MB against 627 MB for v99m, and it refreshes on F2. They cost time instead: 5.3 minutes against 0.8 on F64."
+    fix: "Set types once, in the query that reads the file. Text staging is not what made v99k need 13 GB; the sorts and the Group By were (v99o, v99q)."
+    sizes: [1M]
   - id: v99o
     folder: v99o-sorts
     name: Kitchen sink, clean PQ + sorts
@@ -303,6 +387,14 @@ models:
     desc: v99m plus the sorts.
     why: "Adding the full sorts of Sales and the sort of Product back to v99m raises the peak from 627 to 5,337 MB, of which 5,048 MB is Power Query, and the refresh fails on F2. A sort reads the whole table into memory before it returns the first row, the same effect as a Table.Buffer."
     fix: "Remove the sorts, because row order does not matter to the model (v20). With a source that folds, a sort runs in the database."
+    sizes: [1M]
+  - id: v99p
+    folder: v99p-high-cardinality
+    name: Kitchen sink, clean PQ + high cardinality
+    category: Kitchen sink
+    desc: v99m plus Order Line and Order DateTime, one distinct value per row.
+    why: "Order Line and Order DateTime have one distinct value per row. They take the model from 102 to 175 MB, but the refresh peak only from 627 to 746 MB, inside the baseline's run-to-run spread, and it refreshes on F2."
+    fix: "Drop columns nobody filters or groups by, or split date and time into two columns. The gain is model size more than refresh memory."
     sizes: [1M]
   - id: v99q
     folder: v99q-customer-stats

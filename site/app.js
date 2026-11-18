@@ -364,6 +364,8 @@
       if (/^refreshed/.test(r.f2)) c = { k: "yes", t: "refreshed", s: "measured" + (rest(r.f2, "refreshed") ? ", " + rest(r.f2, "refreshed") : ""), measured: true };
       else if (/^failed/.test(r.f2)) c = { k: "no", t: "failed", s: "measured" + (rest(r.f2, "failed") ? ", " + stopText(rest(r.f2, "failed")) : ""), measured: true };
       else if (p != null) c = p <= SKUS[0].mb ? { k: "yes", t: "likely", s: "F64 peak is " + pct(SKUS[0].mb) } : { k: "no", t: "unlikely", s: "F64 peak is " + pct(SKUS[0].mb) };
+      // A refresh F64 stopped at 25.6 GB needs more than that, far over F2's limit.
+      else if (failedF64(r)) c = { k: "no", t: "unlikely", s: "F64 stopped it at " + rest(r.f64, "failed").replace(/^at /, "").split(",")[0] + ", far over the " + fmt(SKUS[0].mb) + " MB limit" };
       else c = { k: "unk", t: "not run" };
       if (r.q && r.q.qpeak > QUERY_LIMIT) c.warn = "Report queries up to " + mb(r.q.qpeak) + " fail at F2's " + fmt(QUERY_LIMIT) + " MB per-query limit";
       return c;

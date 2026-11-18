@@ -1,0 +1,2 @@
+Timestamp,Model,TimeStart,TimeEnd,Result,PeakMemMB,MEnginePeakMB,DurationMin,TotalCpuSec,MEngineCpuSec,VertipaqCpuSec,RowsLoaded,RefreshParallelism
+,v19-pq-heavy-10m,2026-11-18T06:22:57.263Z,2026-11-18T06:45:48.664Z,failed,24123.0,24005.0,22.86,6717.0,6671.0,18.0,2563048.0,6.0

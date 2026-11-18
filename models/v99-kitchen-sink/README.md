@@ -99,3 +99,14 @@ The estimates above were wrong in one important place. The diagnostic runs v99a 
 - Splitting the two buffers: `stg Customer` alone refreshes (v99j), `stg Sales` alone fails at over 25.6 GB (v99i).
 
 So what pushes v99 over F64's limit is one `Table.Buffer` step at the end of `stg Sales`, a staging query that is never loaded. Measured on Premium Per User (2026-11-11), the buffer adds 0.9 to 3 GB to a model that already needs 23 GB without it (v99i 23,893 MB, v99h 25,971 MB, against v99g 23,025 MB on F64): it is the last step over the limit, not the largest part of the memory. It holds all 2.35M Sales rows with every column as text, and three loaded queries reference it (`Sales`, `Sales Flat`, `Customer Stats`). See the README of each diagnostic run for the full results table.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 25,882 | 25,777 | 15 min | 619 MB | 744.1 MB |
+| Pro | 1M | refreshed |  |  | 31 min |  |  |
+
+Runs: `results/harness/20261117T234334Z-v99-fc46/`.

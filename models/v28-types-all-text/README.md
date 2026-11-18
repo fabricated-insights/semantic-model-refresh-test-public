@@ -73,3 +73,20 @@ F64, 1M, 2026-11-11 and 2026-11-12. Refresh run `20261111T204204Z-v28-3f3b`, que
 One of 125 queries in the first v28 run failed with HTTP 500 from the REST API, once.
 
 Next to the baseline v28 is not slower; its slowest visual is a little faster, and its largest query needs half the memory. Query time on F64 has a fast and a slow state per model, about two times apart, that last for hours and change by themselves (`docs/lab-findings-queries.md`, finding 7). Memory per query does not change with it. The first run on 2026-11-11 (1,047 ms) was in the slow state, still below the baseline's slow state (1,283 to 1,563 ms).
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 687 | 583 | 1.5 min | 69 MB | 171.5 MB |
+| Pro | 1M | refreshed |  |  | 0.7 min |  |  |
+
+Runs: `results/harness/20261117T063521Z-v28-7a20/`.
+
+## F2 and F64 gap pass (2026-11-18)
+
+Refreshed on F2 with the 1M data in 1.1 min. In memory after refresh: 171.5 MB. F2 has no workspace monitoring, so there is no peak; the F64 and PPU peaks are well below the F2 limit of about 3,066 MB, as finding 9 predicts.
+
+Run: `results/harness/20261118T131330Z-v28-6de2/`.

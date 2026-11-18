@@ -26,3 +26,14 @@ After this run, the only difference between this model and v99 is `CopyCount` (1
 
 - If G fails on F64, one copy of Sales as a calculated table needs more than the headroom v99f left.
 - If G refreshes, the next step is v99g plus the staging buffers. If that fails, the buffers were behind both 25 GB failures, and `Sales Copy` was not.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 22,919 | 22,778 | 14 min | 536 MB | 662.8 MB |
+| Pro | 1M | refreshed |  |  | 17 min |  |  |
+
+Runs: `results/harness/20261117T205356Z-v99g-13db/`.

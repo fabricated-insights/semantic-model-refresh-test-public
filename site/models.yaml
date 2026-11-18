@@ -11,8 +11,8 @@
 #   qnote          optional: note shown under the query charts
 #   refnote        optional: note shown under the refresh charts
 #   diffnote       optional: note shown above the diff against the baseline
-#   pro            optional: result on Power BI Pro (shared capacity). Not in
-#                  the CSVs: the lab has one Pro run, v99 (lab-findings finding 11)
+#   pro            optional fallback: result on Power BI Pro when no harness
+#                  Pro run exists. Harness Pro runs in harness-runs.csv win.
 #   why            optional: one or two sentences, the mechanism behind what the lab measured
 #   fix            optional: what to do instead
 #   ignore_before  optional: skip refreshes before this time (an earlier
@@ -260,7 +260,7 @@ models:
     name: Kitchen sink
     category: Kitchen sink
     desc: "Every antipattern at once: Power Query staging, sorts, buffers, Group By, calculated tables and columns, relationships, Auto date/time."
-    why: "Every antipattern combined gives a peak of 26,115 MB on Premium Per User, and 25,958 MB of it is Power Query, for a 622 MB model. It fails on F2 at 3,319 MB and on F64 at the 25.6 GB limit, yet it refreshed on Pro."
+    why: "Every antipattern combined gives a peak of 25,882 to 26,115 MB on Premium Per User over two runs, and 25,777 to 25,958 MB of it is Power Query, for a 622 MB model. It fails on F2 at 3,319 MB and on F64 at the 25.6 GB limit, yet it refreshed on Pro, in 31 minutes."
     fix: "The diagnostic path found the cause in Power Query, not in the model. One Table.Buffer on the shared Sales staging query takes it past F64. Even without any buffer, the sorts and the Group By each take it off F2. With the v00 Power Query (v99m) the peak drops to 627 MB."
     sizes: [1M]
     pro: refreshed

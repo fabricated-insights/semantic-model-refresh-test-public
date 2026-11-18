@@ -38,3 +38,14 @@ All four keep what v99m has: the eight calculated columns on Sales, bidirectiona
 Results of the whole split on F2: n refreshed, o failed, p refreshed, q failed. All four refreshed on F64.
 
 The sorts alone and `Customer Stats` alone are each enough to push v99m over 3 GB. Text staging and the high-cardinality columns are not. Sorting and grouping are the two steps here that cannot stream: Power Query has to read the whole Sales table into memory before it returns the first row, which has the same effect as a `Table.Buffer`.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 5,182 | 4,917 | 12 min | 99 MB | 133.8 MB |
+| Pro | 1M | refreshed |  |  | 6.8 min |  |  |
+
+Runs: `results/harness/20261117T150225Z-v99o-c4ef/`.

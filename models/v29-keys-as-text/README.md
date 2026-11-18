@@ -60,3 +60,19 @@ F64, 1M, 2026-11-11 and 2026-11-12. Refresh run `20261112T081715Z-v29-b0f1`, que
 
 Two of the three v29 runs peaked at 1.5 to 1.7 GB of Power Query memory, one stayed at the baseline level. v00-baseline has not gone above 847 MB in any run. So converting the keys to text probably raises the Power Query peak, but by a varying amount. CPU was about twice the baseline in the two runs of 2026-11-13, but not in the first run (56 s). The model in memory is the same in every run: 141.9 MB against 92.7 MB.
 
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 642 | 459 | 1.4 min | 69 MB | 141.9 MB |
+| Pro | 1M | refreshed |  |  | 0.7 min |  |  |
+
+Runs: `results/harness/20261117T064100Z-v29-0b2c/`.
+
+## F2 and F64 gap pass (2026-11-18)
+
+Refreshed on F2 with the 1M data in 1.3 min. In memory after refresh: 141.9 MB. F2 has no workspace monitoring, so there is no peak; the F64 and PPU peaks are well below the F2 limit of about 3,066 MB, as finding 9 predicts.
+
+Run: `results/harness/20261118T131615Z-v29-6b36/`.

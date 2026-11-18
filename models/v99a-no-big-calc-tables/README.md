@@ -38,3 +38,14 @@ Kept from v99:
 v99d to v99j all contain everything in v99a, so they are expected to fail on F2 as well. They were not run there.
 
 v99a still has two `Table.Buffer` steps in loaded queries: after the sort in `Sales` and at the start of `Customer Stats`.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 16,045 | 15,926 | 21 min | 185 MB | 232.6 MB |
+| Pro | 1M | refreshed |  |  | 29 min |  |  |
+
+Runs: `results/harness/20261117T055553Z-v99a-92f3/`.

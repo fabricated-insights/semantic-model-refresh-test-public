@@ -33,3 +33,14 @@ The v99 diagnostic runs suggest that Power Query memory counts against the seman
 |---|---|---|---|---|---|
 | F64 | star 1M, summary 10M | refreshed | not read yet | not read yet | not read yet |
 | F2 | star 1M, summary 10M | refreshed | not read yet | not read yet | not read yet |
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M, 10M in Power Query | refreshed | 1,519 | 1,380 | 2.0 min | 73 MB | 92.7 MB |
+| Pro | 1M, 10M in Power Query | refreshed |  |  | 1.6 min |  |  |
+
+Runs: `results/harness/20261117T092158Z-v18-b144/`.

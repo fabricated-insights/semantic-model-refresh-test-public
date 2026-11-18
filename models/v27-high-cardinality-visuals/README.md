@@ -69,3 +69,20 @@ Per visual, cold, all at once (median server time, largest peak):
 | h05 Sales by product | 31 ms | 2 MB |
 
 h03 is the heaviest, as expected. A single high-cardinality table needs about 4 times the memory of the heaviest baseline visual (v20, 58 MB), and a warm cache does not remove it: p27 still took 1.1 s with up to 88 MB per query, against 0.7 s and 1 MB on baseline p20. For scale, the worst v26-bad-dax query needed 2,655 MB on the same data.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 747 | 677 | 2.1 min | 73 MB | 92.7 MB |
+| Pro | 1M | refreshed |  |  | 0.8 min |  |  |
+
+Runs: `results/harness/20261117T062841Z-v27-150a/`.
+
+## F2 and F64 gap pass (2026-11-18)
+
+Refreshed on F2 with the 1M data in 1.4 min. In memory after refresh: 92.7 MB. F2 has no workspace monitoring, so there is no peak; the F64 and PPU peaks are well below the F2 limit of about 3,066 MB, as finding 9 predicts.
+
+Run: `results/harness/20261118T130813Z-v27-85ba/`.

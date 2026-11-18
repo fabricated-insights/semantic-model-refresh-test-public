@@ -34,3 +34,14 @@ v99a refreshed on F64 but failed on F2 at 3,099 MB, only 34 MB over the 3,065 MB
 | F2 | failed | consumed memory not recorded yet |
 
 Removing the buffers was not enough. What remains in v99a, without any `Table.Buffer`, still does not fit in the 3 GB limit on F2.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 13,038 | 12,936 | 31 min | 185 MB | 232.6 MB |
+| Pro | 1M | refreshed |  |  | 16 min |  |  |
+
+Runs: `results/harness/20261116T225204Z-v99k-aeca/`.

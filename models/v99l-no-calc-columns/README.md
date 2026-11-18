@@ -42,3 +42,14 @@ v99k failed on F2 without any `Table.Buffer`, and refreshed on F64. L and M spli
 | F2 | failed | cancelled at 3,146 MB, limit 3,066 MB, database size before command 5 MB (Data source error, 2026-11-05 15:06 UTC) |
 
 Together with v99m (refreshed on F2), this means the Power Query steps alone are enough to fail F2. The calculated columns are not needed for the failure. The cancellation figure is where the engine stopped the refresh, not the full peak, so 3,146 MB here and 3,099 MB for v99a cannot be compared directly.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 12,878 | 12,811 | 7.8 min | 158 MB | 194.2 MB |
+| Pro | 1M | refreshed |  |  | 17 min |  |  |
+
+Runs: `results/harness/20261117T154653Z-v99l-2170/`.

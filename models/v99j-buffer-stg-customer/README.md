@@ -28,3 +28,14 @@ v99h (v99g plus `Table.Buffer` in both `stg Sales` and `stg Customer`) failed on
 - If J fails, the problem is not the size of the buffered table but how `Sales Flat` joins against it. A buffered right-hand side may change the join from a hash join to something far more expensive.
 - If I and J both refresh, only the combination fails.
 - `approximatePeakMemConsumptionKB` and `mEnginePeakMemoryKB` from the ExecutionMetrics event show whether the memory sits in the semantic model engine or in the Power Query engine.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 22,919 | 22,812 | 19 min | 536 MB | 662.8 MB |
+| Pro | 1M | refreshed |  |  | 15 min |  |  |
+
+Runs: `results/harness/20261117T212800Z-v99j-ceee/`.

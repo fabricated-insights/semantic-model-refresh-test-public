@@ -38,3 +38,14 @@ A sort cannot stream. Power Query has to read all 2.35M rows into memory before 
 The harness run is within 1% of the manual run on F64 (5,269 vs 5,229 MB). On the same day v00 peaked at 623 MB, so the two sorts add about 4,650 MB. The peak is above the F2 limit and just above the documented F16 limit (5,120 MB). The duration differs a lot from the manual run (1.8 vs 8.6 min), the peak does not.
 
 The two sorts alone take the baseline off F2. The loaded table is identical to the baseline, only the row order differs, so the extra memory is used by Power Query during the refresh and none of it stays in the model.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 5,219 | 5,008 | 6.2 min | 72 MB | 91.9 MB |
+| Pro | 1M | refreshed |  |  | 8.0 min |  |  |
+
+Runs: `results/harness/20261117T085534Z-v20-9632/`.

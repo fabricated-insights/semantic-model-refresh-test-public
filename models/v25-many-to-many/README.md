@@ -57,3 +57,20 @@ Run `20261111T195607Z-v25-f02f`, 1,100 queries, none failed. Medians over 5 repe
 | pm | warm | 172 ms | 438 ms | 28 MB |
 
 p20 and pf are in the range of the baseline (v00 p20 slowest visual 672 to 719 ms over two runs, pf 63 ms). On pm, the Categories table (Sales Amount and # Orders by category) is the slowest visual at 609 ms cold and 125 ms warm, and the Segment by year matrix takes 203 ms cold and 172 ms warm. The other visuals take 16 to 47 ms. Every visual on the page filters Sales through a join with the 1,049,900-row segment table, which a warm cache does not remove.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 695 | 578 | 1.3 min | 79 MB | 98.1 MB |
+| Pro | 1M | refreshed |  |  | 1.0 min |  |  |
+
+Runs: `results/harness/20261117T061551Z-v25-747a/`.
+
+## F2 and F64 gap pass (2026-11-18)
+
+Refreshed on F2 with the 1M data in 1.8 min. In memory after refresh: 98.1 MB. F2 has no workspace monitoring, so there is no peak; the F64 and PPU peaks are well below the F2 limit of about 3,066 MB, as finding 9 predicts.
+
+Run: `results/harness/20261118T125940Z-v25-47af/`.

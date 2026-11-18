@@ -29,3 +29,14 @@ Refreshed on 2026-11-11, 1M data, measured with an XMLA trace (harness run `2026
 
 - If H fails on F64, the two staging buffers are what pushes v99 past 25 GB. Together with the v99d first version failure, that is two independent failures with the buffers and none without them. `mEnginePeakMemoryKB` in the ExecutionMetrics event should show whether the memory is in the Power Query engine or in the semantic model engine.
 - If H refreshes, the buffers only fail when combined with something not in v99h. The remaining difference to v99 is the second Sales copy, so the next step is `CopyCount = 2`.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 25,939 | 25,818 | 18 min | 534 MB | 660.7 MB |
+| Pro | 1M | refreshed |  |  | 22 min |  |  |
+
+Runs: `results/harness/20261117T225836Z-v99h-0bf5/`.

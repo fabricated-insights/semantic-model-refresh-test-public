@@ -112,3 +112,17 @@ The matrix v20 fits on F2: it needs about 860 MB against the 1,024 MB per-query 
 
 For v20's second and third runs on F2 the client waited 60 to 65 s while the engine reported 20 to 25 s. The Capacity Metrics app shows why: F2 went into the overloaded state with interactive delay at 09:11 UTC, after the first v20 run and before the second, and stayed there for 47 minutes. The service delays interactive queries while a capacity is overloaded (`docs/lab-findings-queries.md`, finding 8).
 
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 550 | 270 | 0.9 min | 73 MB | 92.7 MB |
+| Pro | 1M | refreshed |  |  | 0.8 min |  |  |
+| PPU | 10M | refreshed | 1,834 | 1,713 | 14 min | 778 MB | 700.0 MB |
+| Pro | 10M | refreshed |  |  | 8.4 min |  |  |
+
+The 10M rows are from a second pass on 2026-11-18: `DataTag` was committed as 10M for these two runs and set back to 1M afterwards.
+
+Runs: `results/harness/20261116T224902Z-v00-c9d5/`, `results/harness/20261118T105719Z-v00-77f8/`.

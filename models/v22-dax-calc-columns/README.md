@@ -86,3 +86,14 @@ The first two runs that day failed: v22 had never been refreshed in the new F64 
 | 20:16 | v00-baseline | 250 ms | 1,393 ms | 3,550 ms | 55 MB |
 
 Query time on F64 has a fast and a slow state per model, about two times apart, that last for hours and change by themselves (`docs/lab-findings-queries.md`, finding 7). Memory per query does not change with it. Here v00 was in the slow state and v22 was not, so these runs do not show the effect of the calculated columns. All three v22 runs (813 to 1,047 ms) are inside the baseline's two states. Not confirmed either way.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 621 | 271 | 1.0 min | 101 MB | 132.6 MB |
+| Pro | 1M | refreshed |  |  | 0.9 min |  |  |
+
+Runs: `results/harness/20261116T225600Z-v22-ac44/`.

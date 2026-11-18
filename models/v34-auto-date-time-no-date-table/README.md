@@ -82,3 +82,20 @@ Run back to back, the three models give the same results: the slowest visual on 
 | 14 Nov 08:07 | 266 ms | 1,251 ms | 3,114 ms | 55 MB | 08:20, slow (1,548 ms) |
 
 Query time on F64 has a fast and a slow state per model, about two times apart, that last for hours and change by themselves (`docs/lab-findings-queries.md`, finding 7). Memory per query does not change with it. v34 ran in both states, so the interleaved runs of 2026-11-12, where all three models were in the slow state, are the fair comparison, and they show no difference.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 620 | 523 | 1.1 min | 74 MB | 96.9 MB |
+| Pro | 1M | refreshed |  |  | 1.0 min |  |  |
+
+Runs: `results/harness/20261117T084805Z-v34-3328/`.
+
+## F2 and F64 gap pass (2026-11-18)
+
+Refreshed on F2 with the 1M data in 1.3 min. In memory after refresh: 96.9 MB. F2 has no workspace monitoring, so there is no peak; the F64 and PPU peaks are well below the F2 limit of about 3,066 MB, as finding 9 predicts.
+
+Run: `results/harness/20261118T134245Z-v34-4404/`.

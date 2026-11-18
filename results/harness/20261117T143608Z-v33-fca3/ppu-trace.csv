@@ -1,0 +1,2052 @@
+eventclass,eventsubclass,currenttime,starttime,endtime,duration,cputime,objectname,objectpath,integerdata,textdata,success,error
+ExecutionMetrics,,,,,,,,,,"{
+	""timeStart"": ""2026-11-17T14:37:10.085Z"",
+	""timeEnd"": ""2026-11-17T14:37:10.085Z"",
+
+	""durationMs"": 0,
+	""queryProcessingCpuTimeMs"": 0,
+	""totalCpuTimeMs"": 0,
+	""executionDelayMs"": 0,
+
+	""approximatePeakMemConsumptionKB"": 0,
+
+	""commandType"": ""ActAs"",
+	""intendedUsage"": 2
+}",,
+ExecutionMetrics,,,,,,,,,,"{
+	""timeStart"": ""2026-11-17T14:37:10.131Z"",
+	""timeEnd"": ""2026-11-17T14:37:10.147Z"",
+
+	""durationMs"": 16,
+	""queryProcessingCpuTimeMs"": 16,
+	""totalCpuTimeMs"": 16,
+	""executionDelayMs"": 0,
+
+	""approximatePeakMemConsumptionKB"": 0,
+
+	""discoverType"": 35,
+	""intendedUsage"": 2
+}",,
+ExecutionMetrics,,,,,,,,,,"{
+	""timeStart"": ""2026-11-17T14:37:10.194Z"",
+	""timeEnd"": ""2026-11-17T14:37:10.194Z"",
+
+	""durationMs"": 0,
+	""queryProcessingCpuTimeMs"": 0,
+	""totalCpuTimeMs"": 0,
+	""executionDelayMs"": 0,
+
+	""approximatePeakMemConsumptionKB"": 0,
+
+	""discoverType"": 35,
+	""intendedUsage"": 2
+}",,
+CommandEnd,Batch,2026-11-17 14:37:10.256,2026-11-17 14:37:10.210,2026-11-17 14:37:10.256,47,63,,,,"<Batch Transaction=""false"" xmlns=""http://schemas.microsoft.com/analysisservices/2003/engine"">
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_MODEL</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_DATA_SOURCES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_TABLES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_COLUMNS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ATTRIBUTE_HIERARCHIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PARTITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_RELATIONSHIPS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_MEASURES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_HIERARCHIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_LEVELS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ANNOTATIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_KPIS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CULTURES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_OBJECT_TRANSLATIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_LINGUISTIC_METADATA</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_TABLES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_COLUMNS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_HIERARCHIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_MEASURES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ROLES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ROLE_MEMBERSHIPS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_TABLE_PERMISSIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_VARIATIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_SETS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_SETS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_EXTENDED_PROPERTIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_EXPRESSIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_COLUMN_PERMISSIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_DETAIL_ROWS_DEFINITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_RELATED_COLUMN_DETAILS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_GROUP_BY_COLUMNS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CALCULATION_GROUPS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CALCULATION_ITEMS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ALTERNATE_OF_DEFINITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_REFRESH_POLICIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_FORMAT_STRING_DEFINITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_QUERY_GROUPS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CHANGED_PROPERTIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_DATA_COVERAGE_DEFINITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CALCULATION_EXPRESSIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+</Batch>
+
+[PeakMemory: 0 KB]",Success,
+ExecutionMetrics,,,,,,,,,,"{
+	""timeStart"": ""2026-11-17T14:37:10.210Z"",
+	""timeEnd"": ""2026-11-17T14:37:10.272Z"",
+
+	""durationMs"": 62,
+	""queryProcessingCpuTimeMs"": 63,
+	""totalCpuTimeMs"": 63,
+	""executionDelayMs"": 0,
+
+	""approximatePeakMemConsumptionKB"": 0,
+
+	""commandType"": ""Batch"",
+	""discoverType"": 136,
+	""intendedUsage"": 2
+}",,
+CommandEnd,Subscribe,2026-11-17 14:37:10.396,2026-11-17 14:37:10.383,2026-11-17 14:37:10.396,16,31,,,,"<Subscribe xmlns=""http://schemas.microsoft.com/analysisservices/2003/engine"">
+          <SubscriptionId xmlns=""http://schemas.microsoft.com/analysisservices/2018/engine/800"">TRACE_SUBSCRIPTION_ab768d10-ab4f-442e-8901-baf7caf51b73</SubscriptionId>
+        </Subscribe>
+
+[PeakMemory: 0 KB]",Success,
+ExecutionMetrics,,,,,,,,,,"{
+	""timeStart"": ""2026-11-17T14:37:12.838Z"",
+	""timeEnd"": ""2026-11-17T14:37:12.854Z"",
+
+	""durationMs"": 16,
+	""queryProcessingCpuTimeMs"": 16,
+	""totalCpuTimeMs"": 16,
+	""executionDelayMs"": 0,
+
+	""approximatePeakMemConsumptionKB"": 0,
+
+	""commandType"": ""ActAs"",
+	""intendedUsage"": 2
+}",,
+CommandEnd,BeginTransaction,2026-11-17 14:37:12.853,2026-11-17 14:37:12.853,2026-11-17 14:37:12.853,0,0,,,,"<BeginTransaction xmlns=""http://schemas.microsoft.com/analysisservices/2003/engine""/>
+
+[PeakMemory: 0 KB]",Success,
+ExecutionMetrics,,,,,,,,,,"{
+	""timeStart"": ""2026-11-17T14:37:12.854Z"",
+	""timeEnd"": ""2026-11-17T14:37:12.854Z"",
+
+	""durationMs"": 0,
+	""totalCpuTimeMs"": 0,
+	""executionDelayMs"": 0,
+
+	""approximatePeakMemConsumptionKB"": 0,
+
+	""commandType"": ""Transaction"",
+	""intendedUsage"": 2
+}",,
+CommandEnd,BeginTransaction,2026-11-17 14:37:12.883,,,,16,,,,"<BeginTransaction xmlns=""http://schemas.microsoft.com/analysisservices/2003/engine""/>",Success,
+CommandEnd,Batch,2026-11-17 14:37:12.976,,,,63,,,,"<Batch Transaction=""false"" xmlns=""http://schemas.microsoft.com/analysisservices/2003/engine"">
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_MODEL</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_DATA_SOURCES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_TABLES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_COLUMNS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ATTRIBUTE_HIERARCHIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PARTITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_RELATIONSHIPS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_MEASURES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_HIERARCHIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_LEVELS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ANNOTATIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_KPIS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CULTURES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_OBJECT_TRANSLATIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_LINGUISTIC_METADATA</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_TABLES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_COLUMNS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_HIERARCHIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_MEASURES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ROLES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ROLE_MEMBERSHIPS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_TABLE_PERMISSIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_VARIATIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_SETS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_SETS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_EXTENDED_PROPERTIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_EXPRESSIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_COLUMN_PERMISSIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_DETAIL_ROWS_DEFINITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_RELATED_COLUMN_DETAILS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_GROUP_BY_COLUMNS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CALCULATION_GROUPS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CALCULATION_ITEMS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ALTERNATE_OF_DEFINITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_REFRESH_POLICIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_FORMAT_STRING_DEFINITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_QUERY_GROUPS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CHANGED_PROPERTIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_DATA_COVERAGE_DEFINITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CALCULATION_EXPRESSIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+</Batch>",Success,
+ProgressReportEnd,ReadData,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,0,0,DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,1,Finished reading data for the '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' table. (TableTMID='31'),Success,
+ProgressReportEnd,VertiPaq,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,0,0,DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,0,Compression for the segment '0' of the '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' table completed in '0' steps with '1' clusters computed in total. Execution hasn't been timeboxed. (TableTMID='31'),Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,0,0,DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,0,Finished compressing segment 0 of column '<oii>Month</oii>' for the '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' table. (TableTMID='31'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,0,0,DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,0,Finished compressing segment 0 of column '<oii>Date</oii>' for the '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' table. (TableTMID='31'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,0,0,DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,0,Finished compressing segment 0 of column '<oii>Day</oii>' for the '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' table. (TableTMID='31'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,0,0,DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,0,Finished compressing segment 0 of column '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' for the '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' table. (TableTMID='31'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,0,0,DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,0,Finished compressing segment 0 of column '<oii>Year</oii>' for the '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' table. (TableTMID='31'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,0,0,DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,0,Finished compressing segment 0 of column '<oii>MonthNo</oii>' for the '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' table. (TableTMID='31'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,0,0,DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,0,Finished compressing segment 0 of column '<oii>Quarter</oii>' for the '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' table. (TableTMID='31'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,0,0,DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,0,Finished compressing segment 0 of column '<oii>QuarterNo</oii>' for the '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' table. (TableTMID='31'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,AnalyzeEncodeData,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,0,0,DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,0,Finished Analyzing\Encoding segment 0 for the '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' table. (TableTMID='31'),Success,
+ProgressReportEnd,Process,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,2026-11-17 14:37:13.196,0,0,DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,0,"Finished processing the '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' partition of the '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' table. (TableTMID='31', PartitionTMID='159')",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:13.196,2026-11-17 14:37:13.166,2026-11-17 14:37:13.196,31,0,DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957,0,"Finished processing partition '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31', PartitionTMID='159')",Success,
+ProgressReportEnd,ExecuteSql,2026-11-17 14:37:14.150,2026-11-17 14:37:13.260,2026-11-17 14:37:14.150,891,0,Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,0,"let __AS_Query__ = #""Currency Exchange""
+,
+__AS_Table__ = Table.FromValue(__AS_Query__),
+__AS_Compact__ = Table.RemoveColumns(__AS_Table__, Table.ColumnsOfType(__AS_Table__, { type table, type record, type list })),
+__AS_Effective__ = Table.TransformColumnNames(__AS_Compact__, Text.Clean)
+in __AS_Effective__",Success,
+ProgressReportEnd,ExecuteSql,2026-11-17 14:37:14.356,2026-11-17 14:37:13.260,2026-11-17 14:37:14.356,1096,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,"let __AS_Query__ = Product
+,
+__AS_Table__ = Table.FromValue(__AS_Query__),
+__AS_Compact__ = Table.RemoveColumns(__AS_Table__, Table.ColumnsOfType(__AS_Table__, { type table, type record, type list })),
+__AS_Effective__ = Table.TransformColumnNames(__AS_Compact__, Text.Clean)
+in __AS_Effective__",Success,
+ProgressReportEnd,ExecuteSql,2026-11-17 14:37:14.403,2026-11-17 14:37:13.260,2026-11-17 14:37:14.403,1142,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,"let __AS_Query__ = Customer
+,
+__AS_Table__ = Table.FromValue(__AS_Query__),
+__AS_Compact__ = Table.RemoveColumns(__AS_Table__, Table.ColumnsOfType(__AS_Table__, { type table, type record, type list })),
+__AS_Effective__ = Table.TransformColumnNames(__AS_Compact__, Text.Clean)
+in __AS_Effective__",Success,
+ProgressReportEnd,ReadData,2026-11-17 14:37:14.450,2026-11-17 14:37:14.356,2026-11-17 14:37:14.450,93,47,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,2517,Finished reading data for the '<oii>Product</oii>' table. (TableTMID='19'),Success,
+ProgressReportEnd,VertiPaq,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Compression for the segment '0' of the '<oii>Product</oii>' table completed in '74' steps with '26' clusters computed in total. Execution hasn't been timeboxed. (TableTMID='19'),Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>Weight</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>Weight Unit Measure</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>Unit Price</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>Product Code</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>Product Name</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>ProductKey</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>Subcategory</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>Brand</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>Category Code</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>Subcategory Code</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>Color</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>Category</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>Manufacturer</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,2026-11-17 14:37:14.450,0,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished compressing segment 0 of column '<oii>Unit Cost</oii>' for the '<oii>Product</oii>' table. (TableTMID='19'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,AnalyzeEncodeData,2026-11-17 14:37:14.463,2026-11-17 14:37:14.450,2026-11-17 14:37:14.463,16,0,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,Finished Analyzing\Encoding segment 0 for the '<oii>Product</oii>' table. (TableTMID='19'),Success,
+ProgressReportEnd,Process,2026-11-17 14:37:14.463,2026-11-17 14:37:14.356,2026-11-17 14:37:14.463,109,47,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,"Finished processing the '<oii>Product-9730db17-a88f-43ad-b6f2-50ae8a679b18</oii>' partition of the '<oii>Product</oii>' table. (TableTMID='19', PartitionTMID='155')",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.480,2026-11-17 14:37:13.166,2026-11-17 14:37:14.480,1314,78,Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product-9730db17-a88f-43ad-b6f2-50ae8a679b18,0,"Finished processing partition '<oii>Product-9730db17-a88f-43ad-b6f2-50ae8a679b18</oii>' of table '<oii>Product</oii>'. (TableTMID='19', PartitionTMID='155');
+
+[MashupCPUTime: 484 ms, MashupPeakMemory: 459516 KB]",Success,
+ProgressReportEnd,ExecuteSql,2026-11-17 14:37:14.653,2026-11-17 14:37:13.260,2026-11-17 14:37:14.653,1393,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,"let __AS_Query__ = Date
+,
+__AS_Table__ = Table.FromValue(__AS_Query__),
+__AS_Compact__ = Table.RemoveColumns(__AS_Table__, Table.ColumnsOfType(__AS_Table__, { type table, type record, type list })),
+__AS_Effective__ = Table.TransformColumnNames(__AS_Compact__, Text.Clean)
+in __AS_Effective__",Success,
+ProgressReportEnd,ExecuteSql,2026-11-17 14:37:14.730,2026-11-17 14:37:13.273,2026-11-17 14:37:14.730,1455,0,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,"let __AS_Query__ = Sales
+,
+__AS_Table__ = Table.FromValue(__AS_Query__),
+__AS_Compact__ = Table.RemoveColumns(__AS_Table__, Table.ColumnsOfType(__AS_Table__, { type table, type record, type list })),
+__AS_Effective__ = Table.TransformColumnNames(__AS_Compact__, Text.Clean)
+in __AS_Effective__",Success,
+ProgressReportEnd,ReadData,2026-11-17 14:37:14.840,2026-11-17 14:37:14.653,2026-11-17 14:37:14.840,188,47,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,4018,Finished reading data for the '<oii>Date</oii>' table. (TableTMID='16'),Success,
+ProgressReportEnd,VertiPaq,2026-11-17 14:37:14.856,2026-11-17 14:37:14.840,2026-11-17 14:37:14.856,16,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Compression for the segment '0' of the '<oii>Date</oii>' table completed in '86' steps with '30' clusters computed in total. Execution hasn't been timeboxed. (TableTMID='16'),Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Year Quarter Number</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Day of Week Short</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Day of Week Number</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Working Day Number</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Year Month Short</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Year Month</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Month</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Date</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>End of Month</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Year Month Number</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Year</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Month Short</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Day of Week</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Working Day</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Month Number</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Quarter</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,2026-11-17 14:37:14.856,0,0,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished compressing segment 0 of column '<oii>Year Quarter</oii>' for the '<oii>Date</oii>' table. (TableTMID='16'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,AnalyzeEncodeData,2026-11-17 14:37:14.856,2026-11-17 14:37:14.840,2026-11-17 14:37:14.856,16,16,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,Finished Analyzing\Encoding segment 0 for the '<oii>Date</oii>' table. (TableTMID='16'),Success,
+ProgressReportEnd,Process,2026-11-17 14:37:14.856,2026-11-17 14:37:14.653,2026-11-17 14:37:14.856,203,47,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,"Finished processing the '<oii>Date-44d762f0-a871-4687-b253-096276d9658b</oii>' partition of the '<oii>Date</oii>' table. (TableTMID='16', PartitionTMID='154')",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.856,2026-11-17 14:37:13.213,2026-11-17 14:37:14.856,1643,78,Date-44d762f0-a871-4687-b253-096276d9658b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date-44d762f0-a871-4687-b253-096276d9658b,0,"Finished processing partition '<oii>Date-44d762f0-a871-4687-b253-096276d9658b</oii>' of table '<oii>Date</oii>'. (TableTMID='16', PartitionTMID='154');
+
+[MashupCPUTime: 578 ms, MashupPeakMemory: 188936 KB]",Success,
+ProgressReportEnd,ReadData,2026-11-17 14:37:14.933,2026-11-17 14:37:14.150,2026-11-17 14:37:14.933,783,563,Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,100450,Finished reading data for the '<oii>Currency Exchange</oii>' table. (TableTMID='28'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,0,0,RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,0,Finished processing hierarchy '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,0,0,Date,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.Date,0,Finished processing hierarchy '<oii>Date</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,0,0,RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,0,Finished processing hierarchy '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,0,0,Date,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Date,0,Finished processing hierarchy '<oii>Date</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,0,0,Year,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Year,0,Finished processing hierarchy '<oii>Year</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,0,0,Year Quarter Number,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Year Quarter Number,0,Finished processing hierarchy '<oii>Year Quarter Number</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,2026-11-17 14:37:14.933,0,0,Quarter,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Quarter,0,Finished processing hierarchy '<oii>Quarter</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,0,16,Year Month Number,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Year Month Number,0,Finished processing hierarchy '<oii>Year Month Number</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,0,0,Month Number,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Month Number,0,Finished processing hierarchy '<oii>Month Number</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,0,0,Day of Week Number,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Day of Week Number,0,Finished processing hierarchy '<oii>Day of Week Number</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,0,0,Working Day,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Working Day,0,Finished processing hierarchy '<oii>Working Day</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,0,0,Working Day Number,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Working Day Number,0,Finished processing hierarchy '<oii>Working Day Number</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,0,0,End of Month,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.End of Month,0,Finished processing hierarchy '<oii>End of Month</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,0,0,Year,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.Year,0,Finished processing calculated column '<oii>Year</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,2026-11-17 14:37:14.950,0,0,MonthNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.MonthNo,0,Finished processing calculated column '<oii>MonthNo</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.963,2026-11-17 14:37:14.950,2026-11-17 14:37:14.963,16,16,Month,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.Month,0,Finished processing calculated column '<oii>Month</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,0,0,Day,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.Day,0,Finished processing calculated column '<oii>Day</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,VertiPaq,2026-11-17 14:37:14.963,2026-11-17 14:37:14.950,2026-11-17 14:37:14.963,16,16,Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,0,Compression for the segment '0' of the '<oii>Currency Exchange</oii>' table completed in '63' steps with '27' clusters computed in total. Execution hasn't been timeboxed. (TableTMID='28'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,0,0,Year Quarter,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Year Quarter,0,Finished processing hierarchy '<oii>Year Quarter</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,0,0,Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,0,Finished compressing segment 0 of column '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' for the '<oii>Currency Exchange</oii>' table. (TableTMID='28'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,0,0,Year Month,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Year Month,0,Finished processing hierarchy '<oii>Year Month</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,0,0,Year Month Short,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Year Month Short,0,Finished processing hierarchy '<oii>Year Month Short</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,0,0,Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,0,Finished compressing segment 0 of column '<oii>FromCurrency</oii>' for the '<oii>Currency Exchange</oii>' table. (TableTMID='28'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,0,0,Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,0,Finished compressing segment 0 of column '<oii>Date</oii>' for the '<oii>Currency Exchange</oii>' table. (TableTMID='28'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,0,0,Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,0,Finished compressing segment 0 of column '<oii>ToCurrency</oii>' for the '<oii>Currency Exchange</oii>' table. (TableTMID='28'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,0,0,Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,0,Finished compressing segment 0 of column '<oii>Exchange</oii>' for the '<oii>Currency Exchange</oii>' table. (TableTMID='28'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,AnalyzeEncodeData,2026-11-17 14:37:14.963,2026-11-17 14:37:14.950,2026-11-17 14:37:14.963,16,16,Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,0,Finished Analyzing\Encoding segment 0 for the '<oii>Currency Exchange</oii>' table. (TableTMID='28'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,0,0,Month,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Month,0,Finished processing hierarchy '<oii>Month</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,0,0,Month Short,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Month Short,0,Finished processing hierarchy '<oii>Month Short</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,Process,2026-11-17 14:37:14.963,2026-11-17 14:37:14.150,2026-11-17 14:37:14.963,814,578,Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,0,"Finished processing the '<oii>Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be</oii>' partition of the '<oii>Currency Exchange</oii>' table. (TableTMID='28', PartitionTMID='158')",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.963,2026-11-17 14:37:13.196,2026-11-17 14:37:14.963,1768,609,Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be,0,"Finished processing partition '<oii>Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be</oii>' of table '<oii>Currency Exchange</oii>'. (TableTMID='28', PartitionTMID='158');
+
+[MashupCPUTime: 921 ms, MashupPeakMemory: 224536 KB]",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,0,0,Day of Week,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Day of Week,0,Finished processing hierarchy '<oii>Day of Week</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,2026-11-17 14:37:14.963,0,0,Day of Week Short,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Day of Week Short,0,Finished processing hierarchy '<oii>Day of Week Short</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.980,2026-11-17 14:37:14.963,2026-11-17 14:37:14.980,16,16,Year,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.Year,0,Finished processing hierarchy '<oii>Year</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.980,2026-11-17 14:37:14.980,2026-11-17 14:37:14.980,0,0,MonthNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.MonthNo,0,Finished processing hierarchy '<oii>MonthNo</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.980,2026-11-17 14:37:14.980,2026-11-17 14:37:14.980,0,0,Day,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.Day,0,Finished processing hierarchy '<oii>Day</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.980,2026-11-17 14:37:14.980,2026-11-17 14:37:14.980,0,0,Month,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.Month,0,Finished processing hierarchy '<oii>Month</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:14.996,2026-11-17 14:37:14.980,2026-11-17 14:37:14.996,16,0,Year-Quarter-Month,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Year-Quarter-Month,0,Finished processing hierarchy '<oii>Year-Quarter-Month</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.013,2026-11-17 14:37:14.996,2026-11-17 14:37:15.013,16,0,Year-Month,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Date.Year-Month,0,Finished processing hierarchy '<oii>Year-Month</oii>' of table '<oii>Date</oii>'. (TableTMID='16'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.013,2026-11-17 14:37:15.013,2026-11-17 14:37:15.013,0,0,QuarterNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.QuarterNo,0,Finished processing calculated column '<oii>QuarterNo</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.013,2026-11-17 14:37:15.013,2026-11-17 14:37:15.013,0,0,RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,0,Finished processing hierarchy '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.013,2026-11-17 14:37:15.013,2026-11-17 14:37:15.013,0,0,QuarterNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.QuarterNo,0,Finished processing hierarchy '<oii>QuarterNo</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.013,2026-11-17 14:37:15.013,2026-11-17 14:37:15.013,0,0,ProductKey,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.ProductKey,0,Finished processing hierarchy '<oii>ProductKey</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.013,2026-11-17 14:37:15.013,2026-11-17 14:37:15.013,0,0,Manufacturer,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Manufacturer,0,Finished processing hierarchy '<oii>Manufacturer</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.013,2026-11-17 14:37:15.026,16,16,Brand,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Brand,0,Finished processing hierarchy '<oii>Brand</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,0,0,Color,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Color,0,Finished processing hierarchy '<oii>Color</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,0,0,Weight Unit Measure,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Weight Unit Measure,0,Finished processing hierarchy '<oii>Weight Unit Measure</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.013,2026-11-17 14:37:15.026,16,0,Product Code,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product Code,0,Finished processing hierarchy '<oii>Product Code</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,0,0,Weight,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Weight,0,Finished processing hierarchy '<oii>Weight</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,0,0,Unit Cost,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Unit Cost,0,Finished processing hierarchy '<oii>Unit Cost</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,0,0,Unit Price,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Unit Price,0,Finished processing hierarchy '<oii>Unit Price</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,0,0,Subcategory Code,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Subcategory Code,0,Finished processing hierarchy '<oii>Subcategory Code</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,0,0,Category Code,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Category Code,0,Finished processing hierarchy '<oii>Category Code</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,0,0,Subcategory,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Subcategory,0,Finished processing hierarchy '<oii>Subcategory</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,0,0,Category,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Category,0,Finished processing hierarchy '<oii>Category</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,0,0,RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,0,Finished processing hierarchy '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' of table '<oii>Currency Exchange</oii>'. (TableTMID='28'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,0,0,Quarter,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.Quarter,0,Finished processing calculated column '<oii>Quarter</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,0,0,Date,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.Date,0,Finished processing hierarchy '<oii>Date</oii>' of table '<oii>Currency Exchange</oii>'. (TableTMID='28'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,2026-11-17 14:37:15.026,0,0,FromCurrency,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.FromCurrency,0,Finished processing hierarchy '<oii>FromCurrency</oii>' of table '<oii>Currency Exchange</oii>'. (TableTMID='28'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.043,2026-11-17 14:37:15.026,2026-11-17 14:37:15.043,16,0,a7c057d3-ede2-4fdd-812a-d5be2dc1569f,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.a7c057d3-ede2-4fdd-812a-d5be2dc1569f,0,Finished processing relationship '<oii>a7c057d3-ede2-4fdd-812a-d5be2dc1569f</oii>'.,Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.043,2026-11-17 14:37:15.013,2026-11-17 14:37:15.043,31,0,Product Name,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Product Name,0,Finished processing hierarchy '<oii>Product Name</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.043,2026-11-17 14:37:15.043,2026-11-17 14:37:15.043,0,0,Quarter,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.Quarter,0,Finished processing hierarchy '<oii>Quarter</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.043,2026-11-17 14:37:15.043,2026-11-17 14:37:15.043,0,0,Category-Subcategory,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Product.Category-Subcategory,0,Finished processing hierarchy '<oii>Category-Subcategory</oii>' of table '<oii>Product</oii>'. (TableTMID='19'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.043,2026-11-17 14:37:15.043,2026-11-17 14:37:15.043,0,0,Date Hierarchy,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957.Date Hierarchy,0,Finished processing hierarchy '<oii>Date Hierarchy</oii>' of table '<oii>DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957</oii>'. (TableTMID='31'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.060,2026-11-17 14:37:15.026,2026-11-17 14:37:15.060,31,16,ToCurrency,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.ToCurrency,0,Finished processing hierarchy '<oii>ToCurrency</oii>' of table '<oii>Currency Exchange</oii>'. (TableTMID='28'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.060,2026-11-17 14:37:15.043,2026-11-17 14:37:15.060,16,0,Exchange,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Currency Exchange.Exchange,0,Finished processing hierarchy '<oii>Exchange</oii>' of table '<oii>Currency Exchange</oii>'. (TableTMID='28'),Success,
+ProgressReportEnd,ExecuteSql,2026-11-17 14:37:15.606,2026-11-17 14:37:13.273,2026-11-17 14:37:15.606,2332,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,"let __AS_Query__ = Store
+,
+__AS_Table__ = Table.FromValue(__AS_Query__),
+__AS_Compact__ = Table.RemoveColumns(__AS_Table__, Table.ColumnsOfType(__AS_Table__, { type table, type record, type list })),
+__AS_Effective__ = Table.TransformColumnNames(__AS_Compact__, Text.Clean)
+in __AS_Effective__",Success,
+ProgressReportEnd,ReadData,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,0,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,74,Finished reading data for the '<oii>Store</oii>' table. (TableTMID='25'),Success,
+ProgressReportEnd,VertiPaq,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,0,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,Compression for the segment '0' of the '<oii>Store</oii>' table completed in '1' steps with '1' clusters computed in total. Execution hasn't been timeboxed. (TableTMID='25'),Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,0,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,Finished compressing segment 0 of column '<oii>Square Meters</oii>' for the '<oii>Store</oii>' table. (TableTMID='25'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,0,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,Finished compressing segment 0 of column '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' for the '<oii>Store</oii>' table. (TableTMID='25'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,0,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,Finished compressing segment 0 of column '<oii>Close Date</oii>' for the '<oii>Store</oii>' table. (TableTMID='25'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,0,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,Finished compressing segment 0 of column '<oii>Store Code</oii>' for the '<oii>Store</oii>' table. (TableTMID='25'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,0,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,Finished compressing segment 0 of column '<oii>Status</oii>' for the '<oii>Store</oii>' table. (TableTMID='25'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,0,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,Finished compressing segment 0 of column '<oii>Country</oii>' for the '<oii>Store</oii>' table. (TableTMID='25'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,0,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,Finished compressing segment 0 of column '<oii>StoreKey</oii>' for the '<oii>Store</oii>' table. (TableTMID='25'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,0,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,Finished compressing segment 0 of column '<oii>State</oii>' for the '<oii>Store</oii>' table. (TableTMID='25'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,0,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,Finished compressing segment 0 of column '<oii>Name</oii>' for the '<oii>Store</oii>' table. (TableTMID='25'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,0,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,Finished compressing segment 0 of column '<oii>Open Date</oii>' for the '<oii>Store</oii>' table. (TableTMID='25'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,AnalyzeEncodeData,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,2026-11-17 14:37:15.623,0,0,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,Finished Analyzing\Encoding segment 0 for the '<oii>Store</oii>' table. (TableTMID='25'),Success,
+ProgressReportEnd,Process,2026-11-17 14:37:15.623,2026-11-17 14:37:15.606,2026-11-17 14:37:15.623,16,16,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,"Finished processing the '<oii>Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc</oii>' partition of the '<oii>Store</oii>' table. (TableTMID='25', PartitionTMID='157')",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:15.623,2026-11-17 14:37:13.196,2026-11-17 14:37:15.623,2425,63,Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc,0,"Finished processing partition '<oii>Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc</oii>' of table '<oii>Store</oii>'. (TableTMID='25', PartitionTMID='157');
+
+[MashupCPUTime: 406 ms, MashupPeakMemory: 432792 KB]",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,0,0,RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,0,Finished processing hierarchy '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' of table '<oii>Store</oii>'. (TableTMID='25'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,0,0,Country,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Country,0,Finished processing hierarchy '<oii>Country</oii>' of table '<oii>Store</oii>'. (TableTMID='25'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,0,0,Store Code,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Store Code,0,Finished processing hierarchy '<oii>Store Code</oii>' of table '<oii>Store</oii>'. (TableTMID='25'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,0,0,StoreKey,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.StoreKey,0,Finished processing hierarchy '<oii>StoreKey</oii>' of table '<oii>Store</oii>'. (TableTMID='25'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,0,0,State,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.State,0,Finished processing hierarchy '<oii>State</oii>' of table '<oii>Store</oii>'. (TableTMID='25'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,0,0,Square Meters,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Square Meters,0,Finished processing hierarchy '<oii>Square Meters</oii>' of table '<oii>Store</oii>'. (TableTMID='25'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,0,0,Name,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Name,0,Finished processing hierarchy '<oii>Name</oii>' of table '<oii>Store</oii>'. (TableTMID='25'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,0,0,Open Date,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Open Date,0,Finished processing hierarchy '<oii>Open Date</oii>' of table '<oii>Store</oii>'. (TableTMID='25'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,0,0,Close Date,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Close Date,0,Finished processing hierarchy '<oii>Close Date</oii>' of table '<oii>Store</oii>'. (TableTMID='25'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,2026-11-17 14:37:16.013,0,0,Status,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Store.Status,0,Finished processing hierarchy '<oii>Status</oii>' of table '<oii>Store</oii>'. (TableTMID='25'),Success,
+ProgressReportEnd,ReadData,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,2556,Finished reading data for the '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>' table. (TableTMID='40'),Success,
+ProgressReportEnd,VertiPaq,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,0,Compression for the segment '0' of the '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>' table completed in '1' steps with '1' clusters computed in total. Execution hasn't been timeboxed. (TableTMID='40'),Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,0,Finished compressing segment 0 of column '<oii>Year</oii>' for the '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>' table. (TableTMID='40'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,0,Finished compressing segment 0 of column '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' for the '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>' table. (TableTMID='40'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,0,Finished compressing segment 0 of column '<oii>Month</oii>' for the '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>' table. (TableTMID='40'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,0,Finished compressing segment 0 of column '<oii>Date</oii>' for the '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>' table. (TableTMID='40'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,0,Finished compressing segment 0 of column '<oii>Quarter</oii>' for the '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>' table. (TableTMID='40'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,0,Finished compressing segment 0 of column '<oii>QuarterNo</oii>' for the '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>' table. (TableTMID='40'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,0,Finished compressing segment 0 of column '<oii>Day</oii>' for the '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>' table. (TableTMID='40'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,0,Finished compressing segment 0 of column '<oii>MonthNo</oii>' for the '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>' table. (TableTMID='40'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,Process,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,0,"Finished processing the '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>' partition of the '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>' table. (TableTMID='40', PartitionTMID='162')",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.030,2026-11-17 14:37:16.013,2026-11-17 14:37:16.030,16,16,LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c,0,"Finished processing partition '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40', PartitionTMID='162')",Success,
+ProgressReportEnd,ReadData,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,5478,Finished reading data for the '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>' table. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,0,Finished processing hierarchy '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,Date,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.Date,0,Finished processing hierarchy '<oii>Date</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,2026-11-17 14:37:16.030,0,0,8d8a9d90-9696-4dee-a074-a93fd89de01a,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.8d8a9d90-9696-4dee-a074-a93fd89de01a,0,Finished processing relationship '<oii>8d8a9d90-9696-4dee-a074-a93fd89de01a</oii>'.,Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.043,2026-11-17 14:37:16.030,2026-11-17 14:37:16.043,16,16,MonthNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.MonthNo,0,Finished processing calculated column '<oii>MonthNo</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.043,2026-11-17 14:37:16.030,2026-11-17 14:37:16.043,16,16,Year,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.Year,0,Finished processing calculated column '<oii>Year</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,VertiPaq,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,0,Compression for the segment '0' of the '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>' table completed in '1' steps with '1' clusters computed in total. Execution hasn't been timeboxed. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,MonthNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.MonthNo,0,Finished processing hierarchy '<oii>MonthNo</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,0,Finished compressing segment 0 of column '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' for the '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>' table. (TableTMID='37'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,0,Finished compressing segment 0 of column '<oii>MonthNo</oii>' for the '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>' table. (TableTMID='37'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,0,Finished compressing segment 0 of column '<oii>Year</oii>' for the '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>' table. (TableTMID='37'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,0,Finished compressing segment 0 of column '<oii>Quarter</oii>' for the '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>' table. (TableTMID='37'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,0,Finished compressing segment 0 of column '<oii>Day</oii>' for the '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>' table. (TableTMID='37'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,0,Finished compressing segment 0 of column '<oii>Date</oii>' for the '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>' table. (TableTMID='37'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,0,Finished compressing segment 0 of column '<oii>Month</oii>' for the '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>' table. (TableTMID='37'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,0,Finished compressing segment 0 of column '<oii>QuarterNo</oii>' for the '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>' table. (TableTMID='37'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,Year,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.Year,0,Finished processing hierarchy '<oii>Year</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,Month,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.Month,0,Finished processing calculated column '<oii>Month</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,Process,2026-11-17 14:37:16.043,2026-11-17 14:37:16.030,2026-11-17 14:37:16.043,16,16,LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,0,"Finished processing the '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>' partition of the '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>' table. (TableTMID='37', PartitionTMID='161')",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.043,2026-11-17 14:37:16.013,2026-11-17 14:37:16.043,31,31,LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619,0,"Finished processing partition '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37', PartitionTMID='161')",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,Month,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.Month,0,Finished processing hierarchy '<oii>Month</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,Day,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.Day,0,Finished processing calculated column '<oii>Day</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,QuarterNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.QuarterNo,0,Finished processing calculated column '<oii>QuarterNo</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,0,Finished processing hierarchy '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,90a6e868-4b99-494b-a58e-2827a9ed3af8,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.90a6e868-4b99-494b-a58e-2827a9ed3af8,0,Finished processing relationship '<oii>90a6e868-4b99-494b-a58e-2827a9ed3af8</oii>'.,Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,Date,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.Date,0,Finished processing hierarchy '<oii>Date</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,2026-11-17 14:37:16.043,0,0,QuarterNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.QuarterNo,0,Finished processing hierarchy '<oii>QuarterNo</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.060,2026-11-17 14:37:16.043,2026-11-17 14:37:16.060,16,0,Day,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.Day,0,Finished processing hierarchy '<oii>Day</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.060,2026-11-17 14:37:16.043,2026-11-17 14:37:16.060,16,16,MonthNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.MonthNo,0,Finished processing calculated column '<oii>MonthNo</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.060,2026-11-17 14:37:16.043,2026-11-17 14:37:16.060,16,16,Year,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.Year,0,Finished processing calculated column '<oii>Year</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.060,2026-11-17 14:37:16.060,2026-11-17 14:37:16.060,0,0,MonthNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.MonthNo,0,Finished processing hierarchy '<oii>MonthNo</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.060,2026-11-17 14:37:16.060,2026-11-17 14:37:16.060,0,0,Year,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.Year,0,Finished processing hierarchy '<oii>Year</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.060,2026-11-17 14:37:16.060,2026-11-17 14:37:16.060,0,0,Day,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.Day,0,Finished processing calculated column '<oii>Day</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.060,2026-11-17 14:37:16.060,2026-11-17 14:37:16.060,0,0,Day,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.Day,0,Finished processing hierarchy '<oii>Day</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.060,2026-11-17 14:37:16.043,2026-11-17 14:37:16.060,16,16,Month,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.Month,0,Finished processing calculated column '<oii>Month</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.060,2026-11-17 14:37:16.060,2026-11-17 14:37:16.060,0,0,Quarter,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.Quarter,0,Finished processing calculated column '<oii>Quarter</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.060,2026-11-17 14:37:16.060,2026-11-17 14:37:16.060,0,0,QuarterNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.QuarterNo,0,Finished processing calculated column '<oii>QuarterNo</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.076,2026-11-17 14:37:16.060,2026-11-17 14:37:16.076,16,0,Month,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.Month,0,Finished processing hierarchy '<oii>Month</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.076,2026-11-17 14:37:16.060,2026-11-17 14:37:16.076,16,0,Quarter,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.Quarter,0,Finished processing hierarchy '<oii>Quarter</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.076,2026-11-17 14:37:16.076,2026-11-17 14:37:16.076,0,0,QuarterNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.QuarterNo,0,Finished processing hierarchy '<oii>QuarterNo</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.076,2026-11-17 14:37:16.076,2026-11-17 14:37:16.076,0,0,Date Hierarchy,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c.Date Hierarchy,0,Finished processing hierarchy '<oii>Date Hierarchy</oii>' of table '<oii>LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c</oii>'. (TableTMID='40'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.090,2026-11-17 14:37:16.076,2026-11-17 14:37:16.090,16,0,Quarter,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.Quarter,0,Finished processing calculated column '<oii>Quarter</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.090,2026-11-17 14:37:16.090,2026-11-17 14:37:16.090,0,0,Quarter,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.Quarter,0,Finished processing hierarchy '<oii>Quarter</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:16.106,2026-11-17 14:37:16.090,2026-11-17 14:37:16.106,16,0,Date Hierarchy,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619.Date Hierarchy,0,Finished processing hierarchy '<oii>Date Hierarchy</oii>' of table '<oii>LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619</oii>'. (TableTMID='37'),Success,
+ProgressReportEnd,ReadData,2026-11-17 14:37:17.610,2026-11-17 14:37:14.403,2026-11-17 14:37:17.610,3207,1750,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,104990,Finished reading data for the '<oii>Customer</oii>' table. (TableTMID='13'),Success,
+ProgressReportEnd,VertiPaq,2026-11-17 14:37:17.720,2026-11-17 14:37:17.673,2026-11-17 14:37:17.720,47,31,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Compression for the segment '0' of the '<oii>Customer</oii>' table completed in '1035' steps with '398' clusters computed in total. Execution hasn't been timeboxed. (TableTMID='13'),Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>Continent</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>Country</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>Country Code</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>State Code</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>State</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>City</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>Birthday</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>Age</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>CustomerKey</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>Zip Code</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>Name</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>Gender</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,2026-11-17 14:37:17.733,0,0,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,Finished compressing segment 0 of column '<oii>Address</oii>' for the '<oii>Customer</oii>' table. (TableTMID='13'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,Process,2026-11-17 14:37:17.750,2026-11-17 14:37:14.403,2026-11-17 14:37:17.750,3348,1828,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,"Finished processing the '<oii>Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59</oii>' partition of the '<oii>Customer</oii>' table. (TableTMID='13', PartitionTMID='153')",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:17.750,2026-11-17 14:37:13.180,2026-11-17 14:37:17.750,4568,1859,Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59,0,"Finished processing partition '<oii>Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59</oii>' of table '<oii>Customer</oii>'. (TableTMID='13', PartitionTMID='153');
+
+[MashupCPUTime: 3687 ms, MashupPeakMemory: 529080 KB]",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.203,2026-11-17 14:37:18.186,2026-11-17 14:37:18.203,16,0,RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,0,Finished processing hierarchy '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.203,2026-11-17 14:37:18.186,2026-11-17 14:37:18.203,16,0,Gender,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Gender,0,Finished processing hierarchy '<oii>Gender</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.203,2026-11-17 14:37:18.203,2026-11-17 14:37:18.203,0,0,State Code,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.State Code,0,Finished processing hierarchy '<oii>State Code</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.203,2026-11-17 14:37:18.203,2026-11-17 14:37:18.203,0,0,State,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.State,0,Finished processing hierarchy '<oii>State</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.220,2026-11-17 14:37:18.186,2026-11-17 14:37:18.220,31,0,CustomerKey,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.CustomerKey,0,Finished processing hierarchy '<oii>CustomerKey</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.220,2026-11-17 14:37:18.220,2026-11-17 14:37:18.220,0,0,Country Code,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Country Code,0,Finished processing hierarchy '<oii>Country Code</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.220,2026-11-17 14:37:18.220,2026-11-17 14:37:18.220,0,0,Country,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Country,0,Finished processing hierarchy '<oii>Country</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.220,2026-11-17 14:37:18.220,2026-11-17 14:37:18.220,0,0,Continent,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Continent,0,Finished processing hierarchy '<oii>Continent</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.233,2026-11-17 14:37:18.220,2026-11-17 14:37:18.233,16,0,Birthday,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Birthday,0,Finished processing hierarchy '<oii>Birthday</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.233,2026-11-17 14:37:18.233,2026-11-17 14:37:18.233,0,0,Age,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Age,0,Finished processing hierarchy '<oii>Age</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,ReadData,2026-11-17 14:37:18.280,2026-11-17 14:37:18.233,2026-11-17 14:37:18.280,47,47,LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,24837,Finished reading data for the '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>' table. (TableTMID='34'),Success,
+ProgressReportEnd,VertiPaq,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,0,0,LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,0,Compression for the segment '0' of the '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>' table completed in '1' steps with '1' clusters computed in total. Execution hasn't been timeboxed. (TableTMID='34'),Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,0,0,LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,0,Finished compressing segment 0 of column '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' for the '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>' table. (TableTMID='34'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,0,0,LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,0,Finished compressing segment 0 of column '<oii>Month</oii>' for the '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>' table. (TableTMID='34'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,0,0,LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,0,Finished compressing segment 0 of column '<oii>Quarter</oii>' for the '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>' table. (TableTMID='34'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,0,0,LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,0,Finished compressing segment 0 of column '<oii>QuarterNo</oii>' for the '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>' table. (TableTMID='34'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,0,0,LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,0,Finished compressing segment 0 of column '<oii>MonthNo</oii>' for the '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>' table. (TableTMID='34'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,0,0,LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,0,Finished compressing segment 0 of column '<oii>Day</oii>' for the '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>' table. (TableTMID='34'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,0,0,LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,0,Finished compressing segment 0 of column '<oii>Date</oii>' for the '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>' table. (TableTMID='34'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,0,0,LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,0,Finished compressing segment 0 of column '<oii>Year</oii>' for the '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>' table. (TableTMID='34'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.313,2026-11-17 14:37:18.203,2026-11-17 14:37:18.313,109,0,Zip Code,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Zip Code,0,Finished processing hierarchy '<oii>Zip Code</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,Process,2026-11-17 14:37:18.313,2026-11-17 14:37:18.233,2026-11-17 14:37:18.313,78,78,LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,0,"Finished processing the '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>' partition of the '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>' table. (TableTMID='34', PartitionTMID='160')",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.313,2026-11-17 14:37:18.233,2026-11-17 14:37:18.313,78,78,LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a,0,"Finished processing partition '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34', PartitionTMID='160')",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,2026-11-17 14:37:18.313,0,0,RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,0,Finished processing hierarchy '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.326,2026-11-17 14:37:18.313,2026-11-17 14:37:18.326,16,0,Date,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.Date,0,Finished processing hierarchy '<oii>Date</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.343,2026-11-17 14:37:18.313,2026-11-17 14:37:18.343,31,0,5d3e8cdc-aeca-48a5-bb34-44ea880c87d9,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.5d3e8cdc-aeca-48a5-bb34-44ea880c87d9,0,Finished processing relationship '<oii>5d3e8cdc-aeca-48a5-bb34-44ea880c87d9</oii>'.,Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.343,2026-11-17 14:37:18.326,2026-11-17 14:37:18.343,16,16,Year,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.Year,0,Finished processing calculated column '<oii>Year</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.343,2026-11-17 14:37:18.203,2026-11-17 14:37:18.343,141,0,City,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.City,0,Finished processing hierarchy '<oii>City</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.360,2026-11-17 14:37:18.343,2026-11-17 14:37:18.360,16,0,MonthNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.MonthNo,0,Finished processing calculated column '<oii>MonthNo</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.360,2026-11-17 14:37:18.360,2026-11-17 14:37:18.360,0,0,Year,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.Year,0,Finished processing hierarchy '<oii>Year</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.360,2026-11-17 14:37:18.360,2026-11-17 14:37:18.360,0,0,MonthNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.MonthNo,0,Finished processing hierarchy '<oii>MonthNo</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.360,2026-11-17 14:37:18.343,2026-11-17 14:37:18.360,16,16,Day,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.Day,0,Finished processing calculated column '<oii>Day</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.373,2026-11-17 14:37:18.343,2026-11-17 14:37:18.373,31,16,Month,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.Month,0,Finished processing calculated column '<oii>Month</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.436,2026-11-17 14:37:18.360,2026-11-17 14:37:18.436,79,0,Geography,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Geography,0,Finished processing hierarchy '<oii>Geography</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.453,2026-11-17 14:37:18.436,2026-11-17 14:37:18.453,16,0,Month,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.Month,0,Finished processing hierarchy '<oii>Month</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.453,2026-11-17 14:37:18.360,2026-11-17 14:37:18.453,94,0,Day,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.Day,0,Finished processing hierarchy '<oii>Day</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.453,2026-11-17 14:37:18.373,2026-11-17 14:37:18.453,78,0,QuarterNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.QuarterNo,0,Finished processing calculated column '<oii>QuarterNo</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.470,2026-11-17 14:37:18.453,2026-11-17 14:37:18.470,16,16,QuarterNo,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.QuarterNo,0,Finished processing hierarchy '<oii>QuarterNo</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.483,2026-11-17 14:37:18.470,2026-11-17 14:37:18.483,16,16,Quarter,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.Quarter,0,Finished processing calculated column '<oii>Quarter</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.483,2026-11-17 14:37:18.483,2026-11-17 14:37:18.483,0,0,Quarter,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.Quarter,0,Finished processing hierarchy '<oii>Quarter</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.546,2026-11-17 14:37:18.483,2026-11-17 14:37:18.546,63,0,Date Hierarchy,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a.Date Hierarchy,0,Finished processing hierarchy '<oii>Date Hierarchy</oii>' of table '<oii>LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a</oii>'. (TableTMID='34'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.673,2026-11-17 14:37:18.186,2026-11-17 14:37:18.673,485,0,Address,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Address,0,Finished processing hierarchy '<oii>Address</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:37:18.703,2026-11-17 14:37:18.186,2026-11-17 14:37:18.703,516,0,Name,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Customer.Name,0,Finished processing hierarchy '<oii>Name</oii>' of table '<oii>Customer</oii>'. (TableTMID='13'),Success,
+ProgressReportEnd,VertiPaq,2026-11-17 14:38:49.460,2026-11-17 14:38:44.453,2026-11-17 14:38:49.460,5006,4500,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Compression for the segment '0' of the '<oii>Sales</oii>' table completed in '5306' steps with '2576' clusters computed in total. Execution hasn't been timeboxed. (TableTMID='22'),Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.506,2026-11-17 14:38:49.506,2026-11-17 14:38:49.506,0,0,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.553,2026-11-17 14:38:49.506,2026-11-17 14:38:49.553,47,94,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>Order Number</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.570,2026-11-17 14:38:49.553,2026-11-17 14:38:49.570,16,31,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>Line Number</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.600,2026-11-17 14:38:49.570,2026-11-17 14:38:49.600,31,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>Order Date</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.616,2026-11-17 14:38:49.570,2026-11-17 14:38:49.616,47,94,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>Delivery Date</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.633,2026-11-17 14:38:49.616,2026-11-17 14:38:49.633,16,31,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>StoreKey</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.633,2026-11-17 14:38:49.600,2026-11-17 14:38:49.633,31,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>CustomerKey</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.646,2026-11-17 14:38:49.633,2026-11-17 14:38:49.646,16,31,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>Quantity</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.663,2026-11-17 14:38:49.616,2026-11-17 14:38:49.663,47,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>ProductKey</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.680,2026-11-17 14:38:49.633,2026-11-17 14:38:49.680,47,94,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>Unit Price</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.680,2026-11-17 14:38:49.646,2026-11-17 14:38:49.680,31,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>Currency Code</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.680,2026-11-17 14:38:49.633,2026-11-17 14:38:49.680,47,94,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>Unit Cost</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.680,2026-11-17 14:38:49.633,2026-11-17 14:38:49.680,47,94,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>Net Price</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:49.693,2026-11-17 14:38:49.663,2026-11-17 14:38:49.693,31,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 0 of column '<oii>Exchange Rate</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,AnalyzeEncodeData,2026-11-17 14:38:49.693,2026-11-17 14:38:44.436,2026-11-17 14:38:49.693,5257,5094,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished Analyzing\Encoding segment 0 for the '<oii>Sales</oii>' table. (TableTMID='22'),Success,
+ProgressReportEnd,VertiPaq,2026-11-17 14:38:52.370,2026-11-17 14:38:44.453,2026-11-17 14:38:52.370,7916,7453,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Compression for the segment '1' of the '<oii>Sales</oii>' table completed in '7209' steps with '3298' clusters computed in total. Execution hasn't been timeboxed. (TableTMID='22'),Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:52.666,2026-11-17 14:38:52.666,2026-11-17 14:38:52.666,0,0,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:52.696,2026-11-17 14:38:52.666,2026-11-17 14:38:52.696,31,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>Order Number</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:52.730,2026-11-17 14:38:52.696,2026-11-17 14:38:52.730,31,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>Line Number</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:52.806,2026-11-17 14:38:52.730,2026-11-17 14:38:52.806,79,94,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>Order Date</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:52.856,2026-11-17 14:38:52.810,2026-11-17 14:38:52.856,44,94,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>Delivery Date</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:52.886,2026-11-17 14:38:52.856,2026-11-17 14:38:52.886,31,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>CustomerKey</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:52.916,2026-11-17 14:38:52.886,2026-11-17 14:38:52.916,32,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>StoreKey</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:52.950,2026-11-17 14:38:52.916,2026-11-17 14:38:52.950,31,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>ProductKey</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:52.980,2026-11-17 14:38:52.950,2026-11-17 14:38:52.980,31,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>Quantity</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:53.136,2026-11-17 14:38:52.980,2026-11-17 14:38:53.136,156,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>Unit Price</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:53.166,2026-11-17 14:38:53.136,2026-11-17 14:38:53.166,31,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>Net Price</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:53.216,2026-11-17 14:38:53.183,2026-11-17 14:38:53.216,31,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>Currency Code</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:53.216,2026-11-17 14:38:53.166,2026-11-17 14:38:53.216,47,94,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>Unit Cost</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:53.246,2026-11-17 14:38:53.216,2026-11-17 14:38:53.246,31,63,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 1 of column '<oii>Exchange Rate</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,AnalyzeEncodeData,2026-11-17 14:38:53.246,2026-11-17 14:38:44.436,2026-11-17 14:38:53.246,8808,8078,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished Analyzing\Encoding segment 1 for the '<oii>Sales</oii>' table. (TableTMID='22'),Success,
+ProgressReportEnd,ReadData,2026-11-17 14:38:56.753,2026-11-17 14:37:14.730,2026-11-17 14:38:56.753,102024,25531,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,2349091,Finished reading data for the '<oii>Sales</oii>' table. (TableTMID='22'),Success,
+ProgressReportEnd,VertiPaq,2026-11-17 14:38:57.553,2026-11-17 14:38:56.990,2026-11-17 14:38:57.553,564,563,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Compression for the segment '2' of the '<oii>Sales</oii>' table completed in '2089' steps with '1012' clusters computed in total. Execution hasn't been timeboxed. (TableTMID='22'),Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.553,2026-11-17 14:38:57.566,15,31,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>Currency Code</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.553,2026-11-17 14:38:57.566,15,31,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>Quantity</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.553,2026-11-17 14:38:57.566,15,31,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>StoreKey</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.553,2026-11-17 14:38:57.566,15,31,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>Line Number</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.553,2026-11-17 14:38:57.566,15,31,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>Delivery Date</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.553,2026-11-17 14:38:57.566,15,31,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>Order Date</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.553,2026-11-17 14:38:57.566,15,0,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.553,2026-11-17 14:38:57.566,15,31,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>Unit Cost</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.553,2026-11-17 14:38:57.566,15,31,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>Net Price</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.553,2026-11-17 14:38:57.566,15,31,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>Order Number</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.566,2026-11-17 14:38:57.566,0,0,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>Exchange Rate</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.553,2026-11-17 14:38:57.566,15,0,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>Unit Price</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.553,2026-11-17 14:38:57.566,15,0,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>CustomerKey</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,CompressSegment,2026-11-17 14:38:57.566,2026-11-17 14:38:57.553,2026-11-17 14:38:57.566,15,0,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished compressing segment 2 of column '<oii>ProductKey</oii>' for the '<oii>Sales</oii>' table. (TableTMID='22'). (ComprInfoClass='703066').,Success,
+ProgressReportEnd,AnalyzeEncodeData,2026-11-17 14:38:57.566,2026-11-17 14:38:56.973,2026-11-17 14:38:57.566,595,719,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,Finished Analyzing\Encoding segment 2 for the '<oii>Sales</oii>' table. (TableTMID='22'),Success,
+ProgressReportEnd,Process,2026-11-17 14:38:57.616,2026-11-17 14:37:14.730,2026-11-17 14:38:57.616,102885,25750,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,"Finished processing the '<oii>Sales-4929449f-be0b-48cf-a44e-c644698415ba</oii>' partition of the '<oii>Sales</oii>' table. (TableTMID='22', PartitionTMID='156')",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.646,2026-11-17 14:37:13.196,2026-11-17 14:38:57.646,104449,25828,Sales-4929449f-be0b-48cf-a44e-c644698415ba,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Sales-4929449f-be0b-48cf-a44e-c644698415ba,0,"Finished processing partition '<oii>Sales-4929449f-be0b-48cf-a44e-c644698415ba</oii>' of table '<oii>Sales</oii>'. (TableTMID='22', PartitionTMID='156');
+
+[MashupCPUTime: 81609 ms, MashupPeakMemory: 445240 KB]",Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.693,2026-11-17 14:38:57.693,2026-11-17 14:38:57.693,0,0,Delivery Date,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Delivery Date,0,Finished processing hierarchy '<oii>Delivery Date</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.693,2026-11-17 14:38:57.693,2026-11-17 14:38:57.693,0,0,RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61,0,Finished processing hierarchy '<oii>RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.693,2026-11-17 14:38:57.693,2026-11-17 14:38:57.693,0,0,Line Number,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Line Number,0,Finished processing hierarchy '<oii>Line Number</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.693,2026-11-17 14:38:57.693,2026-11-17 14:38:57.693,0,0,Order Date,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Order Date,0,Finished processing hierarchy '<oii>Order Date</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.710,2026-11-17 14:38:57.693,2026-11-17 14:38:57.710,16,0,f92796a2-a826-4e07-899a-ff3c6eceb911,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.f92796a2-a826-4e07-899a-ff3c6eceb911,0,Finished processing relationship '<oii>f92796a2-a826-4e07-899a-ff3c6eceb911</oii>'.,Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.710,2026-11-17 14:38:57.710,2026-11-17 14:38:57.710,0,0,6029b9f6-210b-42fb-a96a-2a8bc3fd4d4b,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.6029b9f6-210b-42fb-a96a-2a8bc3fd4d4b,0,Finished processing relationship '<oii>6029b9f6-210b-42fb-a96a-2a8bc3fd4d4b</oii>'.,Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.710,2026-11-17 14:38:57.710,2026-11-17 14:38:57.710,0,0,ProductKey,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.ProductKey,0,Finished processing hierarchy '<oii>ProductKey</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.723,2026-11-17 14:38:57.710,2026-11-17 14:38:57.723,16,0,6b5e0dab-b62f-4ded-8a7b-f2e12bd9c6b5,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.6b5e0dab-b62f-4ded-8a7b-f2e12bd9c6b5,0,Finished processing relationship '<oii>6b5e0dab-b62f-4ded-8a7b-f2e12bd9c6b5</oii>'.,Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.723,2026-11-17 14:38:57.693,2026-11-17 14:38:57.723,31,0,StoreKey,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.StoreKey,0,Finished processing hierarchy '<oii>StoreKey</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.723,2026-11-17 14:38:57.723,2026-11-17 14:38:57.723,0,0,Quantity,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Quantity,0,Finished processing hierarchy '<oii>Quantity</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.723,2026-11-17 14:38:57.723,2026-11-17 14:38:57.723,0,0,Unit Price,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Unit Price,0,Finished processing hierarchy '<oii>Unit Price</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.723,2026-11-17 14:38:57.693,2026-11-17 14:38:57.723,31,0,CustomerKey,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.CustomerKey,0,Finished processing hierarchy '<oii>CustomerKey</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.723,2026-11-17 14:38:57.723,2026-11-17 14:38:57.723,0,0,Net Price,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Net Price,0,Finished processing hierarchy '<oii>Net Price</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.740,2026-11-17 14:38:57.693,2026-11-17 14:38:57.740,47,0,7af29c93-a4a1-4082-83d2-9f57ab371736,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.7af29c93-a4a1-4082-83d2-9f57ab371736,0,Finished processing relationship '<oii>7af29c93-a4a1-4082-83d2-9f57ab371736</oii>'.,Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.740,2026-11-17 14:38:57.723,2026-11-17 14:38:57.740,16,0,Currency Code,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Currency Code,0,Finished processing hierarchy '<oii>Currency Code</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.740,2026-11-17 14:38:57.723,2026-11-17 14:38:57.740,16,0,Unit Cost,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Unit Cost,0,Finished processing hierarchy '<oii>Unit Cost</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.740,2026-11-17 14:38:57.693,2026-11-17 14:38:57.740,47,0,0b5f92d3-53dd-41de-9f8f-6776ebfdcb67,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.0b5f92d3-53dd-41de-9f8f-6776ebfdcb67,0,Finished processing relationship '<oii>0b5f92d3-53dd-41de-9f8f-6776ebfdcb67</oii>'.,Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:57.756,2026-11-17 14:38:57.723,2026-11-17 14:38:57.756,31,0,Exchange Rate,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Exchange Rate,0,Finished processing hierarchy '<oii>Exchange Rate</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularRefresh,2026-11-17 14:38:58.363,2026-11-17 14:38:57.693,2026-11-17 14:38:58.363,672,0,Order Number,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7.Model.Sales.Order Number,0,Finished processing hierarchy '<oii>Order Number</oii>' of table '<oii>Sales</oii>'. (TableTMID='22'),Success,
+ProgressReportEnd,TabularSequencePoint,2026-11-17 14:38:58.506,2026-11-17 14:37:13.040,2026-11-17 14:38:58.506,105465,188,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7,0,Finished sequence point algorithm.,Success,
+CommandEnd,Batch,2026-11-17 14:38:58.536,,,,134906,,,,"<Batch Transaction=""false"" xmlns=""http://schemas.microsoft.com/analysisservices/2003/engine"">
+  <Refresh xmlns=""http://schemas.microsoft.com/analysisservices/2014/engine"">
+    <DatabaseID>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseID>
+    <MaxParallelism>6</MaxParallelism>
+    <Partitions>
+      <xs:schema xmlns:xs=""http://www.w3.org/2001/XMLSchema"" xmlns:sql=""urn:schemas-microsoft-com:xml-sql"">
+        <xs:element>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type=""row""/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:complexType name=""row"">
+          <xs:sequence>
+            <xs:element name=""ID"" type=""xs:unsignedLong"" sql:field=""ID"" minOccurs=""0""/>
+            <xs:element name=""ID.Table"" type=""xs:string"" sql:field=""ID.Table"" minOccurs=""0""/>
+            <xs:element name=""ID.Partition"" type=""xs:string"" sql:field=""ID.Partition"" minOccurs=""0""/>
+            <xs:element name=""RefreshType"" type=""xs:long"" sql:field=""RefreshType"" minOccurs=""0""/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:schema>
+      <row xmlns=""urn:schemas-microsoft-com:xml-analysis:rowset"">
+        <ID>153</ID>
+        <RefreshType>1</RefreshType>
+      </row>
+      <row xmlns=""urn:schemas-microsoft-com:xml-analysis:rowset"">
+        <ID>154</ID>
+        <RefreshType>1</RefreshType>
+      </row>
+      <row xmlns=""urn:schemas-microsoft-com:xml-analysis:rowset"">
+        <ID>155</ID>
+        <RefreshType>1</RefreshType>
+      </row>
+      <row xmlns=""urn:schemas-microsoft-com:xml-analysis:rowset"">
+        <ID>156</ID>
+        <RefreshType>1</RefreshType>
+      </row>
+      <row xmlns=""urn:schemas-microsoft-com:xml-analysis:rowset"">
+        <ID>157</ID>
+        <RefreshType>1</RefreshType>
+      </row>
+      <row xmlns=""urn:schemas-microsoft-com:xml-analysis:rowset"">
+        <ID>158</ID>
+        <RefreshType>1</RefreshType>
+      </row>
+      <row xmlns=""urn:schemas-microsoft-com:xml-analysis:rowset"">
+        <ID>159</ID>
+        <RefreshType>1</RefreshType>
+      </row>
+      <row xmlns=""urn:schemas-microsoft-com:xml-analysis:rowset"">
+        <ID>160</ID>
+        <RefreshType>1</RefreshType>
+      </row>
+      <row xmlns=""urn:schemas-microsoft-com:xml-analysis:rowset"">
+        <ID>161</ID>
+        <RefreshType>1</RefreshType>
+      </row>
+      <row xmlns=""urn:schemas-microsoft-com:xml-analysis:rowset"">
+        <ID>162</ID>
+        <RefreshType>1</RefreshType>
+      </row>
+    </Partitions>
+  </Refresh>
+  <SequencePoint xmlns=""http://schemas.microsoft.com/analysisservices/2014/engine"">
+    <DatabaseID>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseID>
+  </SequencePoint>
+</Batch>
+
+[MashupCPUTime: 89171 ms, MashupPeakMemory: 1959320 KB]",Success,
+CommandEnd,CommitTransaction,2026-11-17 14:38:58.570,,,,134672,,,,"<CommitTransaction xmlns=""http://schemas.microsoft.com/analysisservices/2003/engine""/>
+
+[MashupCPUTime: 89171 ms, MashupPeakMemory: 1959320 KB]",Success,
+CommandEnd,Batch,2026-11-17 14:38:58.676,,,,134719,,,,"<Batch Transaction=""false"" xmlns=""http://schemas.microsoft.com/analysisservices/2003/engine"">
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_MODEL</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_DATA_SOURCES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_TABLES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_COLUMNS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ATTRIBUTE_HIERARCHIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PARTITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_RELATIONSHIPS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_MEASURES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_HIERARCHIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_LEVELS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ANNOTATIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_KPIS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CULTURES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_OBJECT_TRANSLATIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_LINGUISTIC_METADATA</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_TABLES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_COLUMNS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_HIERARCHIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_MEASURES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ROLES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ROLE_MEMBERSHIPS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_TABLE_PERMISSIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_VARIATIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_SETS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_PERSPECTIVE_SETS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_EXTENDED_PROPERTIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_EXPRESSIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_COLUMN_PERMISSIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_DETAIL_ROWS_DEFINITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_RELATED_COLUMN_DETAILS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_GROUP_BY_COLUMNS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CALCULATION_GROUPS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CALCULATION_ITEMS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_ALTERNATE_OF_DEFINITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_REFRESH_POLICIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_FORMAT_STRING_DEFINITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_QUERY_GROUPS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CHANGED_PROPERTIES</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_DATA_COVERAGE_DEFINITIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+  <Discover xmlns=""urn:schemas-microsoft-com:xml-analysis"">
+    <RequestType>TMSCHEMA_CALCULATION_EXPRESSIONS</RequestType>
+    <Restrictions>
+      <RestrictionList>
+        <DatabaseName>fbb53e0d-05a8-434a-9ad9-ec2dac2730d7</DatabaseName>
+      </RestrictionList>
+    </Restrictions>
+    <Properties>
+      <PropertyList/>
+    </Properties>
+  </Discover>
+</Batch>
+
+[MashupCPUTime: 89171 ms, MashupPeakMemory: 1959320 KB]",Success,
+CommandEnd,JsonCommand,2026-11-17 14:38:58.723,2026-11-17 14:37:12.853,2026-11-17 14:38:58.723,105872,135297,,,,"{
+  ""sequence"": {
+    ""operations"": [
+      {
+        ""refresh"": {
+          ""type"": ""full"",
+          ""objects"": [
+            {
+              ""database"": ""fbb53e0d-05a8-434a-9ad9-ec2dac2730d7"",
+              ""table"": ""Customer"",
+              ""partition"": ""Customer-bee8b62a-fee2-49b8-a0b6-5518e67a2d59""
+            },
+            {
+              ""database"": ""fbb53e0d-05a8-434a-9ad9-ec2dac2730d7"",
+              ""table"": ""Date"",
+              ""partition"": ""Date-44d762f0-a871-4687-b253-096276d9658b""
+            },
+            {
+              ""database"": ""fbb53e0d-05a8-434a-9ad9-ec2dac2730d7"",
+              ""table"": ""Product"",
+              ""partition"": ""Product-9730db17-a88f-43ad-b6f2-50ae8a679b18""
+            },
+            {
+              ""database"": ""fbb53e0d-05a8-434a-9ad9-ec2dac2730d7"",
+              ""table"": ""Sales"",
+              ""partition"": ""Sales-4929449f-be0b-48cf-a44e-c644698415ba""
+            },
+            {
+              ""database"": ""fbb53e0d-05a8-434a-9ad9-ec2dac2730d7"",
+              ""table"": ""Store"",
+              ""partition"": ""Store-4e2fa8b8-517f-4c17-ae5a-7d36051099bc""
+            },
+            {
+              ""database"": ""fbb53e0d-05a8-434a-9ad9-ec2dac2730d7"",
+              ""table"": ""Currency Exchange"",
+              ""partition"": ""Currency Exchange-84d00514-3ac1-4a6c-a61b-f2bed7b860be""
+            },
+            {
+              ""database"": ""fbb53e0d-05a8-434a-9ad9-ec2dac2730d7"",
+              ""table"": ""DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957"",
+              ""partition"": ""DateTableTemplate_4480cbb2-f404-4011-86a8-642f278a0957""
+            },
+            {
+              ""database"": ""fbb53e0d-05a8-434a-9ad9-ec2dac2730d7"",
+              ""table"": ""LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a"",
+              ""partition"": ""LocalDateTable_6de0bfc2-afd9-4dd2-a933-748228565f4a""
+            },
+            {
+              ""database"": ""fbb53e0d-05a8-434a-9ad9-ec2dac2730d7"",
+              ""table"": ""LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619"",
+              ""partition"": ""LocalDateTable_9bda53c9-790b-40df-86d2-d565dc009619""
+            },
+            {
+              ""database"": ""fbb53e0d-05a8-434a-9ad9-ec2dac2730d7"",
+              ""table"": ""LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c"",
+              ""partition"": ""LocalDateTable_3aff66cb-6dfd-47ca-9a42-497335326a4c""
+            }
+          ]
+        }
+      }
+    ],
+    ""maxParallelism"": 6
+  }
+}
+
+[PeakMemory: 1998916 KB, MashupCPUTime: 89171 ms, MashupPeakMemory: 1959320 KB]",Success,
+ExecutionMetrics,,,,,,,,,,"{
+	""timeStart"": ""2026-11-17T14:37:12.854Z"",
+	""timeEnd"": ""2026-11-17T14:38:58.725Z"",
+
+	""durationMs"": 105872,
+	""externalQueryExecutionTimeMs"": 8319,
+	""vertipaqJobCpuTimeMs"": 16547,
+	""mEngineCpuTimeMs"": 89172,
+	""queryProcessingCpuTimeMs"": 266,
+	""totalCpuTimeMs"": 135281,
+	""executionDelayMs"": 17,
+
+	""approximatePeakMemConsumptionKB"": 1998916,
+	""mEnginePeakMemoryKB"": 1959320,
+
+	""tabularConnectionTimeoutMs"": 17999000,
+
+	""commandType"": ""Batch"",
+	""discoverType"": 136,
+	""queryDialect"": 4,
+	""refreshParallelism"": 6,
+	""vertipaqTotalRows"": 2791244,
+	""intendedUsage"": 2
+}",,
+ProgressReportEnd,TabularCommit,2026-11-17 14:38:58.743,2026-11-17 14:38:58.743,2026-11-17 14:38:58.743,0,0,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7,0,Finished Phase 1 of the Commit operation in a Tabular transaction.,Success,
+ProgressReportEnd,TabularCommit,2026-11-17 14:38:58.833,2026-11-17 14:38:58.743,2026-11-17 14:38:58.833,93,94,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7,0,Finished Phase 2 of the Commit operation in a Tabular transaction.,Success,
+ProgressReportEnd,MetadataTraversalDuringBackup,2026-11-17 14:38:59.913,2026-11-17 14:38:59.896,2026-11-17 14:38:59.913,16,172,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7,0,Backup metadata traversal finished.,Success,
+ProgressReportEnd,Backup,2026-11-17 14:39:01.180,2026-11-17 14:38:59.913,2026-11-17 14:39:01.180,1267,391,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7,fbb53e0d-05a8-434a-9ad9-ec2dac2730d7,77426119,Backup finished.,Success,
+ProgressReportEnd,Commit,2026-11-17 14:39:12.920,2026-11-17 14:38:58.743,2026-11-17 14:39:12.920,14177,,,,,,Success,
+CommandEnd,CommitTransaction,2026-11-17 14:39:12.920,2026-11-17 14:38:58.743,2026-11-17 14:39:12.920,14177,7641,,,,"<CommitTransaction xmlns=""http://schemas.microsoft.com/analysisservices/2003/engine""/>
+
+[PeakMemory: 120899 KB]",Success,
+ExecutionMetrics,,,,,,,,,,"{
+	""timeStart"": ""2026-11-17T14:38:58.742Z"",
+	""timeEnd"": ""2026-11-17T14:39:12.920Z"",
+
+	""durationMs"": 14177,
+	""vertipaqJobCpuTimeMs"": 438,
+	""totalCpuTimeMs"": 7422,
+	""executionDelayMs"": 1242,
+
+	""approximatePeakMemConsumptionKB"": 120899,
+
+	""commandType"": ""Transaction"",
+	""intendedUsage"": 2
+}",,
+ExecutionMetrics,,,,,,,,,,"{
+	""timeStart"": ""2026-11-17T14:37:10.382Z"",
+	""timeEnd"": ""2026-11-17T14:39:13.171Z"",
+
+	""durationMs"": 122788,
+	""totalCpuTimeMs"": 16,
+	""executionDelayMs"": 0,
+
+	""approximatePeakMemConsumptionKB"": 1024,
+
+	""commandType"": ""Subscribe"",
+	""intendedUsage"": 2
+}",,
+ExecutionMetrics,,,,,,,,,,"{
+	""timeStart"": ""2026-11-17T14:39:13.171Z"",
+	""timeEnd"": ""2026-11-17T14:39:13.171Z"",
+
+	""durationMs"": 0,
+	""totalCpuTimeMs"": 0,
+	""executionDelayMs"": 0,
+
+	""approximatePeakMemConsumptionKB"": 0,
+
+	""commandType"": ""Unsubscribe"",
+	""intendedUsage"": 2
+}",,

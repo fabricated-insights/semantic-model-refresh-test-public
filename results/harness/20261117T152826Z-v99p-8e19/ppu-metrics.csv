@@ -1,0 +1,2 @@
+Timestamp,Model,TimeStart,TimeEnd,Result,PeakMemMB,MEnginePeakMB,DurationMin,TotalCpuSec,MEngineCpuSec,VertipaqCpuSec,RowsLoaded,RefreshParallelism
+,v99p-high-cardinality,2026-11-17T15:29:39.797Z,2026-11-17T15:31:01.243Z,refreshed,1284.0,1254.0,1.36,136.0,77.0,15.0,21609543.0,6.0

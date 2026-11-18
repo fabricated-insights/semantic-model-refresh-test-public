@@ -90,3 +90,20 @@ That matches the command memory limit as Chris Webb describes it: the limit for 
 Clearing the model first did not lower the peak. It only raises the limit by the size of the model, here by 1,379 MB, at the cost of the model being empty while the refresh runs. On a SKU where the peak is just over the limit, that can be the difference; on F64 it does not matter for this model.
 
 The model size here is measured by DAX in the service. The backup size in the refresh log on 2026-11-10 was 1,833 MB for the same model, so the two sources differ.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 1,405 | 666 | 1.2 min | 184 MB | 185.3 MB |
+| Pro | 1M | refreshed |  |  | 1.1 min |  |  |
+| PPU | 10M | refreshed | 13,315 | 1,699 | 14 min | 1,833 MB | 1,382.4 MB |
+| Pro | 10M | failed, model 1094 MB over the 1024 MB limit |  |  | 10 min |  |  |
+
+Pro error (10M): "Unable to save the changes since the new dataset of size 1094 MB exceeds the limit of 1024 MB."
+
+The 10M rows are from a second pass on 2026-11-18: `DataTag` was committed as 10M for these two runs and set back to 1M afterwards.
+
+Runs: `results/harness/20261116T230313Z-v23-5953/`, `results/harness/20261118T115124Z-v23-a609/`.

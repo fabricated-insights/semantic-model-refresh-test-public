@@ -32,3 +32,14 @@ A Group By cannot stream either. Power Query has to read the whole fact table an
 | F2 | failed | consumed memory not recorded |
 
 One summary table built with a Group By in Power Query takes the baseline off F2. The table itself is small; the memory is used while Power Query groups the full Sales table.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 3,582 | 3,338 | 1.6 min | 84 MB | 118.6 MB |
+| Pro | 1M | refreshed |  |  | 1.7 min |  |  |
+
+Runs: `results/harness/20261117T091313Z-v21-add0/`.

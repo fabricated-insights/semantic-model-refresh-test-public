@@ -1,0 +1,2 @@
+Timestamp,Model,TimeStart,TimeEnd,Result,PeakMemMB,MEnginePeakMB,DurationMin,TotalCpuSec,MEngineCpuSec,VertipaqCpuSec,RowsLoaded,RefreshParallelism
+,v36-calc-summary-month-grain,2026-11-17T10:23:27.851Z,2026-11-17T10:39:37.798Z,refreshed,14929.0,1723.0,16.17,1759.0,750.0,463.0,78870826.0,6.0

@@ -42,3 +42,22 @@ Four copies did not raise the peak at all. The model doubled (2,803 MB against 1
 That step is most likely `Sales Summary`, a `SUMMARIZECOLUMNS` over customer, year and category with three measures, one of them a `DISTINCTCOUNT`, 16.5M rows on 10M. The refresh log gives one peak for the whole refresh, not one per table, so this is not proven.
 
 The model did not exceed the F64 limit, so it was not run on PPU.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 10M | refreshed | 9,737 | 1,754 | 28 min | 3,281 MB | 2,829.4 MB |
+| Pro | 10M | failed, model 2192 MB over the 1024 MB limit |  |  | 14 min |  |  |
+
+Pro error (10M): "Unable to save the changes since the new dataset of size 2192 MB exceeds the limit of 1024 MB."
+
+Runs: `results/harness/20261117T093046Z-v35-f6d2/`.
+
+## F2 and F64 gap pass (2026-11-18)
+
+Failed on F2 with the 10M data after 13 min (resource governance). The service retried the refresh and gave up: "Retry attempts for failures while executing the refresh exceeded the retry limit set on the request." Each attempt stopped at a consumed memory of 3,066 MB or a little more, against a limit of 3,066 MB. The peak on F64 and PPU is far above that, as finding 9 predicts.
+
+Run: `results/harness/20261118T142517Z-v35-9344/`.

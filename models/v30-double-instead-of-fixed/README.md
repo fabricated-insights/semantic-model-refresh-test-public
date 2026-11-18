@@ -57,3 +57,20 @@ Totals against v00-baseline, both on F64 with 1M, 2026-11-13 (DAX query through 
 | # Orders | 980,666 | 980,666 | 0 |
 
 The Total Cost difference is floating point rounding. The Sales Amount difference is not: 4,742 of the 24,212 distinct Net Price values in the source have a fifth decimal (for example 74.24325). Fixed decimal stores four decimals, so the baseline rounds them; decimal number keeps them. The v30 total is the one closer to the source data. On a total of 2.3 billion the difference is 1.23, invisible in any report formatted to whole numbers or two decimals.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 607 | 529 | 0.9 min | 73 MB | 92.9 MB |
+| Pro | 1M | refreshed |  |  | 0.7 min |  |  |
+
+Runs: `results/harness/20261117T064841Z-v30-7df3/`.
+
+## F2 and F64 gap pass (2026-11-18)
+
+Refreshed on F2 with the 1M data in 1.0 min. In memory after refresh: 92.9 MB. F2 has no workspace monitoring, so there is no peak; the F64 and PPU peaks are well below the F2 limit of about 3,066 MB, as finding 9 predicts.
+
+Run: `results/harness/20261118T132207Z-v30-7c49/`.

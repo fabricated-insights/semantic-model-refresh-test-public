@@ -120,6 +120,20 @@ def key_for(folder, size):
 
 refreshes = {k: [] for k in keys}  # every refresh, any capacity
 
+
+def failure_text(r):
+    """The harness failure kind, with Pro's model size error spelled out instead of "other"."""
+    m = re.search(r"dataset of size (\d+) MB exceeds the limit of (\d+) MB", r.get("error_text") or "")
+    if m:
+        return f"model size {int(m[1]):,} MB over the {int(m[2]):,} MB limit"
+    return r["failure_kind"]
+
+
+def minsec(minutes):
+    """Duration as seconds below two minutes, else as minutes."""
+    return f"{minutes * 60:,.0f} s" if minutes < 2 else f"{minutes:,.0f} min"
+
+
 for r in read_csv(RESULTS / "harness-runs.csv"):
     k = key_for(r["variant"], size_of(r["data_tag"]))
     if k not in refreshes:
@@ -131,7 +145,7 @@ for r in read_csv(RESULTS / "harness-runs.csv"):
         "when": when,
         "cap": r["capacity"],
         "ok": r["result"] == "refreshed",
-        "failure": r["failure_kind"],
+        "failure": failure_text(r),
         "peak": fnum(r["peak_mb"]),
         "pq": fnum(r["pq_peak_mb"]),
         "dur": fnum(r["duration_min"]),
@@ -459,7 +473,7 @@ for m in models:
         if pro:
             last = pro[-1]
             if last["ok"]:
-                rec["pro"] = "refreshed" + (f", {last['dur'] * 60:,.0f} s" if last["dur"] is not None else "")
+                rec["pro"] = "refreshed" + (f", {minsec(last['dur'])}" if last["dur"] is not None else "")
             else:
                 rec["pro"] = "failed" + (f", {last['failure']}" if last["failure"] else "")
         elif m.get("pro"):

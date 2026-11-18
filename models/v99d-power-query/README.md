@@ -19,3 +19,14 @@ Everything else is identical to v99a, including `Sales Flat`, which stays in Pow
 - If D refreshes with about the same peak, duration and CU as v99a, an unreferenced query costs nothing, as expected.
 - If D differs from v99a, refresh evaluates queries that nothing loads, which would be worth a closer look.
 - D passing tells nothing new about the first version's failure. That failure came from loading `Sales Flat`, from the staging buffers, or from both together. Separating them needs v99a plus `Sales Flat` loaded with unbuffered staging (the second version above).
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 16,132 | 16,018 | 23 min | 185 MB | 232.6 MB |
+| Pro | 1M | refreshed |  |  | 50 min |  |  |
+
+Runs: `results/harness/20261117T084801Z-v99d-4ab7/`.

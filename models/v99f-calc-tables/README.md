@@ -26,3 +26,14 @@ The DAX is unchanged from v99. `Sales Summary` and `Product Date Grid` have no c
 - If F fails on F64, one of these three tables, most likely the crossjoin, costs more than the headroom v99e left.
 - If F refreshes, the remaining parts of v99 are `Sales Copy` and the staging buffers. The next run adds `Sales Copy` with `CopyCount = 1`.
 - Peak of F minus peak of v99e is the cost of the three tables together.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 22,870 | 22,756 | 23 min | 361 MB | 491.7 MB |
+| Pro | 1M | refreshed |  |  | 27 min |  |  |
+
+Runs: `results/harness/20261117T123951Z-v99f-bc92/`.

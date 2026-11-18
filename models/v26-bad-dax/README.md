@@ -102,3 +102,14 @@ Four visuals fail on F2 with:
 Every visual whose query needed more than 1,024 MB on F64 failed on F2, and every one below that succeeded. The same pages on v00-baseline on F2 (run `20261111T201823Z-v00-e337`) had no memory errors. On both models the matrices v01 and v20 are reported as failed only because the REST API cannot return their two result sets; without monitoring on F2 the harness cannot confirm that the server completed them.
 
 So on F2 a single visual fails at 1 GB of query memory, while a refresh may use about 3 GB. Bad DAX in a measure can make a report unusable on a small capacity even though the model refreshes without a problem.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 614 | 402 | 1.1 min | 73 MB | 92.7 MB |
+| Pro | 1M | refreshed |  |  | 0.8 min |  |  |
+
+Runs: `results/harness/20261117T062400Z-v26-f152/`.

@@ -76,3 +76,17 @@ The same error as on F64, at a similar peak (F64: 22.0 to 24.5 GB with the same 
 
 So the Power Query limit does not grow with the model limit: 100 GB per model on PPU did not help. v99 on PPU used 25,958 MB of Power Query memory in total and refreshed, so the limit is not on the total Power Query memory of a refresh either. That fits a limit per Power Query evaluation (per container), which `PQ Customer RFM` alone exceeds. Its size is not documented and was not measured here.
 
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M, 10M in Power Query | failed, M evaluation memory limit | 24,123 | 24,005 | 23 min |  |  |
+| Pro | 1M, 10M in Power Query | failed, M evaluation memory limit |  |  | 202 min |  |  |
+
+Pro error (1M, 10M in Power Query): "The M evaluation exceeded the memory limit. To address the issue consider optimizing the M expressions, reducing the concurrency of operations that are memory intensive or upgrading to increase the available memory. Container exited unexpectedly with code 0x0000DEAD."
+
+The harness stops waiting for a Pro refresh after 2 hours. This one ran for 202 minutes; the result and the error are from the refresh history.
+
+Runs: `results/harness/20261118T062136Z-v19-fed4/`.

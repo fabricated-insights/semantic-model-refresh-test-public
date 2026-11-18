@@ -40,3 +40,14 @@ If M refreshes, part of the difference also comes from the two high-cardinality 
 | F2 | refreshed | |
 
 The eight calculated columns on Sales, the bidirectional relationships and auto date/time fit on F2 together. Swapping in the baseline Power Query is enough to bring v99k under the 3 GB limit.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 770 | 589 | 1.1 min | 102 MB | 136.1 MB |
+| Pro | 1M | refreshed |  |  | 0.9 min |  |  |
+
+Runs: `results/harness/20261117T123951Z-v99m-5113/`.

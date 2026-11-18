@@ -32,3 +32,14 @@ Refreshed on 2026-11-11, 1M data, measured with an XMLA trace (harness run `2026
 - If I fails, buffering the shared fact staging query is enough on its own. The cost scales with the size of the fact table and the number of queries that reference it.
 - If I and J both refresh, only the combination fails.
 - `approximatePeakMemConsumptionKB` and `mEnginePeakMemoryKB` from the ExecutionMetrics event show whether the memory sits in the semantic model engine or in the Power Query engine.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 25,651 | 25,492 | 34 min | 536 MB | 662.8 MB |
+| Pro | 1M | refreshed |  |  | 29 min |  |  |
+
+Runs: `results/harness/20261118T092223Z-v99i-b094/`.

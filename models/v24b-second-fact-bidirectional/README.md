@@ -67,3 +67,20 @@ Run `20261110T153459Z-v24b-f1b0`, 1,100 queries. Medians over 5 repeats, cold ca
 On the Orders page every visual that counts orders got slower: Orders by year 0 to 63 ms, Stores 16 to 78 ms, Orders by city 16 to 47 ms, and the Country slicer 0 to 31 ms. With a warm cache Orders by year and Stores still took 31 ms each on v24b, against 0 ms on v24a. In absolute terms these are small numbers on 1M rows; the filter now has to cross Sales (2.3M rows) to reach Customer and then Orders.
 
 Ten queries are counted as failed in `results/query-runs.csv`. They are not engine errors: all ten are the v01 matrix on page p10, sent all at once, which the REST API cannot return (two result sets). The harness counts that as a success only when the server's log confirms the query, and workspace monitoring stored no events for the 100 queries of p10 sent all at once in this run. The same kind of log loss happened on v26-bad-dax.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 1,432 | 1,402 | 1.2 min | 103 MB | 110.0 MB |
+| Pro | 1M | refreshed |  |  | 1.0 min |  |  |
+
+Runs: `results/harness/20261117T060843Z-v24b-8c56/`.
+
+## F2 and F64 gap pass (2026-11-18)
+
+Refreshed on F2 with the 1M data in 1.4 min. In memory after refresh: 110.0 MB. F2 has no workspace monitoring, so there is no peak; the F64 and PPU peaks are well below the F2 limit of about 3,066 MB, as finding 9 predicts.
+
+Run: `results/harness/20261118T125350Z-v24b-9767/`.

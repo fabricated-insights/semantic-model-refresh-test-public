@@ -1,0 +1,2 @@
+Timestamp,Model,TimeStart,TimeEnd,Result,PeakMemMB,MEnginePeakMB,DurationMin,TotalCpuSec,MEngineCpuSec,VertipaqCpuSec,RowsLoaded,RefreshParallelism
+,v24b-second-fact-bidirectional,2026-11-17T06:11:19.682Z,2026-11-17T06:12:32.586Z,refreshed,1432.0,1402.0,1.22,142.0,90.0,20.0,3541806.0,6.0

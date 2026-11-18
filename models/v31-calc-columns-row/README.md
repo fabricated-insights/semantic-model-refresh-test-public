@@ -52,3 +52,20 @@ F64, 1M, 2026-11-11 and 2026-11-12. Refresh run `20261112T082856Z-v31-5697`, que
 - Model: about 3 times the baseline (223 MB backup size, 316.8 MB in memory). DAX Studio on the .pbix downloaded from F64 and opened without a refresh: 244,865,133 bytes, 233.5 MB, of which Sales is 225.1 MB. The largest model change of the data type and calculated column runs.
 - Refresh: the peak of 913 MB is above the baseline range, while Power Query stays at the baseline level, so the extra memory comes from the model side, the calculated columns. CPU is about 1.5 times. One run.
 - Queries: the same as the baseline. The visuals do not use the new columns.
+
+## PPU and Pro, full pass (2026-11-16 to 18)
+
+Every model was refreshed on Premium Per User (PPU) and on a Pro workspace in one pass, through the harness, with the data in its committed files. PPU numbers are from an XMLA trace of the refresh. Pro gives only the result and the duration: it has no XMLA endpoint and no workspace monitoring.
+
+| Capacity | Data | Result | Peak MB | Power Query MB | Duration | Model size | In memory after refresh |
+|---|---|---|---|---|---|---|---|
+| PPU | 1M | refreshed | 849 | 528 | 1.3 min | 223 MB | 316.8 MB |
+| Pro | 1M | refreshed |  |  | 1.2 min |  |  |
+
+Runs: `results/harness/20261117T142951Z-v31-a73e/`.
+
+## F2 and F64 gap pass (2026-11-18)
+
+Refreshed on F2 with the 1M data in 2.1 min. In memory after refresh: 316.8 MB. F2 has no workspace monitoring, so there is no peak; the F64 and PPU peaks are well below the F2 limit of about 3,066 MB, as finding 9 predicts.
+
+Run: `results/harness/20261118T132724Z-v31-549c/`.

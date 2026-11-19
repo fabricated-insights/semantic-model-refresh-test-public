@@ -50,7 +50,7 @@ table 'Store Year Summary'
 		mode: import
 		source =
 				let
-				    // Only about 740 rows are loaded, but the refresh still reads and groups every row of stg Sales 10M
+				    // Only 590 rows are loaded, but the refresh still reads and groups every row of stg Sales 10M
 				    Source = #"stg Sales 10M",
 				    #"Grouped Rows" = Table.Group(Source, {"StoreKey", "Year"}, {
 				        {"Sales Amount", each List.Sum([Amount]), type number},

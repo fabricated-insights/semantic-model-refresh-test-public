@@ -427,12 +427,14 @@ for m in models:
         else:
             rec["ppu"] = doc_ppu or "not run"
 
-        # Sizes, in the order the findings use: F64 from the CSVs (latest completed run),
-        # then the doc table (F64 unless it says "on PPU"), then PPU from the CSVs,
-        # labelled. Older F64 sizes are only in the doc, so the doc comes before PPU.
+        # Sizes, so the page shows what the findings show: the doc table's F64 value
+        # first, then F64 from the CSVs (latest completed run), then the doc table's
+        # PPU value, then PPU from the CSVs. A PPU value is labelled.
         def size_pick(runs, value, doc_text, field):
             f64_runs = [r for r in runs if r["cap"] != "PPU"]
-            if f64_runs:
+            if num(doc_text) is not None and "on PPU" not in doc_text:
+                rec[field] = r1(num(doc_text))
+            elif f64_runs:
                 rec[field] = r1(value(f64_runs[-1]))
             elif num(doc_text) is not None:
                 rec[field] = r1(num(doc_text))

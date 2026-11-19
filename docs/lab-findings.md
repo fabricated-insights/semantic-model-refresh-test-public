@@ -127,7 +127,7 @@ v99h and v99i also failed on F64 and refreshed on PPU (peaks 25,971 and 23,893 M
 
 ## Where each model refreshes
 
-One row per model and data size. F2 and F64 are from the runs in "All runs" below; PPU and Pro are from the full pass on 2026-11-16 to 18 (one run each; v00 and v23 on 10M on 2026-11-18). A number is the measured peak in MB; "failed at" is where the engine stopped the refresh. Pro gives no memory figures. "Not tried" on F2 marks models whose peak on F64 or PPU is over 13,000 MB, more than four times the F2 limit of about 3,066 MB, so F2 was not tried for them (finding 9).
+One row per model and data size. F2 and F64 are from the runs in "All runs" below; PPU and Pro are from the full pass on 2026-11-16 to 18 (one run each; v00 and v23 on 10M on 2026-11-18). A number is the measured peak in MB; "failed at" is where the engine stopped the refresh. Pro gives no memory figures. The F64 peak is from one measured run. Seven models were refreshed more than once on F64, and their peaks spread: v00 on 1M 543 to 856 MB over 11 runs (785 MB, shown here, is the first, on 2026-11-04), v00 on 10M 1,650 to 2,116, v22 621 to 794, v23 on 10M 13,062 to 13,139, v29 665 to 1,735, v33 554 to 619 and v34 707 to 723. The compare page shows the median and the range of all runs instead, so its F64 numbers can differ from this table. "Not tried" on F2 marks models whose peak on F64 or PPU is over 13,000 MB, more than four times the F2 limit of about 3,066 MB, so F2 was not tried for them (finding 9).
 
 | Model | Data | F2 (about 3 GB) | F64 (25.6 GB) | PPU (100 GB) | Pro |
 |---|---|---|---|---|---|
@@ -208,7 +208,7 @@ Peaks are from F64 unless noted. All sizes are in MB of 1,048,576 bytes.
 
 The same model has a different size depending on where you look:
 
-- Service size: the `Backup` step in the F64 refresh log, the size of the committed model in the service. Measured for every model that refreshed on F64.
+- Service size: the `Backup` step in the F64 refresh log, the size of the committed model in the service. Measured for every model that refreshed on F64, except v23, v35 and v36 on 10M: their F64 refresh logs have no `Backup` step with a size, so their service size is from the `Backup` step of the PPU trace (1,833, 3,281 and 1,827 MB). It is larger than their in-memory size on F64 (1,379, 2,803 and 1,406 MB).
 - Downloaded .pbix: the file size of the model downloaded from the service with its data (REST API Export report, `downloadType=IncludeModel`, 2026-11-11), the size a user sees on disk. The same as refreshing in Desktop and saving: v99 downloaded from Premium Per User is 448.3 MB, and the .pbix saved after the Pro refresh was 447.6 MB (458,321 KB). Only models whose last refresh in that workspace completed with the 1M data (10M for the second v00 row) are listed; a failed refresh leaves a file of about 1 MB.
 - In memory after refresh: the VertiPaq size in the service right after a successful refresh, measured by the harness with a DAX query over `INFO.STORAGETABLECOLUMNSEGMENTS` and the column dictionaries (the same storage numbers DAX Studio reads). This is what the capacity holds for the model. Measured from 2026-11-11 on; older runs have no value. The same model reads 10 to 30 % smaller once the service reloads it from storage.
 - DAX Studio size: Advanced > View Metrics (VertiPaq Analyzer) in DAX Studio, total size, connected to the model open in Desktop. The in-memory size of the data, dictionaries, hierarchies and relationships.
@@ -225,9 +225,9 @@ For v00 on 1M the service size is 73 MB, and a DAX query in the service over `IN
 | v21-pq-group-by | baseline plus a Group By summary table | refreshed | 3,767 | 3,604 | failed | 85 MB |  | 57.4 MB |  |
 | v22-dax-calc-columns | baseline plus 8 calculated columns | refreshed | 686 | 430 | refreshed twice | 101 MB |  | 72.5 MB |  |
 | v23-dax-calc-tables | baseline plus 4 calculated tables, 1M | refreshed | 1,405 | 399 | refreshed twice | 184 MB |  | 115.1 MB |  |
-| v23-dax-calc-tables | same, 10M | refreshed | 13,062 | 1,202 | not tried, peak far over the F2 limit | 1,833 MB | 1,379 MB |  |  |
-| v35-calc-tables-four-copies | v23 with four copies in Sales Copy, 10M | refreshed | 13,063 | 1,601 | failed at 3,066 |  | 2,803 MB |  |  |
-| v36-calc-summary-month-grain | v23 with Sales Summary by month, 10M | refreshed | 14,759 | 1,194 | failed at 3,066 |  | 1,406 MB |  |  |
+| v23-dax-calc-tables | same, 10M | refreshed | 13,062 | 1,202 | not tried, peak far over the F2 limit | 1,833 MB on PPU | 1,379 MB |  |  |
+| v35-calc-tables-four-copies | v23 with four copies in Sales Copy, 10M | refreshed | 13,063 | 1,601 | failed at 3,066 | 3,281 MB on PPU | 2,803 MB |  |  |
+| v36-calc-summary-month-grain | v23 with Sales Summary by month, 10M | refreshed | 14,759 | 1,194 | failed at 3,066 | 1,827 MB on PPU | 1,406 MB |  |  |
 | v24-bidirectional | Sales to Customer filters in both directions | refreshed | 608 | 335 | refreshed | 73 MB |  | 49.2 MB |  |
 | v24a-second-fact | baseline plus a second fact table, Orders | refreshed | 933 | 911 | refreshed | 103 MB |  | 66.2 MB |  |
 | v24b-second-fact-bidirectional | v24a with Sales to Customer in both directions | refreshed | 1,102 | 1,003 | refreshed | 103 MB |  | 66.2 MB |  |

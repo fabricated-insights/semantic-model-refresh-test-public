@@ -73,14 +73,18 @@ WORKSPACES = {
     "F2": "<F2-workspace-id>",
     # Recreated on 2026-11-11 after the first F64 workspace lost its Fabric items (the old one is F64old below).
     "F64": "<F64-workspace-id>",
-    # Premium Per User, 100 GB per model. Not connected to Git and not a Fabric capacity, so it has no
-    # workspace monitoring: the model is published from Desktop, and the refresh is measured with a trace.
+    # Premium Per User, 100 GB per model. Connected to Git (folder models) since 2026-11-16, like F2. Not a
+    # Fabric capacity, so it has no workspace monitoring: the refresh is measured with an XMLA trace.
     "PPU": "<PPU-workspace-id>",
     # The first F64 workspace. Its Fabric items were lost on 2026-11-11, but its semantic models still hold
     # the data of the earlier runs; used only by the sizes task.
     "F64old": "<F64old-workspace-id>",
+    # Pro (shared capacity), 1 GB per model. No XMLA endpoint, no enhanced refresh, no monitoring: the driver
+    # deploys the committed model through the Fabric item API, and only the result and the times are recorded.
+    "Pro": "<Pro-workspace-id>",
 }
-NO_GIT = {"PPU", "F64old"}       # targets whose models are published by hand, not synced from Git
+NO_GIT = {"F64old", "Pro"}       # targets not synced from Git (F64old: earlier runs only; Pro: deployed by the driver)
+STANDARD_REFRESH = {"Pro"}   # targets without the enhanced refresh API: plain refresh, result from the refresh history
 TRACED = {"PPU"}       # targets measured with an XMLA trace instead of SemanticModelLogs
 HARNESS_WORKSPACE = WORKSPACES["F64"]   # where this notebook and harness_lake live
 LAKEHOUSE_NAME = "harness_lake"
@@ -194,7 +198,7 @@ def git_status(ws):
 def sync_workspace(cap):
     ws = WORKSPACES[cap]
     if cap in NO_GIT:
-        note(f"{cap}: not connected to Git; the model there is the one published by hand")
+        note(f"{cap}: not connected to Git; the model there was deployed by the driver (Pro) or by hand")
         return ""
     st = None
     # The remote head can take a moment to show a fresh push. Poll, don't sleep blindly.
@@ -217,7 +221,13 @@ def sync_workspace(cap):
         raise HarnessStop(f"{cap}: workspace has uncommitted changes or conflicts. Commit or undo them in "
                           f"Source control first. Nothing was updated.\n" + "\n".join(lines))
 
-    if head != remote:
+    incoming = [c for c in changes if c.get("remoteChange") not in (None, "None")]
+    if head != remote and not incoming:
+        # Newer commits touch nothing in this workspace's Git folder: the items already match.
+        # Skip the update, which would only move the head (PPU refused even that with
+        # WorkspaceMigrationOperationInProgress for hours after a reconnect).
+        note(f"{cap}: workspace at {head}, remote {remote} has no changes for its items; no update needed")
+    elif head != remote:
         note(f"{cap}: update from Git {head} -> {remote}")
         body = {
             "remoteCommitHash": remote,
@@ -248,7 +258,8 @@ def find_dataset(ws, name):
 
 def check_model(cap):
     ws = WORKSPACES[cap]
-    dataset_id = find_dataset(ws, variant) if cap in NO_GIT else find_item(ws, "SemanticModel", variant)
+    # Power BI API lookup where the Fabric item API is not the reference (no Git, or PPU, which is not a Fabric capacity)
+    dataset_id = find_dataset(ws, variant) if cap in NO_GIT | {"PPU"} else find_item(ws, "SemanticModel", variant)
     params = ok(pbi.get(f"v1.0/myorg/groups/{ws}/datasets/{dataset_id}/parameters"),
                 f"{cap}: read parameters of {variant}").json().get("value", [])
     tags = [p.get("currentValue") for p in params if p.get("name") == "DataTag"]
@@ -281,7 +292,64 @@ def num(s):
     return float(s.replace(",", "")) if s else None
 
 
+def standard_refresh(cap, dataset_id):
+    """Pro: POST /refreshes with no enhanced parameters, then read the refresh history. Standard refreshes have
+    no GET /refreshes/<id> and no cancel; the history gives status, start, end and the error (serviceExceptionJson)."""
+    ws = WORKSPACES[cap]
+    base = f"v1.0/myorg/groups/{ws}/datasets/{dataset_id}/refreshes"
+    before = {h.get("requestId") for h in pbi.get(f"{base}?$top=5").json().get("value", [])}
+    r = pbi.post(base, json={"notifyOption": "NoNotification"})
+    if r.status_code != 202:
+        raise HarnessStop(f"{cap}: refresh request refused: HTTP {r.status_code} {r.text[:2000]}")
+    note(f"{cap}: standard refresh started")
+    deadline = time.time() + float(max_refresh_minutes) * 60
+    entry, interval = {}, 15
+    while time.time() < deadline:
+        time.sleep(interval)
+        interval = min(interval + 5, 30)
+        g = pbi.get(f"{base}?$top=3")
+        if g.status_code >= 300:
+            note(f"{cap}: refresh history returned HTTP {g.status_code}, retrying")
+            continue
+        new = [h for h in g.json().get("value", []) if h.get("requestId") not in before]
+        if new:
+            entry = new[0]
+            if entry.get("status") not in ("Unknown", None):
+                break
+    status = entry.get("status") or "PollTimeout"
+    if status == "Unknown":
+        status = "PollTimeout"
+    exc = entry.get("serviceExceptionJson") or ""
+    try:
+        j = json.loads(exc) if exc else {}
+        error_text = j.get("errorDescription") or j.get("errorCode") or exc
+    except Exception:
+        error_text = exc
+    out = {"refresh_request_id": entry.get("requestId", ""), "refresh_status": status, "extended_status": "",
+           "refresh_start": entry.get("startTime"), "refresh_end": entry.get("endTime"),
+           "error_text": error_text, "messages_json": exc}
+    m = RG_PATTERN.search(exc)
+    out["consumed_mb_from_error"] = num(m.group(1)) if m else None
+    out["limit_mb_from_error"] = num(m.group(2)) if m else None
+    out["db_size_before_mb"] = num(m.group(3)) if m else None
+    if m:
+        out["failure_kind"] = "resource governance"
+    elif "M evaluation exceeded the memory limit" in exc:
+        out["failure_kind"] = "M evaluation memory limit"
+    elif status == "Completed":
+        out["failure_kind"] = ""
+    else:
+        out["failure_kind"] = "other"
+    out["result"] = {"Completed": "refreshed", "Failed": "failed", "Cancelled": "cancelled"}.get(status, status.lower())
+    note(f"{cap}: refresh {out['result']} ({status}) {out['failure_kind']}")
+    return out
+
+
 def refresh(cap, dataset_id, refresh_type="full"):
+    if cap in STANDARD_REFRESH:
+        if refresh_type != "full":
+            raise HarnessStop(f"{cap}: only a full standard refresh is possible here, not {refresh_type}")
+        return standard_refresh(cap, dataset_id)
     ws = WORKSPACES[cap]
     base = f"v1.0/myorg/groups/{ws}/datasets/{dataset_id}/refreshes"
     body = {"type": refresh_type, "commitMode": "transactional", "maxParallelism": REFRESH_PARALLELISM, "retryCount": 0}
@@ -608,12 +676,12 @@ def model_size(cap, dataset_id, logs, ref):
         if len(backup):
             where = "XMLA trace" if cap in TRACED else "SemanticModelLogs"
             return round(float(backup["Rows"].max()) / 1048576, 1), f"Backup step in {where}"
-    if ref["result"] == "refreshed":
+    if ref["result"] == "refreshed" and cap not in STANDARD_REFRESH:   # Pro has no XMLA endpoint
         try:
             return round(labs.get_semantic_model_size(dataset=dataset_id, workspace=WORKSPACES[cap]) / 1048576, 1), \
                 "INFO.STORAGETABLECOLUMNSEGMENTS + dictionaries (DAX)"
         except Exception as e:
-            note(f"{cap}: model size query failed: {e}")
+            note(f"{cap}: model size query failed: {type(e).__name__}")
     return None, ""
 
 
@@ -1140,6 +1208,8 @@ def size_tables(cap, dataset_id):
 
 
 def vertipaq_mb(cap, dataset_id):
+    if cap in STANDARD_REFRESH:
+        return None   # Pro has no XMLA endpoint, so the storage DMVs cannot be read
     try:
         return round(float(size_tables(cap, dataset_id)["TotalBytes"].sum()) / 1048576, 1)
     except Exception as e:

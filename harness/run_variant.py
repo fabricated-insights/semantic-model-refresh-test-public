@@ -18,10 +18,12 @@ Auth: the signed-in az CLI user. No secrets anywhere.
 Python standard library only.
 """
 import argparse
+import base64
 import csv
 import datetime as dt
 import json
 import re
+import socket
 import subprocess
 import sys
 import time
@@ -34,7 +36,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 REMOTE = "origin"            # git remote the harness workspaces are connected to
 BRANCH = "main"
-WORKSPACES = {"F2": "<F2-workspace-id>", "F64": "<F64-workspace-id>"}   # recreated 2026-11-11
+WORKSPACES = {"F2": "<F2-workspace-id>", "F64": "<F64-workspace-id>",   # F64 recreated 2026-11-11
+              "Pro": "<Pro-workspace-id>"}
+DEPLOYED_BY_API = {"Pro"}   # not connected to Git: the committed model is deployed through the Fabric item API before the run
 HARNESS_WS = WORKSPACES["F64"]
 NOTEBOOK = "refresh-harness"
 LAKEHOUSE = "harness_lake"
@@ -45,38 +49,62 @@ FABRIC = "https://api.fabric.microsoft.com/v1"
 ONELAKE = "https://onelake.dfs.fabric.microsoft.com"
 
 _tokens = {}
+# How long the driver rides out a lost connection on this machine before it gives up. Notebook jobs keep
+# running in Fabric meanwhile; a driver that gives up can be picked up again with --attach.
+NETWORK_PATIENCE_S = 3 * 3600
+NETWORK_SIGNS = ("getaddrinfo", "NameResolution", "Max retries", "ConnectionError", "timed out", "Connection aborted")
+socket.setdefaulttimeout(120)   # no socket read waits forever on a half-dead connection
 
 
-def token(resource):
+def token(resource, renew=False):
+    if renew:
+        _tokens.pop(resource, None)
     if resource not in _tokens or _tokens[resource][1] < time.time() + 300:
-        out = subprocess.run(["az", "account", "get-access-token", "--resource", resource, "-o", "json"],
-                             capture_output=True, text=True, shell=(sys.platform == "win32"))
-        if out.returncode:
-            sys.exit(f"az could not get a token for {resource}: {out.stderr.strip()}")
+        deadline, attempt = time.time() + NETWORK_PATIENCE_S, 0
+        while True:
+            out = subprocess.run(["az", "account", "get-access-token", "--resource", resource, "-o", "json"],
+                                 capture_output=True, text=True, shell=(sys.platform == "win32"))
+            if not out.returncode:
+                break
+            if not any(s in out.stderr for s in NETWORK_SIGNS) or time.time() > deadline:
+                sys.exit(f"az could not get a token for {resource}: {out.stderr.strip()[-1500:]}")
+            attempt += 1
+            print(f"  az could not reach the sign-in service (network), retrying in {min(30 * attempt, 300)} s")
+            time.sleep(min(30 * attempt, 300))
         body = json.loads(out.stdout)
         _tokens[resource] = (body["accessToken"], int(body.get("expires_on") or time.time() + 1800))
     return _tokens[resource][0]
 
 
 def http(method, url, body=None, resource="https://api.fabric.microsoft.com", headers=None, raw=False):
-    h = {"Authorization": "Bearer " + token(resource)}
     data = None
     if body is not None:
         data = json.dumps(body).encode()
-        h["Content-Type"] = "application/json"
-    h.update(headers or {})
-    req = urllib.request.Request(url, data=data, method=method, headers=h)
-    for attempt in range(5):
+    deadline, attempt, renewed = time.time() + NETWORK_PATIENCE_S, 0, False
+    while True:
+        h = {"Authorization": "Bearer " + token(resource)}
+        if data is not None:
+            h["Content-Type"] = "application/json"
+        h.update(headers or {})
+        req = urllib.request.Request(url, data=data, method=method, headers=h)
         try:
             with urllib.request.urlopen(req, timeout=120) as r:
                 content = r.read()
                 return r.status, {k.lower(): v for k, v in r.headers.items()}, (content if raw else (json.loads(content) if content else {}))
         except urllib.error.HTTPError as e:
+            if e.code == 401 and not renewed:   # token went stale (e.g. across a long outage): get a new one once
+                print("  HTTP 401, renewing the token")
+                token(resource, renew=True)
+                renewed = True
+                continue
             return e.code, {k.lower(): v for k, v in e.headers.items()}, e.read().decode(errors="replace")
-        except (urllib.error.URLError, TimeoutError, ConnectionError) as e:   # network trouble on this side
-            print(f"  network error ({e}), retrying in {15 * (attempt + 1)} s")
-            time.sleep(15 * (attempt + 1))
-    sys.exit(f"{method} {url}: no connection after 5 attempts")
+        except OSError as e:   # URLError, timeouts, resets: network trouble on this side
+            if time.time() > deadline:
+                sys.exit(f"{method} {url}: no connection for {NETWORK_PATIENCE_S // 3600} h ({e})")
+            attempt += 1
+            wait = min(15 * attempt, 120)
+            print(f"  network error ({e}), retrying in {wait} s")
+            time.sleep(wait)
 
 
 def fabric(method, path, body=None, lro=False):
@@ -186,6 +214,30 @@ def item_id(ws, item_type, name):
     if len(hits) != 1:
         sys.exit(f"{item_type} {name} found {len(hits)} times in {ws}")
     return hits[0]
+
+
+def deploy_model(cap, variant):
+    """Create or update the semantic model in a workspace without Git, from the committed TMDL (HEAD)."""
+    ws = WORKSPACES[cap]
+    root = f"models/{variant}/{variant}.SemanticModel"
+    files = [f for f in git("ls-tree", "-r", "--name-only", "HEAD", root).splitlines()
+             if not f.startswith(root + "/.pbi/") and f not in (root + "/.platform", root + "/diagramLayout.json")]
+    if not files:
+        sys.exit(f"{root} is not in HEAD")
+    parts = []
+    for f in files:
+        data = subprocess.run(["git", "show", f"HEAD:{f}"], cwd=ROOT, capture_output=True, check=True).stdout
+        parts.append({"path": f[len(root) + 1:], "payload": base64.b64encode(data).decode(), "payloadType": "InlineBase64"})
+    _, _, out = fabric("GET", f"/workspaces/{ws}/semanticModels")
+    hits = [m["id"] for m in out.get("value", []) if m["displayName"] == variant]
+    if len(hits) > 1:
+        sys.exit(f"{cap}: semantic model {variant} found {len(hits)} times; remove the extra one by hand first")
+    if hits:
+        fabric("POST", f"/workspaces/{ws}/semanticModels/{hits[0]}/updateDefinition", {"definition": {"parts": parts}}, lro=True)
+        print(f"{cap}: updated {variant} from HEAD ({len(parts)} files)")
+    else:
+        fabric("POST", f"/workspaces/{ws}/semanticModels", {"displayName": variant, "definition": {"parts": parts}}, lro=True)
+        print(f"{cap}: created {variant} from HEAD ({len(parts)} files)")
 
 
 def run_notebook(params):
@@ -360,6 +412,10 @@ def main():
     if args.task == "refresh":
         warn_before_10m(args.variant, data_tag, targets)
     sync_harness_workspace(commit)
+    if args.task == "refresh":
+        for cap in targets:
+            if cap in DEPLOYED_BY_API:
+                deploy_model(cap, args.variant)
 
     run_id = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + args.variant.split("-")[0] + "-" + uuid.uuid4().hex[:4]
     params = {"variant": args.variant, "data_tag": data_tag, "targets": ",".join(targets),

@@ -115,7 +115,7 @@ The full kitchen sink model (v99) refreshed on Pro, giving a .pbix of 458 MB. On
 
 A full pass on 2026-11-16 to 18 refreshed every model on Pro, one run each:
 
-- Every 1M model refreshed, except v19, whose Power Query steps read the 10M data (below). That includes all eight others that fail on F2 (v20, v21, v99, v99a, v99k, v99l, v99o, v99q) and the three that fail on F64 at 25.6 GB (v99, v99h, v99i). On PPU, in the same pass, v99 and v99a to v99l peak at 12.9 to 25.9 GB, almost all of it Power Query.
+- Every 1M model refreshed, except v19, whose Power Query steps read the 10M data (below). That includes all eight others that fail on F2 (v20, v21, v99, v99a, v99k, v99l, v99o, v99q) and the five that fail on F64 at 25.6 GB (v99, v99b, v99c, v99h, v99i). On PPU, in the same pass, v99 and v99a to v99l peak at 12.9 to 25.9 GB, almost all of it Power Query.
 - On 10M, v00 refreshed (778 MB service size). v23, v35 and v36 failed with "Unable to save the changes since the new dataset of size 1094 MB exceeds the limit of 1024 MB" (2,192 MB for v35, 1,099 MB for v36). Pro ran the whole refresh first, 10 to 14 minutes, and failed when saving the result. The size in the error is 77 to 79 percent of the in-memory size the harness read on PPU right after the same model refreshed (1,382, 2,829 and 1,408 MB), so Pro checks a different measure than the backup size (1,833, 3,280 and 1,827 MB).
 - v19 failed with the same Power Query error as on F64 and PPU, after 202 minutes. Pro has the limit per Power Query evaluation too (finding 8).
 
@@ -123,7 +123,7 @@ So in this lab, the limits a Pro refresh ran into are the 1 GB model size and th
 
 On a Premium Per User workspace (100 GB per model) v99 refreshed, and an XMLA trace of the refresh measured its full peak: 26,115 MB, of which 25,958 MB is Power Query, in 20 minutes, with a 622 MB model (harness run `20261110T162110Z-v99-0db3`, 2026-11-10). That is 2 percent over F64's 25.6 GB limit, which is where F64 cancelled it, and 8.5 times F2's limit. Premium Per User runs on shared hardware, so this is recorded as its own capacity, PPU, and not as an F64 number.
 
-v99h and v99i also failed on F64 and refreshed on PPU (peaks 25,971 and 23,893 MB, and 25,939 and 25,651 MB in the full pass). So PPU refreshes models that F64 cannot, but in this lab only by a small margin above the F64 limit, and only for models whose peak is Power Query memory. A larger model side peak was not reached: v35 and v36 tried to push the calculated tables past 25.6 GB and stayed at 13.1 and 14.8 GB (finding 7). Power Query memory per evaluation is not raised by PPU at all (finding 8).
+v99h and v99i also failed on F64 and refreshed on PPU (peaks 25,971 and 23,893 MB, and 25,939 and 25,651 MB in the full pass). So did v99b and v99c: 25,684 and 25,918 MB on PPU in the full pass, and both failed on F64 when they were run there on 2026-11-18. So PPU refreshes models that F64 cannot, but in this lab only by a small margin above the F64 limit, and only for models whose peak is Power Query memory. A larger model side peak was not reached: v35 and v36 tried to push the calculated tables past 25.6 GB and stayed at 13.1 and 14.8 GB (finding 7). Power Query memory per evaluation is not raised by PPU at all (finding 8).
 
 ## Where each model refreshes
 

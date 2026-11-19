@@ -427,24 +427,29 @@ for m in models:
         else:
             rec["ppu"] = doc_ppu or "not run"
 
-        # Sizes. CSV first (latest completed run), then the doc table.
+        # Sizes, in the order the findings use: F64 from the CSVs (latest completed run),
+        # then the doc table (F64 unless it says "on PPU"), then PPU from the CSVs,
+        # labelled. Older F64 sizes are only in the doc, so the doc comes before PPU.
+        def size_pick(runs, value, doc_text, field):
+            f64_runs = [r for r in runs if r["cap"] != "PPU"]
+            if f64_runs:
+                rec[field] = r1(value(f64_runs[-1]))
+            elif num(doc_text) is not None:
+                rec[field] = r1(num(doc_text))
+                if "on PPU" in doc_text:
+                    rec[field + "On"] = "PPU"
+            elif runs:
+                rec[field] = r1(value(runs[-1]))
+                rec[field + "On"] = "PPU"
+            else:
+                rec[field] = None
+
         svc = [r for r in rs if r["ok"] and r["size"] is not None and r["size_src"].startswith("Backup step")]
-        # F64's Backup step first; PPU's only where F64 has none (failed there, or 10M where F64 read the size in memory).
-        svc = [r for r in svc if r["cap"] != "PPU"] or svc
-        if svc:
-            rec["service"] = r1(svc[-1]["size"])
-            if svc[-1]["cap"] == "PPU":
-                rec["serviceOn"] = "PPU"
-        else:
-            rec["service"] = r1(num(doc.get("Service size")))
-            if "on PPU" in doc.get("Service size", ""):
-                rec["serviceOn"] = "PPU"
+        size_pick(svc, lambda r: r["size"], doc.get("Service size", ""), "service")
         mem = [r for r in rs if r["ok"] and (r["after"] is not None or
                (r["size"] is not None and r["size_src"].startswith("INFO.STORAGE")))]
-        if mem:
-            rec["memory"] = r1(mem[-1]["after"] if mem[-1]["after"] is not None else mem[-1]["size"])
-        else:
-            rec["memory"] = r1(num(doc.get("In memory after refresh")))
+        size_pick(mem, lambda r: r["after"] if r["after"] is not None else r["size"],
+                  doc.get("In memory after refresh", ""), "memory")
         rec["pbix"] = r1(num(doc.get("Downloaded .pbix")))
         if "on PPU" in doc.get("Downloaded .pbix", ""):
             rec["pbixOn"] = "PPU"

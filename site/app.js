@@ -299,8 +299,8 @@
         if (sr >= 1.25 || sr <= 0.8) {
           more.push("<li>" + (sizeKey === "memory" ? "In memory after refresh, " : "In the service, ") + nB +
             (sr >= 1 ? " takes " + timesWord(sr) + " the space of " : " takes " + fmt((1 - sr) * 100) + "% less space than ") + nA +
-            ": " + mbx(B[sizeKey]) + (sizeKey === "service" && B.serviceOn ? " (on Premium Per User)" : "") +
-            " against " + mbx(A[sizeKey]) + (sizeKey === "service" && A.serviceOn ? " (on Premium Per User)" : "") + ".</li>");
+            ": " + mbx(B[sizeKey]) + (B[sizeKey + "On"] ? " (on Premium Per User)" : "") +
+            " against " + mbx(A[sizeKey]) + (A[sizeKey + "On"] ? " (on Premium Per User)" : "") + ".</li>");
         }
       }
       // Report queries: memory per query is stable between runs, so smaller ratios count here.
@@ -610,7 +610,7 @@
   function sizeRows(r) {
     return '<div class="m"><span>Model size (in the service)</span><span>' + (r.service != null ? mbx(r.service) + (r.serviceOn ? " on PPU" : "") : "not measured") + "</span></div>" +
       '<div class="m"><span>Downloaded .pbix</span><span>' + (r.pbix != null ? mbx(r.pbix) + (r.pbixOn ? " on PPU" : "") : "no file") + "</span></div>" +
-      '<div class="m"><span>In memory after refresh</span><span>' + (r.memory != null ? mbx(r.memory) : "not measured") + "</span></div>";
+      '<div class="m"><span>In memory after refresh</span><span>' + (r.memory != null ? mbx(r.memory) + (r.memoryOn ? " on PPU" : "") : "not measured") + "</span></div>";
   }
   function headRows(r, tag) {
     return '<div class="t"><span class="tg" style="background:' + (tag === "A" ? A_COL : B_COL) + '">' + tag + "</span>" + esc(r.id + " " + r.name) + "</div>" +
@@ -831,7 +831,7 @@
     function show(r, k) {
       var x = v(r, k);
       if (x == null) return k === "peak" ? esc(r.f64) : "not measured";
-      var on = (k === "service" && r.serviceOn) || (k === "pbix" && r.pbixOn) ? " on PPU" : "";
+      var on = r[k + "On"] ? " on PPU" : "";
       return mb(x) + on;
     }
     var h = '<thead><tr><th scope="col">Size</th><th scope="col" class="num"><span class="tag ta">A</span> ' + esc(shortLabel(A)) +

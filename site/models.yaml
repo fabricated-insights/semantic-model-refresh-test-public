@@ -21,9 +21,9 @@
 site:
   title: Compare two semantic models
   subtitle: Same Contoso data, one change at a time. Every number is measured.
-  intro: Every model in the lab is the same clean baseline (v00) plus one change, refreshed and queried on real Fabric capacities. Pick two models and see what the change costs. 1M means 1 million orders, 2.35M sales rows; 10M means 23.7M sales rows.
+  intro: Every model in the lab is the same clean baseline (v00) plus one change, refreshed and queried in the Power BI service on Fabric F2 and F64, Premium Per User and Pro. Pick two models and see what the change costs. 1M means 1 million orders, 2.35M sales rows; 10M means 23.7M sales rows.
   # Link preview text (Open Graph and Twitter tags in index.html, written by build_data.py)
-  description: Pick two Power BI semantic models from the refresh memory lab and see what one change costs in refresh memory, capacity fit and query memory. Every number is measured on Fabric.
+  description: Pick two Power BI semantic models from the refresh memory lab and see what one change costs in refresh memory, capacity fit and query memory. Every number is measured in the service.
   # The published address. Change it when the site moves; the preview image link depends on it.
   url: https://fabricated-insights.github.io/semantic-model-refresh-test-public/
   repo: https://github.com/fabricated-insights/semantic-model-refresh-test-public
@@ -79,7 +79,7 @@ models:
     name: Clean baseline
     category: Baseline
     desc: "A clean star schema: typed columns, no calculated columns or tables, single-direction relationships, Auto date/time off."
-    why: "A clean star schema with typed columns, single direction relationships, no calculated columns or tables and Auto date/time off. On 1M it peaks at 543 to 856 MB on F64 over 11 runs for a 73 MB model, and it refreshes on F2 on both 1M and 10M (1,650 to 2,116 MB on 10M)."
+    why: "A clean star schema with typed columns, single direction relationships, no calculated columns or tables and Auto date/time off. On 1M it peaks at 543 to 856 MB on F64 over 11 runs for a 73 MB model, and it refreshes on F2 on both 1M and 10M. On 10M it peaks at 1,650 to 2,116 MB on F64."
     sizes: [1M, 10M]
 
   - id: v18
@@ -128,7 +128,7 @@ models:
     name: 4 calculated tables
     category: Calculated objects
     desc: "Baseline plus 4 calculated tables: a copy of Sales, a SUMMARIZECOLUMNS summary, a product by day CROSSJOIN, CALENDARAUTO."
-    why: "A calculated table is built in memory in full before it is compressed. Four calculated tables raise the peak to about 1,405 MB on 1M (baseline 543 to 856 MB) and to about 13,062 MB on 10M (baseline 1,650 to 2,116 MB), so on 10M the model needs F64. The model grows from 73 to 184 MB on 1M."
+    why: "A calculated table is built in memory in full before it is compressed. Four calculated tables raise the peak to about 1,405 MB on 1M (baseline 543 to 856 MB) and to about 13,062 MB on 10M (baseline 1,650 to 2,116 MB), so on 10M the model needs F64 or Premium Per User. Pro fails it on model size. The model grows from 73 to 184 MB on 1M."
     fix: "Drop calculated tables that no visual uses. v00 is the same model without them, and the report queries ran the same on both. Of the four, the SUMMARIZECOLUMNS summary built from measures is the most likely to set the peak (v35, v36)."
     sizes: [1M, 10M]
   - id: v31
@@ -227,7 +227,7 @@ models:
     name: Auto date/time on
     category: Model design
     desc: Auto date/time on, Date table marked.
-    why: "With Auto date/time on, Desktop adds a hidden calculated date table for each date column that is not related to the marked Date table: Customer[Birthday], Store[Open Date] and Store[Close Date]. That adds 3.5 MB in memory (96.2 MB), and the peak stays in the baseline's range (554 to 619 MB)."
+    why: "With Auto date/time on, Desktop adds a hidden calculated date table for each date column that is not related to the marked Date table: Customer[Birthday], Store[Open Date] and Store[Close Date]. That adds 3.5 MB in memory (96.2 MB), and the peak on F64 stays in the baseline's range (554 to 619 MB). On Premium Per User one run peaked at 1,952 MB, almost all of the difference in Power Query."
     fix: "Turn Auto date/time off under File > Options and settings > Options > Current file > Data load, as v00 does. With a marked Date table that the fact dates relate to, its cost here was only a few MB."
     sizes: [1M]
   - id: v34

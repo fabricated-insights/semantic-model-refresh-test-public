@@ -15,7 +15,7 @@ expression fnLoadParquet =
 		        Binary.Buffer(
 		            Web.Contents(
 		                "https://github.com",
-		                [RelativePath = "vlpatkosdani/semantic-model-refresh-test/releases/download/" & DataTag & "/" & FileName]
+		                [RelativePath = "fabricated-insights/semantic-model-refresh-test/releases/download/" & DataTag & "/" & FileName]
 		            )
 		        )
 		    ),

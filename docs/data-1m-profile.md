@@ -1,6 +1,6 @@
 # Data profile: data-1m-v1
 
-Source: GitHub release `data-1m-v1` of vlpatkosdani/semantic-model-refresh-test (Parquet). Generated with pyarrow from the downloaded files.
+Source: GitHub release `data-1m-v1` of fabricated-insights/semantic-model-refresh-test (Parquet). Generated with pyarrow from the downloaded files.
 
 | File | Rows | Columns | File size |
 |---|---:|---:|---:|

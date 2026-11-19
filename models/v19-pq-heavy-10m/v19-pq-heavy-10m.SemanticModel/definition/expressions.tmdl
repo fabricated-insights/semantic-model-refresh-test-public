@@ -15,7 +15,7 @@ expression fnLoadParquet =
 		    Source = Parquet.Document(
 		        Web.Contents(
 		            "https://github.com",
-		            [RelativePath = "vlpatkosdani/semantic-model-refresh-test/releases/download/" & (if Tag = null then DataTag else Tag) & "/" & FileName]
+		            [RelativePath = "fabricated-insights/semantic-model-refresh-test/releases/download/" & (if Tag = null then DataTag else Tag) & "/" & FileName]
 		        )
 		    ),
 		    ZoneColumns = Table.SelectRows(Table.Schema(Source), each [Kind] = "datetimezone")[Name],

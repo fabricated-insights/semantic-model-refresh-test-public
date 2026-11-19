@@ -429,6 +429,8 @@ for m in models:
 
         # Sizes. CSV first (latest completed run), then the doc table.
         svc = [r for r in rs if r["ok"] and r["size"] is not None and r["size_src"].startswith("Backup step")]
+        # F64's Backup step first; PPU's only where F64 has none (failed there, or 10M where F64 read the size in memory).
+        svc = [r for r in svc if r["cap"] != "PPU"] or svc
         if svc:
             rec["service"] = r1(svc[-1]["size"])
             if svc[-1]["cap"] == "PPU":

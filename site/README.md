@@ -49,8 +49,9 @@ The build prints a `note:` line for anything worth checking: a peak in `lab-find
 
 - **Refresh peak, Power Query part, duration, CPU:** F64 runs from `harness-runs.csv` and `monitoring-refreshes.csv`. Every completed run counts; the page shows the highest, the median and the range. Power Query part, duration and CPU are from the latest run. A failed refresh has no peak; the page shows its result text.
 - **Premium Per User:** harness runs with capacity `PPU`. Shown separately, never mixed into F64 numbers.
+- **Pro:** harness runs with capacity `Pro`: result and duration only. A model size failure is spelled out from the error text.
 - **10M runs in `monitoring-refreshes.csv`:** that file has no data tag. A completed refresh that loaded at least 4 times the rows of the same model's smallest completed refresh counts as 10M (v00 and v23 on 2026-11-06).
-- **Sizes:** service size from the `Backup` step of the latest completed run, in memory from the harness DAX query (`INFO.STORAGETABLECOLUMNSEGMENTS`), both falling back to `lab-findings.md`. The downloaded .pbix size is only in `lab-findings.md`.
+- **Sizes:** service size from the `Backup` step of the latest completed F64 run, or of the latest Premium Per User run where F64 has none (labelled on the page), in memory from the harness DAX query (`INFO.STORAGETABLECOLUMNSEGMENTS`), both falling back to `lab-findings.md`. The downloaded .pbix size is only in `lab-findings.md`.
 - **F2 and F64 result texts:** `lab-findings.md`.
 - **Queries:** `query-summary.csv`, F64, page p20, cold cache, all visuals at once. Runs where at least half of the queries failed (a model without data) are left out. Heaviest single query is the highest peak per query in that mode on any page, plus the XMLA runs. F2 failures are counted from `query-runs.csv`; the two matrices always fail over the REST API and are not counted.
 - **Limits:** F2 to F8 3,066 MB, F16 5,120 MB, F32 10,240 MB, F64 25,600 MB, Premium Per User 102,400 MB per model; F2 1,024 MB per query. All MB are 1,048,576 bytes.

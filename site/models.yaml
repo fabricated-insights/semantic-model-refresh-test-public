@@ -95,8 +95,8 @@ models:
     name: Five heavy Power Query analyses
     category: Power Query
     desc: Baseline plus five Power Query analyses on 10M data (merges, Group By with distinct counts, rankings, a self join).
-    why: "Five Power Query analyses on 10M (merges, Group By with distinct counts, rankings, a self join) load only small tables, yet they fail with 'The M evaluation exceeded the memory limit' at 14.4 to 24.5 GB, below F64's 25.6 GB model limit. This is a separate limit per Power Query evaluation. Premium Per User, with 100 GB per model, failed the same way at 22,186 MB."
-    fix: "A larger capacity does not fix this: Premium Per User did not raise the Power Query limit. The query that failed every time was PQ Customer RFM, which ranks all 1.68M customers three times. The lab did not test a rewrite of it."
+    why: "Five Power Query analyses on 10M (merges, Group By with distinct counts, rankings, a self join) load only small tables, yet they fail with 'The M evaluation exceeded the memory limit' at 14.4 to 24.5 GB, below F64's 25.6 GB model limit. This is a separate limit per Power Query evaluation. Premium Per User, with 100 GB per model, failed the same way at 22,186 and 24,123 MB, and Pro failed the same way after 202 minutes."
+    fix: "A larger capacity does not fix this: Premium Per User did not raise the Power Query limit, and Pro failed too. The query that failed every time was PQ Customer RFM, which ranks all 1.68M customers three times. The lab did not test a rewrite of it."
     sizes: [1M]
   - id: v20
     folder: v20-pq-sort
@@ -144,7 +144,7 @@ models:
     name: 30 aggregating calculated columns
     category: Calculated objects
     desc: Baseline plus 30 aggregating calculated columns.
-    why: "30 aggregating calculated columns (SUMX over RELATEDTABLE, RANKX, FILTER with EARLIER) need the whole fact table for every row, but the peak stays in the baseline's range at 631 MB. They cost time and size instead: refresh CPU doubles to 121 s, and the model grows from 92.7 to 367.9 MB in memory."
+    why: "30 aggregating calculated columns (SUMX over RELATEDTABLE, RANKX, FILTER with EARLIER) need the whole fact table for every row, but the peak stays in the baseline's range at 631 MB. They cost time and size instead: refresh CPU rises to 121 s against 55 to 99 s for the baseline, and the model grows from 92.7 to 367.9 MB in memory."
     fix: "These columns cost no peak memory. Their cost is model size and refresh CPU. The lab tested no alternative, such as measures, for these statistics."
     sizes: [1M]
   - id: v35
@@ -152,7 +152,7 @@ models:
     name: Calculated tables, four copies
     category: Calculated objects
     desc: v23 with four copies of Sales in the copy table (94.9M rows).
-    why: "Four copies of Sales in the Sales Copy calculated table (94.9M rows instead of 23.7M on 10M) double the model to 2,803 MB and the refresh time to 17 minutes, yet the peak stays at 13,063 MB. The copy runs in parallel with the Sales Summary table, which is the most likely step to set the peak."
+    why: "Four copies of Sales in the Sales Copy calculated table (94.9M rows instead of 23.7M on 10M) double the model in memory to 2,803 MB and the refresh time to 17 minutes, yet the peak stays at 13,063 MB. The copy runs in parallel with the Sales Summary table, which is the most likely step to set the peak."
     fix: "A copy table costs model memory and refresh time, not peak memory. Drop copies of the fact that no visual uses. To lower the peak, look at measure-based summary tables instead (v36)."
     sizes: [10M]
   - id: v36
@@ -203,7 +203,7 @@ models:
     name: Everything as text
     category: Model design
     desc: Almost every column loaded as text.
-    why: "Text columns need a dictionary entry for every distinct value and cannot use value encoding. The model grows from 92.7 to 171.5 MB in memory, though the backup size is slightly smaller (69.1 against 72.7 MB). The refresh peak is 777 MB, with CPU at 108 s against 55 to 71 s. The largest query needed half the memory, 28 MB against 58 MB."
+    why: "Text columns need a dictionary entry for every distinct value and cannot use value encoding. The model grows from 92.7 to 171.5 MB in memory, though the backup size is slightly smaller (69.1 against 72.7 MB). The refresh peak is 777 MB, with CPU at 108 s against 55 to 99 s for the baseline. The largest query needed half the memory, 28 MB against 58 MB."
     fix: "Set the correct data types in Power Query as v00 does: whole numbers, dates and fixed decimals instead of text. Text dates and numbers also need extra sort columns to sort correctly."
     sizes: [1M]
   - id: v29
@@ -263,10 +263,9 @@ models:
     name: Kitchen sink
     category: Kitchen sink
     desc: "Every antipattern at once: Power Query staging, sorts, buffers, Group By, calculated tables and columns, relationships, Auto date/time."
-    why: "Every antipattern combined gives a peak of 25,882 to 26,115 MB on Premium Per User over two runs, and 25,777 to 25,958 MB of it is Power Query, for a 622 MB model. It fails on F2 at 3,319 MB and on F64 at the 25.6 GB limit, yet it refreshed on Pro, in 31 minutes."
+    why: "Every antipattern combined gives a peak of 25,882 to 26,115 MB on Premium Per User over two runs, and 25,777 to 25,958 MB of it is Power Query, for a model of 619 to 622 MB. It fails on F2 at 3,319 MB and on F64 at the 25.6 GB limit, yet it refreshed on Pro, in 31 minutes."
     fix: "The diagnostic path found the cause in Power Query, not in the model. One Table.Buffer on the shared Sales staging query takes it past F64. Even without any buffer, the sorts and the Group By each take it off F2. With the v00 Power Query (v99m) the peak drops to 627 MB."
     sizes: [1M]
-    pro: refreshed
   - id: v99a
     folder: v99a-no-big-calc-tables
     name: Kitchen sink without big calculated tables
@@ -321,7 +320,7 @@ models:
     name: Kitchen sink diagnostic, plus Sales copy
     category: Kitchen sink
     desc: v99f plus one DAX copy of Sales. v99 without the staging buffers.
-    why: "One DAX copy of Sales takes the model from 361 to 535 MB, but the peak only from 22,752 to 23,025 to 23,039 MB. This is v99 without its staging buffers, and it refreshes on F64."
+    why: "One DAX copy of Sales takes the model from 361 to 535 MB, but the peak only from 22,752 MB to 23,025 to 23,039 MB over two runs. This is v99 without its staging buffers, and it refreshes on F64."
     fix: "The step that matters comes next: put the Table.Buffer steps back in the staging queries and it fails on F64 (v99h)."
     sizes: [1M]
   - id: v99h

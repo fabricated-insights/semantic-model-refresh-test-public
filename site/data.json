@@ -404,7 +404,6 @@
    "ppuDur": 1.06,
    "ppuCpu": 108.0,
    "service": 72.7,
-   "serviceOn": "PPU",
    "memory": 92.7,
    "pbix": 49.2,
    "q": {
@@ -575,8 +574,7 @@
    "ppuPq": 1713.0,
    "ppuDur": 13.71,
    "ppuCpu": 1311.0,
-   "service": 777.8,
-   "serviceOn": "PPU",
+   "service": 777.9,
    "memory": 700.0,
    "pbix": 473.6,
    "q": {
@@ -848,8 +846,8 @@
    "memory": null,
    "pbix": null,
    "pro": "failed, M evaluation memory limit",
-   "why": "Five Power Query analyses on 10M (merges, Group By with distinct counts, rankings, a self join) load only small tables, yet they fail with 'The M evaluation exceeded the memory limit' at 14.4 to 24.5 GB, below F64's 25.6 GB model limit. This is a separate limit per Power Query evaluation. Premium Per User, with 100 GB per model, failed the same way at 22,186 MB.",
-   "fix": "A larger capacity does not fix this: Premium Per User did not raise the Power Query limit. The query that failed every time was PQ Customer RFM, which ranks all 1.68M customers three times. The lab did not test a rewrite of it."
+   "why": "Five Power Query analyses on 10M (merges, Group By with distinct counts, rankings, a self join) load only small tables, yet they fail with 'The M evaluation exceeded the memory limit' at 14.4 to 24.5 GB, below F64's 25.6 GB model limit. This is a separate limit per Power Query evaluation. Premium Per User, with 100 GB per model, failed the same way at 22,186 and 24,123 MB, and Pro failed the same way after 202 minutes.",
+   "fix": "A larger capacity does not fix this: Premium Per User did not raise the Power Query limit, and Pro failed too. The query that failed every time was PQ Customer RFM, which ranks all 1.68M customers three times. The lab did not test a rewrite of it."
   },
   {
    "key": "v20@1M",
@@ -947,7 +945,6 @@
    "ppuDur": 6.15,
    "ppuCpu": 477.0,
    "service": 71.9,
-   "serviceOn": "PPU",
    "memory": 91.9,
    "pbix": 51.7,
    "pro": "refreshed, 8 min",
@@ -1127,7 +1124,6 @@
    "ppuDur": 1.02,
    "ppuCpu": 108.0,
    "service": 100.7,
-   "serviceOn": "PPU",
    "memory": 132.6,
    "pbix": 72.5,
    "q": {
@@ -1229,8 +1225,7 @@
    "ppuPq": 666.0,
    "ppuDur": 1.22,
    "ppuCpu": 141.0,
-   "service": 183.6,
-   "serviceOn": "PPU",
+   "service": 183.7,
    "memory": 185.3,
    "pbix": 115.1,
    "q": {
@@ -1451,7 +1446,6 @@
    "ppuDur": 1.32,
    "ppuCpu": 160.0,
    "service": 223.0,
-   "serviceOn": "PPU",
    "memory": 316.8,
    "pbix": null,
    "q": {
@@ -1552,7 +1546,6 @@
    "ppuDur": 1.32,
    "ppuCpu": 141.0,
    "service": 220.7,
-   "serviceOn": "PPU",
    "memory": 367.9,
    "pbix": null,
    "q": {
@@ -1569,7 +1562,7 @@
     "qpeakPage": "p20"
    },
    "pro": "refreshed, 77 s",
-   "why": "30 aggregating calculated columns (SUMX over RELATEDTABLE, RANKX, FILTER with EARLIER) need the whole fact table for every row, but the peak stays in the baseline's range at 631 MB. They cost time and size instead: refresh CPU doubles to 121 s, and the model grows from 92.7 to 367.9 MB in memory.",
+   "why": "30 aggregating calculated columns (SUMX over RELATEDTABLE, RANKX, FILTER with EARLIER) need the whole fact table for every row, but the peak stays in the baseline's range at 631 MB. They cost time and size instead: refresh CPU rises to 121 s against 55 to 99 s for the baseline, and the model grows from 92.7 to 367.9 MB in memory.",
    "fix": "These columns cost no peak memory. Their cost is model size and refresh CPU. The lab tested no alternative, such as measures, for these statistics."
   },
   {
@@ -1657,7 +1650,7 @@
    "memory": 2829.4,
    "pbix": null,
    "pro": "failed, model size 2,192 MB over the 1,024 MB limit",
-   "why": "Four copies of Sales in the Sales Copy calculated table (94.9M rows instead of 23.7M on 10M) double the model to 2,803 MB and the refresh time to 17 minutes, yet the peak stays at 13,063 MB. The copy runs in parallel with the Sales Summary table, which is the most likely step to set the peak.",
+   "why": "Four copies of Sales in the Sales Copy calculated table (94.9M rows instead of 23.7M on 10M) double the model in memory to 2,803 MB and the refresh time to 17 minutes, yet the peak stays at 13,063 MB. The copy runs in parallel with the Sales Summary table, which is the most likely step to set the peak.",
    "fix": "A copy table costs model memory and refresh time, not peak memory. Drop copies of the fact that no visual uses. To lower the peak, look at measure-based summary tables instead (v36)."
   },
   {
@@ -1829,7 +1822,6 @@
    "ppuDur": 0.93,
    "ppuCpu": 96.0,
    "service": 72.7,
-   "serviceOn": "PPU",
    "memory": 92.7,
    "pbix": 49.2,
    "q": {
@@ -1930,7 +1922,6 @@
    "ppuDur": 1.57,
    "ppuCpu": 179.0,
    "service": 102.7,
-   "serviceOn": "PPU",
    "memory": 110.0,
    "pbix": 66.2,
    "q": {
@@ -2031,7 +2022,6 @@
    "ppuDur": 1.22,
    "ppuCpu": 142.0,
    "service": 102.7,
-   "serviceOn": "PPU",
    "memory": 110.0,
    "pbix": 66.2,
    "q": {
@@ -2133,7 +2123,6 @@
    "ppuDur": 1.29,
    "ppuCpu": 133.0,
    "service": 79.1,
-   "serviceOn": "PPU",
    "memory": 98.1,
    "pbix": null,
    "q": {
@@ -2235,7 +2224,6 @@
    "ppuDur": 1.47,
    "ppuCpu": 160.0,
    "service": 69.1,
-   "serviceOn": "PPU",
    "memory": 171.5,
    "pbix": null,
    "q": {
@@ -2252,7 +2240,7 @@
     "qpeakPage": "p20"
    },
    "pro": "refreshed, 43 s",
-   "why": "Text columns need a dictionary entry for every distinct value and cannot use value encoding. The model grows from 92.7 to 171.5 MB in memory, though the backup size is slightly smaller (69.1 against 72.7 MB). The refresh peak is 777 MB, with CPU at 108 s against 55 to 71 s. The largest query needed half the memory, 28 MB against 58 MB.",
+   "why": "Text columns need a dictionary entry for every distinct value and cannot use value encoding. The model grows from 92.7 to 171.5 MB in memory, though the backup size is slightly smaller (69.1 against 72.7 MB). The refresh peak is 777 MB, with CPU at 108 s against 55 to 99 s for the baseline. The largest query needed half the memory, 28 MB against 58 MB.",
    "fix": "Set the correct data types in Power Query as v00 does: whole numbers, dates and fixed decimals instead of text. Text dates and numbers also need extra sort columns to sort correctly."
   },
   {
@@ -2366,7 +2354,6 @@
    "ppuDur": 1.44,
    "ppuCpu": 138.0,
    "service": 69.0,
-   "serviceOn": "PPU",
    "memory": 141.9,
    "pbix": null,
    "q": {
@@ -2467,7 +2454,6 @@
    "ppuDur": 0.89,
    "ppuCpu": 96.0,
    "service": 72.8,
-   "serviceOn": "PPU",
    "memory": 92.9,
    "pbix": null,
    "q": {
@@ -2583,7 +2569,6 @@
    "ppuDur": 1.76,
    "ppuCpu": 135.0,
    "service": 73.8,
-   "serviceOn": "PPU",
    "memory": 96.2,
    "pbix": null,
    "q": {
@@ -2698,8 +2683,7 @@
    "ppuPq": 523.0,
    "ppuDur": 1.06,
    "ppuCpu": 109.0,
-   "service": 74.1,
-   "serviceOn": "PPU",
+   "service": 74.2,
    "memory": 96.9,
    "pbix": null,
    "q": {
@@ -2800,7 +2784,6 @@
    "ppuDur": 1.05,
    "ppuCpu": 106.0,
    "service": 72.7,
-   "serviceOn": "PPU",
    "memory": 92.7,
    "pbix": 49.2,
    "q": {
@@ -2902,7 +2885,6 @@
    "ppuDur": 2.13,
    "ppuCpu": 157.0,
    "service": 72.7,
-   "serviceOn": "PPU",
    "memory": 92.7,
    "pbix": 49.2,
    "q": {
@@ -3042,7 +3024,7 @@
    "pbix": 448.3,
    "pbixOn": "PPU",
    "pro": "refreshed, 31 min",
-   "why": "Every antipattern combined gives a peak of 25,882 to 26,115 MB on Premium Per User over two runs, and 25,777 to 25,958 MB of it is Power Query, for a 622 MB model. It fails on F2 at 3,319 MB and on F64 at the 25.6 GB limit, yet it refreshed on Pro, in 31 minutes.",
+   "why": "Every antipattern combined gives a peak of 25,882 to 26,115 MB on Premium Per User over two runs, and 25,777 to 25,958 MB of it is Power Query, for a model of 619 to 622 MB. It fails on F2 at 3,319 MB and on F64 at the 25.6 GB limit, yet it refreshed on Pro, in 31 minutes.",
    "fix": "The diagnostic path found the cause in Power Query, not in the model. One Table.Buffer on the shared Sales staging query takes it past F64. Even without any buffer, the sorts and the Group By each take it off F2. With the v00 Power Query (v99m) the peak drops to 627 MB."
   },
   {
@@ -3598,7 +3580,7 @@
    "memory": 662.8,
    "pbix": 376.8,
    "pro": "refreshed, 17 min",
-   "why": "One DAX copy of Sales takes the model from 361 to 535 MB, but the peak only from 22,752 to 23,025 to 23,039 MB. This is v99 without its staging buffers, and it refreshes on F64.",
+   "why": "One DAX copy of Sales takes the model from 361 to 535 MB, but the peak only from 22,752 MB to 23,025 to 23,039 MB over two runs. This is v99 without its staging buffers, and it refreshes on F64.",
    "fix": "The step that matters comes next: put the Table.Buffer steps back in the staging queries and it fails on F64 (v99h)."
   },
   {
